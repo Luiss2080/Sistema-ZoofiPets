@@ -1,0 +1,140 @@
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* ---------- VARIABLES DE COLOR ---------- */
+:root {
+    --primary-color: #ffffff; /* Color principal para el fondo y texto */
+    --secondary-color: #ff0000; /* Color secundario para botones y enlaces */
+    --text-color: #333333; /* Color para el texto */
+    --background-color: #f5f5f5; /* Color de fondo para el body */
+    --link-color: #007bff; /* Color para los enlaces */
+    --border-radius: 8px; /* Radio de borde común para todos los elementos */
+}
+
+/* ---------- ESTILOS GENERALES ---------- */
+body {
+    font-family: Arial, sans-serif; /* Fuente para todo el cuerpo */
+    margin: 0; /* Elimina márgenes predeterminados */
+    padding: 0; /* Elimina el padding predeterminado */
+    background-color: var(--background-color); /* Aplica el color de fondo */
+    display: flex; /* Usa Flexbox para centrar el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    height: 100vh; /* Altura del cuerpo igual a la ventana del navegador */
+}
+
+/* ---------- CONTENEDOR PRINCIPAL ---------- */
+.login-container {
+    background-color: var(--primary-color); /* Fondo blanco para el contenedor */
+    padding: 40px; /* Relleno alrededor del contenedor */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor */
+    text-align: center; /* Centra el contenido dentro del contenedor */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 400px; /* Limita el ancho máximo */
+}
+
+/* ---------- LOGO ---------- */
+.logo {
+    position: relative; /* Posición relativa para el logo */
+    margin-bottom: 20px; /* Espaciado debajo del logo */
+}
+
+.logo img {
+    width: 350px; /* Ancho de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-bottom: 10px; /* Espaciado debajo de la imagen */
+}
+
+/* ---------- ANIMACIÓN DEL RECTÁNGULO ---------- */
+.animated-bar {
+    width: 100%; /* La barra ocupa todo el ancho disponible */
+    height: 10px; /* Altura fija para la barra */
+    background: linear-gradient(90deg, #ff0000, #fb4343, #f36767); /* Gradiente de color para la barra */
+    background-size: 300% 100%; /* Escala el gradiente para un efecto animado */
+    animation: slide 3s infinite; /* Animación de deslizamiento infinito */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+}
+
+@keyframes slide {
+    0% {
+        background-position: 0% 50%; /* Comienza el gradiente desde la izquierda */
+    }
+    50% {
+        background-position: 100% 50%; /* Desplaza el gradiente hacia la derecha */
+    }
+    100% {
+        background-position: 0% 50%; /* Vuelve a la posición inicial */
+    }
+}
+
+/* ---------- TÍTULO ---------- */
+h2 {
+    font-size: 24px; /* Tamaño grande para el título */
+    font-weight: bold; /* Estilo de negrita para el título */
+    color: var(--text-color); /* Aplica el color del texto */
+    margin: 10px 0; /* Espaciado arriba y abajo */
+}
+
+/* ---------- FORMULARIO ---------- */
+form {
+    display: flex; /* Usa Flexbox para organizar los elementos */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    gap: 15px; /* Espacio entre los campos del formulario */
+}
+
+/* ---------- CAMPOS DE ENTRADA ---------- */
+input {
+    padding: 10px; /* Espaciado interno para los campos de entrada */
+    font-size: 16px; /* Tamaño de fuente dentro de los campos */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    width: 100%; /* Los campos ocupan todo el ancho disponible */
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
+    transition: all 0.3s ease; /* Suaviza las transiciones de los efectos */
+}
+
+/* ---------- ANIMACIÓN AL PASAR EL MOUSE ---------- */
+input:hover, input:focus {
+    border: 2px solid; /* Cambia el borde a 2px */
+    border-image: linear-gradient(90deg, #ff0000, #fb4343, #f68181) 1; /* Efecto de gradiente en el borde */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del campo */
+}
+
+/* ---------- BOTÓN ---------- */
+button {
+    background-color: var(--secondary-color); /* Color de fondo rojo para el botón */
+    color: var(--primary-color); /* Color del texto blanco */
+    padding: 10px; /* Espaciado interno para el botón */
+    font-size: 16px; /* Tamaño de la fuente en el botón */
+    font-weight: bold; /* Negrita para destacar el texto */
+    border: none; /* Elimina el borde por defecto */
+    border-radius: var(--border-radius); /* Bordes redondeados */
+    cursor: pointer; /* Muestra el cursor como mano al pasar el mouse */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Suaviza la transición del color de fondo y el tamaño */
+}
+
+/* ---------- EFECTO HOVER EN EL BOTÓN ---------- */
+button:hover {
+    background-color: #fb4343; /* Cambia el color de fondo a un tono más claro */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+}
+
+/* ---------- ENLACES ---------- */
+.recover-password {
+    color: var(--link-color); /* Color azul para el enlace */
+    font-size: 14px; /* Tamaño más pequeño para los enlaces */
+    text-decoration: none; /* Elimina la subrayado por defecto */
+    margin-top: 20px; /* Espaciado superior más grande */
+}
+
+/* ---------- EFECTO HOVER EN EL ENLACE ---------- */
+.recover-password:hover {
+    text-decoration: underline; /* Subraya el enlace al pasar el mouse */
+}
+
+/* ---------- VERSIÓN ---------- */
+.version {
+    font-size: 12px; /* Tamaño pequeño para la versión */
+    color: #888888; /* Color gris claro para el texto de la versión */
+    margin-top: 20px; /* Espaciado superior */
+}

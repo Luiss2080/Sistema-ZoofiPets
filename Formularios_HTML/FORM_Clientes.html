@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- METADATOS Y ESTILOS -->
+
+    <!-- Definición del charset para asegurarse de que los caracteres se muestren correctamente -->
+    <meta charset="UTF-8">
+
+    <!-- Configura la vista para dispositivos móviles y ajusta el zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <title>Sistema Veterinaria Zoofipets</title>
+
+    <!-- Enlace a la hoja de estilos de Bootstrap para aplicar diseño responsivo y componentes predefinidos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Enlace a la hoja de estilo personalizada (CSS) para el formulario de clientes -->
+    <link rel="stylesheet" href="../Interfaz_CSS/FORM_Clientes.css">
+</head>
+
+<body>
+
+
+  <!-- CAPA DE LOGIN -->
+  <div id="loginLayer">
+    <!-- OPCIONES ADICIONALES -->
+    <a href="#" class="recover-password"></a>
+    <p class="version"></p>
+</div>
+
+
+<!-- Capa principal de la interfaz -->
+<div id="mainLayer">
+
+    <!-- Barra lateral (Sidebar) -->
+    <div class="sidebar">
+        <!-- Logo con versión expandida y colapsada -->
+        <div class="sidebar-brand">
+            <img src="../Assets/LOGO1.png" alt="Logo" class="logo-expanded">
+            <img src="../Assets/CD.jpg" alt="Logo" class="logo-collapsed">
+        </div>
+
+        <!-- Menú lateral -->
+        <ul class="sidebar-menu">
+
+            <!-- Enlace a la página de inicio -->
+            <li>
+                <div class="menu-item" id="menuInicio">
+                    <i>🏠</i>
+                    <a href="../capa_proforma.html">
+                        <span class="menu-item-text">INICIO</span>
+                    </a>
+                </div>
+            </li>
+
+            <!-- Sección de servicios con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>↩️</i>
+                    <span class="menu-item-text">SERVICIOS</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Citas.html"> 📅 Registrar Citas</a></ul>
+                    <ul><a href="../Formularios_HTML/FORM_Servicios.html"> 🩺 Consultas</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de mascotas con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>🐾</i>
+                    <span class="menu-item-text">MASCOTAS</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Mascotas.html"> 🐕 Nueva Mascota</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de clientes con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>👥</i>
+                    <span class="menu-item-text">CLIENTES</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Clientes.html"> 📝 Nuevo Registro</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de personal con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>🧑‍💻</i>
+                    <span class="menu-item-text">PERSONAL</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Trabajadores.html"> 👨‍🔧 Trabajadores</a></ul>
+                    <ul><a href="../Formularios_HTML/FORM_Usuario.html"> 👤 Usuario</a></ul>
+                    <ul><a href="../Formularios_HTML/FORM_Permiso.html"> ✅ Permisos</a></ul>
+                    <ul><a href="../Formularios_HTML/FORM_Roles.html"> 🛠 Roles</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de historial con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>📝</i>
+                    <span class="menu-item-text">HISTORIAL</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Historial.html"> 📖 Historial Clinico</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de ventas con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>💰</i>
+                    <span class="menu-item-text">VENTAS</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Ventas.html"> 📋 Nueva Ventas</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de compras con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>🛒</i>
+                    <span class="menu-item-text">COMPRAS</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Proveedores.html"> 🚚 Proveedores</a></ul>
+                    <ul><a href="../Formularios_HTML/FORM_Compras.html"> 🛒 Nueva Compra</a></ul>
+                </ul>
+            </li>
+
+            <!-- Sección de productos con submenú -->
+            <li class="has-submenu">
+                <div class="menu-item">
+                    <i>📦</i>
+                    <span class="menu-item-text">PRODUCTOS</span>
+                    <span class="arrow">></span>
+                </div>
+                <ul class="submenu">
+                    <ul><a href="../Formularios_HTML/FORM_Productos.html"> 📋 Nuevo Producto</a></ul>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    
+
+
+ <!-- Contenido principal -->
+<div class="main-content">
+    <!-- Barra superior con botones y usuario -->
+    <div class="top-bar">
+        <div>
+            <!-- Botón para alternar el menú lateral -->
+            <button id="menu-toggle">☰</button>
+        </div>
+        <div class="top-bar-right">
+            <div class="user-info">
+                <!-- Icono y nombre del usuario -->
+                <i>👤</i>
+                <span id="userDisplay">Usuario</span>
+            </div>
+            <!-- Botón para cerrar sesión -->
+            <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+
+
+    <!-- Sección de formulario para el registro de clientes -->
+
+</head>
+<body>
+    <!-- Contenedor del formulario de clientes -->
+    <div class="service-container">
+        <div class="main-content">
+            <!-- Sección de bienvenida con el título -->
+            <div class="welcome-section">
+                <h1 class="welcome-title" id="title">-REGISTRO DE CLIENTES-</h1>
+                
+                <div class="form-section">
+                    <!-- Título para mostrar u ocultar el formulario -->
+                    <h2 class="toggle-form">Formulario CD 📝</h2>
+                
+                    <!-- Contenedor para la búsqueda de clientes -->
+                    <div class="formulario-búsqueda">
+                        <div class="input-con-icono">
+                            <!-- Campo de texto para buscar un cliente -->
+                           
+                        </div>
+                
+                        <!-- Botones adicionales -->
+                        <div class="icono-lupa" title="Buscar">
+                            <!-- Icono de búsqueda -->
+                            🔍
+                            <!-- Ventana emergente que describe la búsqueda -->
+                            <div class="ventana-emergente"><i class="fas fa-file-pdf"></i>Buscar cliente</div>
+                        </div>
+                        <a href="../fpdf/PruebaH.php" target="_blank" class="btn btn-success generar-reporte">
+                            📄 Generar Reporte
+                        </a>
+                    </div>
+                </div>
+                
+
+
+
+
+
+    <!-- Contenedor del formulario para registrar clientes -->
+    <div class="proforma-form-container">
+        <form class="proforma-form" action="../Logica_PHP/Clientes.php" method="post">
+            <table>
+                <!-- Campo para ingresar el nombre del cliente -->
+                <tr>
+                    <td><span>Nombre</span></td>
+                    <td><input type="text" name="Nombre" id="Nombre" placeholder="Escriba su nombre..." required></td>
+                </tr>
+                <!-- Campo para ingresar el apellido del cliente -->
+                <tr>
+                    <td><span>Apellido</span></td>
+                    <td><input type="text" name="Apellido" id="Apellido" placeholder="Escriba su apellido..." required></td>
+                </tr>
+                <!-- Campo para seleccionar el género del cliente -->
+                <tr>
+                    <td><span>Género</span></td>
+                    <td>
+                        <select name="Genero" required>
+                            <option value="">Seleccione un género</option>
+                            <option value="M">Masculino 🧑‍⚕️</option>
+                            <option value="F">Femenino 👩‍⚕️</option>
+                            <option value="O">Otro 🌈</option>
+                        </select>
+                    </td>
+                </tr>
+                <!-- Campo para ingresar la fecha de nacimiento del cliente -->
+                <tr>
+                    <td><span>Fecha de Nacimiento</span></td>
+                    <td><input type="date" name="Fecha_Nacimiento" id="Fecha_Nacimiento" required></td>
+                </tr>
+                <!-- Campo para ingresar la edad, solo lectura, calculada automáticamente -->
+                <tr>
+                    <td><span>Edad:</span></td>
+                    <td><input type="number" name="Edad" id="Edad" min="0" max="120" readonly></td>
+                </tr>
+                <!-- Campo para ingresar la dirección del cliente -->
+                <tr>
+                    <td><span>Dirección</span></td>
+                    <td><input type="text" name="Direccion" id="Direccion" placeholder="Escriba su dirección..." required></td>
+                </tr>
+                <!-- Campo para ingresar el carnet de identidad del cliente -->
+                <tr>
+                    <td><span>Carnet Identidad</span></td>
+                    <td><input type="text" name="CI" id="CI" placeholder="Escriba su C.I. ..." required></td>
+                </tr>
+                <!-- Campo para ingresar la fecha de registro del cliente -->
+                <tr>
+                    <td><span>Fecha de Registro</span></td>
+                    <td><input type="date" name="Fecha_Registro" id="Fecha_Registro" required></td>
+                </tr>
+                <!-- Campo para ingresar referencias de contacto adicionales -->
+                <tr>
+                    <td><span>Referencias de Contacto</span></td>
+                    <td><input type="text" name="Preferencias_Contactos" id="Preferencias_Contactos" placeholder="Escriba las referencias de contacto..."></td>
+                </tr>
+                <!-- Campo para agregar uno o más números de teléfono -->
+                <tr>
+                    <td><span>Teléfonos</span></td>
+                    <td>
+                        <div id="telefonosContainer" class="input-button-container">
+                            <!-- Campo para agregar un teléfono -->
+                            <input type="tel" name="Telefonos[]" placeholder="Teléfono" pattern="[0-9]{8,}" title="Ingrese al menos 8 dígitos">
+                            <!-- Botón para agregar más campos de teléfono -->
+                            <button type="button" onclick="agregarTelefono()" class="add-button">+ Agregar teléfono</button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Campo para agregar uno o más correos electrónicos -->
+                <tr>
+                    <td><span>Correos</span></td>
+                    <td>
+                        <div id="emailsContainer" class="input-button-container">
+                            <!-- Campo para agregar un correo electrónico -->
+                            <input type="email" name="Emails[]" placeholder="Email">
+                            <!-- Botón para agregar más campos de correo -->
+                            <button type="button" onclick="agregarEmail()" class="add-button">+ Agregar Correo</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <!-- Botones para registrar o limpiar el formulario -->
+            <div class="button-container">
+                <!-- Botón para enviar el formulario -->
+                <input type="submit" value="Registrar Cliente">
+                <!-- Botón para limpiar todos los campos del formulario -->
+                <input type="reset" value="Limpiar">
+            </div>
+        </form>
+             
+    </div>
+
+    <div class="service-container2">
+        <div class="main-content2">
+          <div class="welcome-section2">
+              <h1 class="welcome-title2" id="title2"></h1>
+              
+              <div class="form-section2"> 
+                  <h2 class="toggle-form2">ver ingreso 📝</h2>
+              </div>
+              
+              <!-- contenedor 2 del registro de clientes  -->
+              <div class="proforma-form-container2">
+                  <table class="proforma-form table" style="width: 100%; border-collapse: collapse;">
+                      <thead style="background-color: var(--pastel-purple); color: var(--text-dark);">
+                          <tr>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Nombre</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Apellido</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Género</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Fecha Nacimiento</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Edad</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Dirección</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">CI</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Fecha Registro</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Preferencias Contacto</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Teléfonos</th>
+                              <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Emails</th>
+                          </tr>
+                      </thead>
+                      <tbody id="clientTableBody" style="background-color: cornflowerblue;">
+                          <!-- Los datos se agregarán dinámicamente con JavaScript -->
+                      </tbody>
+                  </table>
+            </div>
+       </div>
+   </div>
+    </div>
+    </div>
+
+
+
+
+
+
+    <!-- Script para animaciones -->
+    <script src="../Animaciones_JS/Animacion_Clientes.js"></script>
+
+   <link rel="stylesheet" href="../Interfaz_CSS/Ventana_Emergente.css">
+
+    <!-- Modal para Errores -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content error-theme">
+            <div class="bell-container">
+                <div class="bell-circle">
+                    <i class="bell-icon">🔔</i>
+                    <span class="notification-count">10</span>
+                </div>
+            </div>
+            <div class="decorative-dots left">
+                <div class="dot red"></div>
+                <div class="dot pink"></div>
+                <div class="dot light-blue"></div>
+                <div class="dot pink"></div>
+                <div class="dot red"></div>
+            </div>
+            <div class="decorative-dots right">
+                <div class="dot red"></div>
+                <div class="dot pink"></div>
+                <div class="dot light-blue"></div>
+                <div class="dot pink"></div>
+                <div class="dot red"></div>
+            </div>
+            <div class="decorative-dots top">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <div class="decorative-dots bottom">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <div class="modal-header">
+                <img src="../Assets/incorrecto.jpg" alt="Error Banner" class="header-banner size-sm">
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h2 id="errorTitle">Error</h2>
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="errorOkButton">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Éxito -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-theme">
+            <div class="bell-container">
+                <div class="bell-circle success">
+                    <i class="bell-icon">🔔</i>
+                    <span class="notification-count success">1</span>
+                </div>
+            </div> <!-- Se corrigió el cierre faltante agregando el ">" -->
+            <!-- Puntos del lado izquierdo -->
+            <div class="decorative-dots left">
+                <div class="dot green"></div>
+                <div class="dot lime"></div>
+                <div class="dot blue"></div>
+                <div class="dot lime"></div>
+                <div class="dot green"></div>
+            </div>
+            <!-- Puntos del lado derecho -->
+            <div class="decorative-dots right">
+                <div class="dot green"></div>
+                <div class="dot lime"></div>
+                <div class="dot blue"></div>
+                <div class="dot lime"></div>
+                <div class="dot green"></div>
+            </div>
+            <!-- Puntos superiores -->
+            <div class="decorative-dots top">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Puntos inferiores -->
+            <div class="decorative-dots bottom">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Encabezado del modal con imagen y botón de cierre -->
+            <div class="modal-header">
+                <img src="../Assets/correcto.jpg" alt="Success Banner" class="header-banner size-sm">
+                <span class="close">&times;</span>
+            </div>
+            <!-- Cuerpo del modal que muestra el mensaje de éxito -->
+            <div class="modal-body">
+                <h2 id="successTitle">¡Éxito!</h2>
+                <p id="successMessage"></p>
+            </div>
+            <!-- Pie del modal con botón de confirmación -->
+            <div class="modal-footer">
+                <button id="successOkButton">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ----------- MODALES DE ÉXITO Y ERROR ---------- */
+
+        // Función para mostrar el modal de éxito
+        function showSuccessModal(title, message) {
+            const modal = document.getElementById('successModal');
+            const modalTitle = document.getElementById('successTitle');
+            const modalMessage = document.getElementById('successMessage');
+
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+
+            modal.style.display = 'flex';
+            modal.querySelector('.modal-content').style.display = 'block';
+        }
+
+        // Función para mostrar el modal de error
+        function showErrorModal(title, message, errors = []) {
+            const modal = document.getElementById('errorModal');
+            const modalTitle = document.getElementById('errorTitle');
+            const modalMessage = document.getElementById('errorMessage');
+
+            modalTitle.textContent = title;
+
+            // Si hay errores, se muestran en formato de lista
+            if (errors.length > 0) {
+                let errorHtml = `${message}<br><br>`;
+                errorHtml += '<ul style="list-style-type: disc; padding-left: 20px;">';
+                errors.forEach(error => {
+                    errorHtml += `<li style="color: #f44336; margin-bottom: 5px;">${error}</li>`;
+                });
+                errorHtml += '</ul>';
+                modalMessage.innerHTML = errorHtml;
+            } else {
+                modalMessage.textContent = message;
+            }
+
+            modal.style.display = 'flex';
+            modal.querySelector('.modal-content').style.display = 'block';
+        }
+
+        // Funciones para cerrar los modales
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'none';
+            window.location.reload(); // Recargar página después de éxito
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+
+        // Event listeners para cerrar modales
+        document.querySelectorAll('.close').forEach(button => {
+            button.addEventListener('click', function () {
+                const modal = this.closest('.modal');
+                if (modal.id === 'successModal') {
+                    closeSuccessModal();
+                } else {
+                    closeErrorModal();
+                }
+            });
+        });
+
+        document.getElementById('successOkButton').addEventListener('click', closeSuccessModal);
+        document.getElementById('errorOkButton').addEventListener('click', closeErrorModal);
+
+        // Cerrar modal al hacer clic fuera de él
+        window.addEventListener('click', function (event) {
+            if (event.target.classList.contains('modal')) {
+                if (event.target.id === 'successModal') {
+                    closeSuccessModal();
+                } else {
+                    closeErrorModal();
+                }
+            }
+        });
+
+        // Función de validación del formulario
+        function validateForm(formElement) {
+            const errors = [];
+
+            // Validar campo "Nombre"
+            const nombre = formElement.querySelector('[name="Nombre"]');
+            if (!nombre.value.trim()) {
+                errors.push("El nombre es requerido");
+            } else if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/.test(nombre.value)) {
+                errors.push("El nombre solo debe contener letras");
+            }
+
+            // Validar campo "Edad"
+            const edad = formElement.querySelector('[name="Edad"]');
+            if (edad && (!edad.value || isNaN(edad.value) || edad.value < 18 || edad.value > 100)) {
+                errors.push("La edad debe ser un número entre 18 y 100");
+            }
+
+            // Validar campo "CI"
+            const ci = formElement.querySelector('[name="CI"]');
+            if (ci && (!ci.value || isNaN(ci.value))) {
+                errors.push("El CI debe contener solo números");
+            }
+
+            // Validar campo "Salario"
+            const salario = formElement.querySelector('[name="Salario"]');
+            if (salario && (!salario.value || isNaN(salario.value) || salario.value <= 0)) {
+                errors.push("El salario debe ser un número positivo");
+            }
+
+            // Validar emails
+            const emails = formElement.querySelectorAll('[name="Emails[]"]');
+            emails.forEach(email => {
+                if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                    errors.push(`El correo "${email.value}" no es válido`);
+                }
+            });
+
+            // Validar teléfonos
+            const telefonos = formElement.querySelectorAll('[name="Telefonos[]"]');
+            telefonos.forEach(telefono => {
+                if (telefono.value && !/^\d{8,11}$/.test(telefono.value)) {
+                    errors.push(`El teléfono "${telefono.value}" no es válido`);
+                }
+            });
+
+            return errors;
+        }
+
+        // Manejo del envío del formulario
+        document.querySelector('.proforma-form').onsubmit = function (e) {
+            e.preventDefault();
+
+            // Validar el formulario antes de enviar
+            const errors = validateForm(this);
+            if (errors.length > 0) {
+                showErrorModal('Error de Validación', 'Por favor, corrija los siguientes errores:', errors);
+                return;
+            }
+
+            const formData = new FormData(this);
+
+            fetch('../Logica_PHP/Clientes.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        showSuccessModal('¡Éxito!', data.mensaje);
+                    } else {
+                        const serverErrors = data.errores || [data.mensaje];
+                        showErrorModal('Error', 'Se encontraron los siguientes errores:', serverErrors);
+                    }
+                })
+                .catch(error => {
+                    showErrorModal('Error', 'Ocurrió un error al procesar la solicitud', [error.message]);
+                });
+        };
+
+        // Estilos adicionales para la lista de errores en los modales
+        const style = document.createElement('style');
+        style.textContent = `
+                    .modal-body ul {
+                        margin-top: 10px;
+                        list-style-type: none;
+                        padding-left: 0;
+                    }
+                    .modal-body li {
+                        font-family: 'Segoe UI', Arial, sans-serif;
+                        font-size: 14px;
+                        line-height: 1.6;
+                        font-weight: bold;
+                        margin-bottom: 8px;
+                        padding-left: 25px;
+                        position: relative;
+                    }
+                    .modal-body li::before {
+                        content: '➤';
+                        position: absolute;
+                        left: 0;
+                        color: #ff0000;
+                        font-size: 16px;
+                        }
+                    `;
+        document.head.appendChild(style);
+    </script>
+
+
+<!-- Modal para l lupa de budqueda  -->
+<div id="notificationModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+        </div>
+        <div class="modal-body">
+            <p id="modalMessage"></p>
+        </div>
+        <div class="modal-footer">
+            <button id="modalOkButton">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+/*----------ESTILO HTML Y JAVA PARA EL MENSAJE DE VENTANA EMERGENTE */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+    padding: 20px 0;
+}
+
+.modal-footer {
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+#modalOkButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#modalOkButton:hover {
+    background-color: #45a049;
+}
+
+.success {
+    color: #4CAF50;
+}
+
+.error {
+    color: #f44336;
+}
+</style>
+
+<script>
+// Función para mostrar el modal
+function showModal(title, message, isSuccess) {
+    const modal = document.getElementById('notificationModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    
+    modalTitle.textContent = title;
+    modalTitle.className = isSuccess ? 'success' : 'error';
+    modalMessage.textContent = message;
+    
+    modal.style.display = 'block';
+}
+
+// Cerrar el modal
+document.querySelector('.close').onclick = function() {
+    document.getElementById('notificationModal').style.display = 'none';
+    if (document.querySelector('.success')) {
+        window.location.reload(); // Recargar la página si fue exitoso
+    }
+}
+
+document.getElementById('modalOkButton').onclick = function() {
+    document.getElementById('notificationModal').style.display = 'none';
+    if (document.querySelector('.success')) {
+        window.location.reload(); // Recargar la página si fue exitoso
+    }
+}
+
+// Cerrar el modal si se hace clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('notificationModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+        if (document.querySelector('.success')) {
+            window.location.reload();
+        }
+    }
+}
+
+// Modificar el envío del formulario para usar AJAX
+document.querySelector('.proforma-form').onsubmit = function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('../Logica_PHP/Clientes.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.exito) {
+            showModal('¡Éxito!', data.mensaje, true);
+        } else {
+            showModal('Error', data.mensaje, false);
+        }
+    })
+    .catch(error => {
+        showModal('Error', 'Ocurrió un error al procesar la solicitud', false);
+    });
+};
+</script>
+
+<style>
+    .modal-busqueda {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+    .modal-contenido {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 5px;
+        width: 80%;
+        max-width: 900px;
+    }
+    .tabla-clientes {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .tabla-clientes th, .tabla-clientes td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .acciones-cliente {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+</head>
+<body>
+<!-- Modal de Búsqueda -->
+<div id="modal-busqueda" class="modal-busqueda">
+    <div class="modal-contenido">
+        <h2>Búsqueda de Clientes</h2>
+        
+        <input type="text" id="input-busqueda" placeholder="Buscar cliente...">
+        
+        <table class="tabla-clientes">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>CI</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="resultados-busqueda">
+                <!-- Resultados de búsqueda se insertarán aquí -->
+            </tbody>
+        </table>
+
+        <div>
+            <button id="cerrar-modal">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const botonLupa = document.querySelector('.icono-lupa');
+    const modal = document.getElementById('modal-busqueda');
+    const botonCerrar = document.getElementById('cerrar-modal');
+    const inputBusqueda = document.getElementById('input-busqueda');
+    const tablaResultados = document.getElementById('resultados-busqueda');
+
+    botonLupa.addEventListener('click', function() {
+        modal.style.display = 'block';
+        cargarTodosLosClientes();
+    });
+
+    botonCerrar.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // Función para cargar todos los clientes
+    function cargarTodosLosClientes() {
+        const clientes = JSON.parse(localStorage.getItem('registeredClients') || '[]');
+        mostrarClientes(clientes);
+    }
+
+    // Función para mostrar clientes en la tabla
+    function mostrarClientes(clientes) {
+        tablaResultados.innerHTML = '';
+        clientes.forEach((cliente, index) => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${cliente.nombre}</td>
+                <td>${cliente.apellido}</td>
+                <td>${cliente.ci}</td>
+                <td class="acciones-cliente">
+                    <button onclick="editarCliente(${index})">Editar</button>
+                    <button onclick="eliminarCliente(${index})">Eliminar</button>
+                </td>
+            `;
+            tablaResultados.appendChild(fila);
+        });
+    }
+
+    // Agregar búsqueda en tiempo real
+    inputBusqueda.addEventListener('input', function() {
+        const textoBusqueda = this.value.toLowerCase();
+        const clientes = JSON.parse(localStorage.getItem('registeredClients') || '[]');
+        
+        const clientesFiltrados = clientes.filter(cliente => 
+            cliente.nombre.toLowerCase().includes(textoBusqueda) ||
+            cliente.apellido.toLowerCase().includes(textoBusqueda) ||
+            cliente.ci.toLowerCase().includes(textoBusqueda)
+        );
+
+        mostrarClientes(clientesFiltrados);
+    });
+
+    // Funciones globales para editar y eliminar
+    window.editarCliente = function(index) {
+        const clientes = JSON.parse(localStorage.getItem('registeredClients') || '[]');
+        const cliente = clientes[index];
+        
+        // Rellenar formulario con datos del cliente
+        document.getElementById('Nombre').value = cliente.nombre;
+        document.getElementById('Apellido').value = cliente.apellido;
+        document.querySelector('select[name="Genero"]').value = cliente.genero;
+        document.getElementById('Fecha_Nacimiento').value = cliente.fechaNacimiento;
+        document.getElementById('Edad').value = cliente.edad;
+        document.getElementById('Direccion').value = cliente.direccion;
+        document.getElementById('CI').value = cliente.ci;
+        document.getElementById('Fecha_Registro').value = cliente.fechaRegistro;
+        document.getElementById('Preferencias_Contactos').value = cliente.preferenciaContacto;
+
+        // Eliminar teléfonos y emails existentes
+        const contenedorTelefonos = document.getElementById('telefonosContainer');
+        const contenedorEmails = document.getElementById('emailsContainer');
+        
+        // Limpiar campos anteriores
+        while (contenedorTelefonos.children.length > 1) {
+            contenedorTelefonos.removeChild(contenedorTelefonos.lastChild);
+        }
+        while (contenedorEmails.children.length > 1) {
+            contenedorEmails.removeChild(contenedorEmails.lastChild);
+        }
+
+        // Agregar teléfonos
+        cliente.telefonos.forEach((telefono, i) => {
+            if (i > 0) agregarTelefono();
+            document.querySelectorAll('input[name="Telefonos[]"]')[i].value = telefono;
+        });
+
+        // Agregar emails
+        cliente.emails.forEach((email, i) => {
+            if (i > 0) agregarEmail();
+            document.querySelectorAll('input[name="Emails[]"]')[i].value = email;
+        });
+
+        // Cerrar modal
+        modal.style.display = 'none';
+    }
+
+    window.eliminarCliente = function(index) {
+        const clientes = JSON.parse(localStorage.getItem('registeredClients') || '[]');
+        
+        // Confirmar eliminación
+        if(confirm('¿Está seguro que desea eliminar este cliente?')) {
+            clientes.splice(index, 1);
+            localStorage.setItem('registeredClients', JSON.stringify(clientes));
+            
+            // Recargar tabla
+            mostrarClientes(clientes);
+            
+            // Actualizar tabla de la página
+            const tableBody = document.getElementById('clientTableBody');
+            tableBody.innerHTML = '';
+            clientes.forEach(clientData => {
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td>${clientData.nombre}</td>
+                    <td>${clientData.apellido}</td>
+                    <td>${clientData.genero}</td>
+                    <td>${clientData.fechaNacimiento}</td>
+                    <td>${clientData.edad}</td>
+                    <td>${clientData.direccion}</td>
+                    <td>${clientData.ci}</td>
+                    <td>${clientData.fechaRegistro}</td>
+                    <td>${clientData.preferenciaContacto}</td>
+                    <td>${clientData.telefonos.join(', ')}</td>
+                    <td>${clientData.emails.join(', ')}</td>
+                `;
+            });
+        }
+    }
+});
+</script>
+
+
+</body>
+</html>

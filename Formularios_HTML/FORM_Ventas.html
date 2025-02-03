@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- METADATOS Y ESTILOS -->
+
+    <!-- Definición del charset para asegurarse de que los caracteres se muestren correctamente -->
+    <meta charset="UTF-8">
+
+    <!-- Configura la vista para dispositivos móviles y ajusta el zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <title>Sistema Veterinaria Zoofipets</title>
+
+    <!-- Enlace a la hoja de estilos de Bootstrap para aplicar diseño responsivo y componentes predefinidos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Enlace a la hoja de estilo personalizada (CSS) para el formulario de ventas -->
+    <link rel="stylesheet" href="../Interfaz_CSS/FORM_Ventas.css">
+</head>
+
+<body>
+
+    <!-- CAPA DE LOGIN -->
+    <div id="loginLayer">
+        <!-- OPCIONES ADICIONALES -->
+        <a href="#" class="recover-password"></a>
+        <p class="version"></p>
+    </div>
+
+    <!-- Capa principal de la interfaz -->
+    <div id="mainLayer">
+
+        <!-- Barra lateral (Sidebar) -->
+        <div class="sidebar">
+            <!-- Logo con versión expandida y colapsada -->
+            <div class="sidebar-brand">
+                <img src="../Assets/LOGO1.png" alt="Logo" class="logo-expanded">
+                <img src="../Assets/CD.jpg" alt="Logo" class="logo-collapsed">
+            </div>
+
+            <!-- Menú lateral -->
+            <ul class="sidebar-menu">
+
+                <!-- Enlace a la página de inicio -->
+                <li>
+                    <div class="menu-item" id="menuInicio">
+                        <i>🏠</i>
+                        <a href="../capa_proforma.html">
+                            <span class="menu-item-text">INICIO</span>
+                        </a>
+                    </div>
+                </li>
+
+                <!-- Sección de servicios con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>↩️</i>
+                        <span class="menu-item-text">SERVICIOS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Citas.html"> 📅 Registrar Citas</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Servicios.html"> 🩺 Consultas</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de mascotas con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🐾</i>
+                        <span class="menu-item-text">MASCOTAS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Mascotas.html"> 🐕 Nueva Mascota</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de clientes con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>👥</i>
+                        <span class="menu-item-text">CLIENTES</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Clientes.html"> 📝 Nuevo Registro</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de personal con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🧑‍💻</i>
+                        <span class="menu-item-text">PERSONAL</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Trabajadores.html"> 👨‍🔧 Trabajadores</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Usuario.html"> 👤 Usuario</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Permiso.html"> ✅ Permisos</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Roles.html"> 🛠 Roles</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de historial con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📝</i>
+                        <span class="menu-item-text">HISTORIAL</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Historial.html"> 📖 Historial Clinico</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de ventas con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>💰</i>
+                        <span class="menu-item-text">VENTAS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Ventas.html"> 📋 Nueva Ventas</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de compras con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🛒</i>
+                        <span class="menu-item-text">COMPRAS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Proveedores.html"> 🚚 Proveedores</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Compras.html"> 🛒 Nueva Compra</a></li>
+                    </ul>
+                </li>
+
+                <!-- Sección de productos con submenú -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📦</i>
+                        <span class="menu-item-text">PRODUCTOS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Productos.html"> 📋 Nuevo Producto</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <!-- Barra superior con botones y usuario -->
+            <div class="top-bar">
+                <div>
+                    <!-- Botón para alternar el menú lateral -->
+                    <button id="menu-toggle">☰</button>
+                </div>
+                <div class="top-bar-right">
+                    <div class="user-info">
+                        <!-- Icono y nombre del usuario -->
+                        <i>👤</i>
+                        <span id="userDisplay">Usuario</span>
+                    </div>
+                    <!-- Botón para cerrar sesión -->
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+
+            <!-- Sección de formulario para el registro de ventas -->
+            <div class="service-container">
+                <div class="main-content">
+                    <!-- Sección de bienvenida con el título -->
+                    <div class="welcome-section">
+                        <h1 class="welcome-title" id="title">-REGISTRO DE VENTAS-</h1>
+
+                        <div class="form-section">
+                            <!-- Título para mostrar u ocultar el formulario -->
+                            <h2 class="toggle-form">Formulario CD 📝</h2>
+
+                            <!-- Contenedor para la búsqueda de ventas -->
+                            <div class="formulario-búsqueda">
+                                <div class="input-con-icono">
+                                    <!-- Campo de texto para buscar una venta -->
+                                    <input type="text" placeholder="Buscar..." id="buscar-venta">
+                                    <div class="icono-lupa" title="Buscar">
+                                        <!-- Icono de búsqueda -->
+                                        🔍
+                                        <!-- Ventana emergente que describe la búsqueda -->
+                                        <div class="ventana-emergente">Buscar venta</div>
+                                    </div>
+                                </div>
+
+                                <!-- Botones adicionales -->
+                                <button class="historic-button">Histórico 📓 </button>
+                                <button class="client-data-button">Datos Cliente👤</button>
+                            </div>
+                        </div>
+
+
+                        <!-- Contenedor del formulario para registrar ventas -->
+                        <div class="proforma-form-container">
+                            <form class="proforma-form" action="../Logica_PHP/Ventas.php" method="post">
+                                <!-- Estructura en tabla para los campos de entrada -->
+                                <table>
+                                    <!-- Campo: Número de Factura -->
+                                    <tr>
+                                        <td><span>Número de Factura:</span></td>
+                                        <td><input type="number" name="Nro_Factura" id="Nro_Factura"
+                                                placeholder="Ingrese número de factura" required></td>
+                                    </tr>
+                                    <!-- Campo: Fecha de Venta -->
+                                    <tr>
+                                        <td><span>Fecha de Venta:</span></td>
+                                        <td><input type="date" name="Fecha_Venta" id="Fecha_Venta" required></td>
+                                    </tr>
+
+                                    <!-- Campo: Producto -->
+                                    <tr>
+                                        <td colspan="2">
+                                            <table id="productosTable">
+                                                <tr>
+                                                    <th>Código Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio Unitario</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="number" name="Productos[0][Cod_Productos]"
+                                                            required></td>
+                                                    <td><input type="number" name="Productos[0][Cantidad]" required
+                                                            oninput="calcularSubtotal(0)"></td>
+                                                    <td><input type="number" name="Productos[0][Precio_Unitario]"
+                                                            step="0.01" required oninput="calcularSubtotal(0)"></td>
+                                                    <td><input type="number" name="Productos[0][Sub_Total]"
+                                                            id="Subtotal_0" readonly></td>
+                                                </tr>
+                                            </table>
+                                            <button type="button" onclick="agregarProducto()">Agregar Producto</button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Campo: Descuento -->
+                                    <tr>
+                                        <td><span>Descuento:</span></td>
+                                        <td><input type="number" name="Descuento" id="Descuento"
+                                                placeholder="Ingrese descuento" min="0" step="0.01" required
+                                                oninput="calcularTotal()"></td>
+                                    </tr>
+                                    <!-- Campo: Monto Total -->
+                                    <tr>
+                                        <td><span>Monto Total:</span></td>
+                                        <td><input type="number" name="Monto_Total" id="Monto_Total"
+                                                placeholder="Monto total" step="0.01" readonly></td>
+                                    </tr>
+                                    <!-- Sección para seleccionar el método de pago -->
+                                    <tr>
+                                        <td><span>Método de Pago:</span></td>
+                                        <td>
+                                            <select name="Metodo_Pago" id="Metodo_Pago" required>
+                                                <option value="" disabled selected>Seleccione un método de pago</option>
+                                                <option value="Efectivo">Efectivo 💵</option>
+                                                <option value="Tarjeta">Tarjeta de Crédito/Débito 💳</option>
+                                                <option value="Transferencia">Transferencia Bancaria 🏦</option>
+                                                <option value="Pago_Movil">Pago Móvil o QR 📲</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <!-- Campo: Código del Cliente -->
+                                    <tr>
+                                        <td><span>Código del Cliente:</span></td>
+                                        <td><input type="number" name="Cod_Clientes" id="Cod_Clientes"
+                                                placeholder="Ingrese código de cliente" required></td>
+                                    </tr>
+                                    <!-- Campo: Código del Trabajador -->
+                                    <tr>
+                                        <td><span>Código del Trabajador:</span></td>
+                                        <td><input type="number" name="Cod_Trabajador" id="Cod_Trabajador"
+                                                placeholder="Ingrese código de trabajador" required></td>
+                                    </tr>
+                                </table>
+                                <!-- Contenedor con los botones de acción -->
+                                <div class="button-container">
+                                    <input type="submit" value="Registrar Venta" class="btn registrar">
+                                    <input type="reset" value="Limpiar" class="btn limpiar">
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Contenedor para ver las ventas registradas -->
+                        <div class="service-container2">
+                            <div class="main-content2">
+                                <div class="welcome-section2">
+                                    <h1 class="welcome-title2" id="title2"></h1>
+
+                                    <div class="form-section2">
+                                        <!-- Texto modificado sin toggle -->
+                                        <h2>Ver Ingreso 📝</h2>
+                                    </div>
+
+                                    <!-- Contenedor 2 siempre visible -->
+                                    <div class="proforma-form-container2">
+                                        <table class="proforma-form table"
+                                            style="width: 100%; border-collapse: collapse;">
+                                            <thead
+                                                style="background-color: var(--pastel-purple); color: var(--text-dark);">
+                                                <tr>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Código de Venta</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Nro_Factura</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Fecha de Venta</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Monto</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Descuento</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Monto Total</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Metodo de Pago</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Código del Cliente</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Código del Trabajador</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ventaTableBody" style="background-color: cornflowerblue;">
+                                                <!-- Los datos se agregarán dinámicamente con JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Script para calcular Subtotal y Monto Total automáticamente -->
+        <script>
+            let productoIndex = 1;
+
+            function calcularSubtotal(index) {
+                let cantidad = document.getElementsByName(`Productos[${index}][Cantidad]`)[0].value;
+                let precio = document.getElementsByName(`Productos[${index}][Precio_Unitario]`)[0].value;
+                let subtotal = cantidad * precio;
+                document.getElementById(`Subtotal_${index}`).value = subtotal.toFixed(2);
+                calcularTotal();
+            }
+
+            function calcularTotal() {
+                let total = 0;
+                let subtotales = document.querySelectorAll('[id^="Subtotal_"]');
+                subtotales.forEach(subtotal => {
+                    total += parseFloat(subtotal.value) || 0;
+                });
+                let descuento = parseFloat(document.getElementById("Descuento").value) || 0;
+                document.getElementById("Monto_Total").value = Math.max(0, total - descuento).toFixed(2);
+            }
+
+            function agregarProducto() {
+                let table = document.getElementById("productosTable");
+                let newRow = table.insertRow(-1);
+                newRow.innerHTML = `
+            <td><input type="number" name="Productos[${productoIndex}][Cod_Productos]" required></td>
+            <td><input type="number" name="Productos[${productoIndex}][Cantidad]" required oninput="calcularSubtotal(${productoIndex})"></td>
+            <td><input type="number" name="Productos[${productoIndex}][Precio_Unitario]" step="0.01" required oninput="calcularSubtotal(${productoIndex})"></td>
+            <td><input type="number" name="Productos[${productoIndex}][Sub_Total]" id="Subtotal_${productoIndex}" readonly></td>
+        `;
+                productoIndex++;
+            }
+        </script>
+
+
+
+
+        <script src="../Animaciones_JS/Animacion_Ventas.js"></script>
+
+
+
+
+
+
+        <link rel="stylesheet" href="../Interfaz_CSS/Ventana_Emergente.css">
+
+
+        <!-- Modal para Errores -->
+        <div id="errorModal" class="modal">
+            <div class="modal-content error-theme">
+
+                <!-- Icono de notificación con animación -->
+                <div class="bell-container">
+                    <div class="bell-circle">
+                        <i class="bell-icon">🔔</i>
+                        <span class="notification-count">10</span>
+                    </div>
+                </div>
+
+                <!-- Elementos decorativos -->
+
+                <!-- Puntos del lado izquierdo -->
+                <div class="decorative-dots left">
+                    <div class="dot red"></div>
+                    <div class="dot pink"></div>
+                    <div class="dot light-blue"></div>
+                    <div class="dot pink"></div>
+                    <div class="dot red"></div>
+                </div>
+
+                <!-- Puntos del lado derecho -->
+                <div class="decorative-dots right">
+                    <div class="dot red"></div>
+                    <div class="dot pink"></div>
+                    <div class="dot light-blue"></div>
+                    <div class="dot pink"></div>
+                    <div class="dot red"></div>
+                </div>
+
+                <!-- Puntos superiores -->
+                <div class="decorative-dots top">
+                    <div class="dot light-blue"></div>
+                    <div class="dot blue"></div>
+                    <div class="dot light-blue"></div>
+                </div>
+
+                <!-- Puntos inferiores -->
+                <div class="decorative-dots bottom">
+                    <div class="dot light-blue"></div>
+                    <div class="dot blue"></div>
+                    <div class="dot light-blue"></div>
+                </div>
+
+
+
+                <!-- Encabezado del modal con imagen y botón de cierre -->
+                <div class="modal-header">
+                    <img src="../Assets/incorrecto.jpg" alt="Error Banner" class="header-banner size-sm">
+                    <span class="close">&times;</span>
+                </div>
+
+
+                <!-- Cuerpo del modal que muestra el mensaje de error -->
+                <div class="modal-body">
+                    <h2 id="errorTitle">Error</h2>
+                    <p id="errorMessage"></p>
+                </div>
+
+                <!-- Pie del modal con botón de confirmación -->
+                <div class="modal-footer">
+                    <button id="errorOkButton">Entendido</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Modal para Éxito -->
+        <div id="successModal" class="modal">
+            <div class="modal-content success-theme">
+
+                <!-- Icono de notificación con animación -->
+                <div class="bell-container">
+                    <div class="bell-circle success">
+                        <i class="bell-icon">🔔</i>
+                        <span class="notification-count success">1</span>
+                    </div>
+                </div>
+
+                <!-- Puntos del lado izquierdo -->
+                <div class="decorative-dots left">
+                    <div class="dot green"></div>
+                    <div class="dot lime"></div>
+                    <div class="dot blue"></div>
+                    <div class="dot lime"></div>
+                    <div class="dot green"></div>
+                </div>
+
+                <!-- Puntos del lado derecho -->
+                <div class="decorative-dots right">
+                    <div class="dot green"></div>
+                    <div class="dot lime"></div>
+                    <div class="dot blue"></div>
+                    <div class="dot lime"></div>
+                    <div class="dot green"></div>
+                </div>
+
+                <!-- Puntos superiores -->
+                <div class="decorative-dots top">
+                    <div class="dot light-blue"></div>
+                    <div class="dot blue"></div>
+                    <div class="dot light-blue"></div>
+                </div>
+
+                <!-- Puntos inferiores -->
+                <div class="decorative-dots bottom">
+                    <div class="dot light-blue"></div>
+                    <div class="dot blue"></div>
+                    <div class="dot light-blue"></div>
+                </div>
+
+                <!-- Encabezado del modal con imagen y botón de cierre -->
+                <div class="modal-header">
+                    <img src="../Assets/correcto.jpg" alt="Error Banner" class="header-banner size-sm">
+                    <span class="close">&times;</span>
+                </div>
+
+                <!-- Cuerpo del modal que muestra el mensaje de éxito -->
+                <div class="modal-body">
+                    <h2 id="successTitle">¡Éxito!</h2>
+                    <p id="successMessage"></p>
+                </div>
+
+                <!-- Pie del modal con botón de confirmación -->
+                <div class="modal-footer">
+                    <button id="successOkButton">Aceptar</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            /* ----------- MODALES DE ÉXITO Y ERROR ---------- */
+
+            // Función para mostrar el modal de éxito
+            function showSuccessModal(title, message) {
+                const modal = document.getElementById('successModal');
+                const modalTitle = document.getElementById('successTitle');
+                const modalMessage = document.getElementById('successMessage');
+
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+
+                modal.style.display = 'flex';
+                modal.querySelector('.modal-content').style.display = 'block';
+            }
+
+            // Función para mostrar el modal de error
+            function showErrorModal(title, message, errors = []) {
+                const modal = document.getElementById('errorModal');
+                const modalTitle = document.getElementById('errorTitle');
+                const modalMessage = document.getElementById('errorMessage');
+
+                modalTitle.textContent = title;
+
+                // Si hay errores, los mostramos en formato de lista
+                if (errors.length > 0) {
+                    let errorHtml = `${message}<br><br>`;
+                    errorHtml += '<ul style="list-style-type: disc; padding-left: 20px;">';
+                    errors.forEach(error => {
+                        errorHtml += `<li style="color: #f44336; margin-bottom: 5px;">${error}</li>`;
+                    });
+                    errorHtml += '</ul>';
+                    modalMessage.innerHTML = errorHtml;
+                } else {
+                    modalMessage.textContent = message;
+                }
+
+                modal.style.display = 'flex';
+                modal.querySelector('.modal-content').style.display = 'block';
+            }
+
+            // Funciones para cerrar los modales
+            function closeSuccessModal() {
+                const modal = document.getElementById('successModal');
+                modal.style.display = 'none';
+                window.location.reload(); // Recargar página después de éxito
+            }
+
+            function closeErrorModal() {
+                document.getElementById('errorModal').style.display = 'none';
+            }
+
+            // Event listeners para cerrar modales
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', function () {
+                    const modal = this.closest('.modal');
+                    if (modal.id === 'successModal') {
+                        closeSuccessModal();
+                    } else {
+                        closeErrorModal();
+                    }
+                });
+            });
+
+            document.getElementById('successOkButton').addEventListener('click', closeSuccessModal);
+            document.getElementById('errorOkButton').addEventListener('click', closeErrorModal);
+
+            // Cerrar al hacer clic fuera del modal
+            window.addEventListener('click', function (event) {
+                if (event.target.classList.contains('modal')) {
+                    if (event.target.id === 'successModal') {
+                        closeSuccessModal();
+                    } else {
+                        closeErrorModal();
+                    }
+                }
+            });
+
+            /* ----------- ENVÍO DEL FORMULARIO DE VENTAS ---------- */
+
+            document.querySelector('').onsubmit = function (e) {
+                e.preventDefault();
+
+                // Validar el formulario antes de enviar
+                const errors = validateForm(this);
+                if (errors.length > 0) {
+                    showErrorModal('Error de Validación', 'Por favor, corrija los siguientes errores:', errors);
+                    return;
+                }
+
+                const formData = new FormData(this);
+
+                fetch('../Logica_PHP/Ventas.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.exito) {
+                            showSuccessModal('¡Éxito!', data.mensaje);
+                        } else {
+                            const serverErrors = data.errores || [data.mensaje];
+                            showErrorModal('Error', 'Se encontraron los siguientes errores:', serverErrors);
+                        }
+                    })
+                    .catch(error => {
+                        showErrorModal('Error', 'Ocurrió un error al procesar la solicitud', [error.message]);
+                    });
+            };
+
+            // Estilos adicionales para la lista de errores
+            const style = document.createElement('style');
+            style.textContent = `
+    .modal-body ul {
+        margin-top: 10px;
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .modal-body li {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        font-weight: bold;
+        margin-bottom: 8px;
+        padding-left: 25px;
+        position: relative;
+    }
+    
+    .modal-body li::before {
+        content: '➤';
+        position: absolute;
+        left: 0;
+        color: #ff0000;
+        font-size: 16px;
+    }
+`;
+            document.head.appendChild(style);
+        </script>
+
+
+</body>
+
+</html>

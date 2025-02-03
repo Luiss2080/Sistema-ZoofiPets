@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- METADATOS Y ESTILOS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Veterinaria Zoofipets</title>
+    <!-- Hoja de estilos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Hoja de estilos personalizada -->
+    <link rel="stylesheet" href="../Interfaz_CSS/FORM_Servicios.css">
+</head>
+
+<body>
+    <!-- CAPA DE LOGIN -->
+    <div id="loginLayer">
+        <a href="#" class="recover-password"></a>
+        <p class="version"></p>
+    </div>
+    <!-- Capa principal de la interfaz -->
+    <div id="mainLayer">
+        <!-- Barra lateral (Sidebar) -->
+        <div class="sidebar">
+            <!-- Logo con versión expandida y colapsada -->
+            <div class="sidebar-brand">
+                <img src="../Assets/LOGO1.png" alt="Logo" class="logo-expanded">
+                <img src="../Assets/CD.jpg" alt="Logo" class="logo-collapsed">
+            </div>
+            <!-- Menú lateral -->
+            <ul class="sidebar-menu">
+                <!-- Inicio -->
+                <li>
+                    <div class="menu-item" id="menuInicio">
+                        <i>🏠</i>
+                        <a href="../capa_proforma.html">
+                            <span class="menu-item-text">INICIO</span>
+                        </a>
+                    </div>
+                </li>
+                <!-- Servicios -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>↩️</i>
+                        <span class="menu-item-text">SERVICIOS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Citas.html"> 📅 Registrar Citas</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Servicios.html"> 🩺 Consultas</a></li>
+                    </ul>
+                </li>
+                <!-- Mascotas -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🐾</i>
+                        <span class="menu-item-text">MASCOTAS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Mascotas.html"> 🐕 Nueva Mascota</a></li>
+                    </ul>
+                </li>
+                <!-- Clientes -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>👥</i>
+                        <span class="menu-item-text">CLIENTES</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Clientes.html"> 📝 Nuevo Registro</a></li>
+                    </ul>
+                </li>
+                <!-- Personal -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🧑‍💻</i>
+                        <span class="menu-item-text">PERSONAL</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Trabajadores.html"> 👨‍🔧 Trabajadores</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Usuario.html"> 👤 Usuario</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Permiso.html"> ✅ Permisos</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Roles.html"> 🛠 Roles</a></li>
+                    </ul>
+                </li>
+                <!-- Historial -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📝</i>
+                        <span class="menu-item-text">HISTORIAL</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Historial.html"> 📖 Historial Clinico</a></li>
+                    </ul>
+                </li>
+                <!-- Ventas -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>💰</i>
+                        <span class="menu-item-text">VENTAS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Ventas.html"> 📋 Nueva Ventas</a></li>
+                    </ul>
+                </li>
+                <!-- Compras -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🛒</i>
+                        <span class="menu-item-text">COMPRAS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Proveedores.html"> 🚚 Proveedores</a></li>
+                        <li><a href="../Formularios_HTML/FORM_Compras.html"> 🛒 Nueva Compra</a></li>
+                    </ul>
+                </li>
+                <!-- Productos -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📦</i>
+                        <span class="menu-item-text">PRODUCTOS</span>
+                        <span class="arrow">></span>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="../Formularios_HTML/FORM_Productos.html"> 📋 Nuevo Producto</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <!-- Barra superior -->
+            <div class="top-bar">
+                <div>
+                    <button id="menu-toggle">☰</button>
+                </div>
+                <div class="top-bar-right">
+                    <div class="user-info">
+                        <i>👤</i>
+                        <span id="userDisplay">Usuario</span>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+            <!-- Sección de formulario para el registro de servicios -->
+            <div class="service-container">
+                <div class="main-content">
+                    <!-- Sección de bienvenida -->
+                    <div class="welcome-section">
+                        <h1 class="welcome-title" id="title">-REGISTRO DE SERVICIOS-</h1>
+                        <div class="form-section">
+                            <h2 class="toggle-form">Formulario CD 📝</h2>
+                            <!-- Contenedor para la búsqueda de servicios -->
+                            <div class="formulario-búsqueda">
+                                <div class="input-con-icono">
+                                    <input type="text" placeholder="Buscar..." id="buscar-servicios">
+                                    <div class="icono-lupa" title="Buscar">
+                                        🔍
+                                        <div class="ventana-emergente">Buscar servicios</div>
+                                    </div>
+                                </div>
+                                <button class="historic-button">Histórico 📓 </button>
+                                <button class="client-data-button">Datos Cliente👤</button>
+                            </div>
+                        </div>
+                        <!-- Formulario para registrar servicios -->
+                        <div class="proforma-form-container">
+                            <form class="proforma-form" action="../Logica_PHP/Servicios.php" method="post">
+                                <table>
+                                    <tr>
+                                        <td><span>Servicios Clínicos:</span></td>
+                                        <td>
+                                            <select name="Especialidades" id="Especialidades" required>
+                                                <option value="" disabled selected>Seleccione el servicio clínico
+                                                </option>
+                                                <option value="Dermatología">Dermatología 🐾</option>
+                                                <option value="Desparasitación">Desparasitación 🦠</option>
+                                                <option value="Esterilización">Esterilización ✂️</option>
+                                                <option value="Nutrición">Nutrición 🥦</option>
+                                                <option value="Odontología">Odontología 🦷</option>
+                                                <option value="Ortopedia">Ortopedia 🦴</option>
+                                                <option value="Vacunación">Vacunación 💉</option>
+                                                <option value="Medicina Canina">Medicina Canina 🐶</option>
+                                                <option value="Medicina Felina">Medicina Felina 🐱</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Especialista:</span></td>
+                                        <td><input type="text" name="Especialista" id="Especialista"
+                                                placeholder="Ingrese el nombre del especialista..." required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Precio:</span></td>
+                                        <td><input type="number" name="Precio" id="Precio"
+                                                placeholder="Ingrese el precio..." min="0" step="0.01" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Duración Estimada:</span></td>
+                                        <td><input type="time" name="Duracion_Estimada" id="Duracion_Estimada"
+                                                placeholder="Ingrese la duración..." required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Categoría:</span></td>
+                                        <td>
+                                            <select name="Categoria" id="Categoria" required>
+                                                <option value="" disabled selected>Seleccione la categoría</option>
+                                                <option value="Urgencias">Urgencias 🏥</option>
+                                                <option value="Consulta General">Consulta General 🩺</option>
+                                                <option value="Estética y Cuidado">Estética y Cuidado 🎀</option>
+                                                <option value="Laboratorio Clínico">Laboratorio Clínico 🔬</option>
+                                                <option value="Hospitalización">Hospitalización 🚑</option>
+                                                <option value="Farmacia Veterinaria">Farmacia Veterinaria 💊</option>
+                                                <option value="Rehabilitación">Rehabilitación 🏋️</option>
+                                                <option value="Atención a Domicilio">Atención a Domicilio 🏠</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Turno:</span></td>
+                                        <td>
+                                            <select name="Turno" id="Turno" required>
+                                                <option value="" disabled selected>Seleccione el turno</option>
+                                                <option value="Mañana">Mañana 🌅</option>
+                                                <option value="Tarde">Tarde ☀️</option>
+                                                <option value="Noche">Noche 🌙</option>
+                                                <option value="Urgencias 24/7">Urgencias 24/7 🚨</option>
+                                                <option value="Atención a Domicilio">Atención a Domicilio 🏠</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Código de la Mascota:</span></td>
+                                        <td><input type="number" name="Cod_Mascotas" id="Cod_Mascotas"
+                                                placeholder="Ingrese el código de la Mascota..." required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Código del Historial:</span></td>
+                                        <td><input type="number" name="Cod_Historial" id="Cod_Historial"
+                                                placeholder="Ingrese el código del historial..." min="0" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="button-container"
+                                                style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+                                                <input type="submit" value="Registrar Mascota"
+                                                    style="padding: 10px 20px; cursor: pointer;">
+                                                <input type="reset" value="Limpiar"
+                                                    style="padding: 10px 20px; cursor: pointer;">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <!-- Segundo contenedor: Visualización de ingresos -->
+                        <div class="service-container2">
+                            <div class="main-content2">
+                                <div class="welcome-section2">
+                                    <h1 class="welcome-title2"></h1>
+                                    <div class="form-section2">
+                                        <h2 class="title-left">Ver Ingreso 📝</h2>
+                                    </div>
+                                    <div class="proforma-form-container2">
+                                        <table class="proforma-form table"
+                                            style="width: 100%; border-collapse: collapse;">
+                                            <thead
+                                                style="background-color: var(--pastel-purple); color: var(--text-dark);">
+                                                <tr>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Servicios Clínicos</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Especialista</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Precio</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Duracion Estimada</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Categoría</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        turno</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Código de la Mascota</th>
+                                                    <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                        Código del Historial</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="servicioTableBody" style="background-color: cornflowerblue;">
+                                                <!-- Los datos se agregarán dinámicamente con JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin del segundo contenedor -->
+                    </div>
+                </div>
+            </div>
+            <!-- Fin del contenedor principal -->
+        </div>
+    </div>
+
+    <script src="../Animaciones_JS/Animacion_Servicios.js"></script>
+    
+    <link rel="stylesheet" href="../Interfaz_CSS/Ventana_Emergente.css">
+    <!-- Modal para Errores -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content error-theme">
+
+            <!-- Icono de notificación con animación -->
+            <div class="bell-container">
+                <div class="bell-circle">
+                    <i class="bell-icon">🔔</i>
+                    <span class="notification-count">10</span>
+                </div>
+            </div>
+
+            <!-- Elementos decorativos -->
+            <!-- Puntos del lado izquierdo -->
+            <div class="decorative-dots left">
+                <div class="dot red"></div>
+                <div class="dot pink"></div>
+                <div class="dot light-blue"></div>
+                <div class="dot pink"></div>
+                <div class="dot red"></div>
+            </div>
+            <!-- Puntos del lado derecho -->
+            <div class="decorative-dots right">
+                <div class="dot red"></div>
+                <div class="dot pink"></div>
+                <div class="dot light-blue"></div>
+                <div class="dot pink"></div>
+                <div class="dot red"></div>
+            </div>
+            <!-- Puntos superiores -->
+            <div class="decorative-dots top">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Puntos inferiores -->
+            <div class="decorative-dots bottom">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Encabezado del modal con imagen y botón de cierre -->
+            <div class="modal-header">
+                <img src="../Assets/incorrecto.jpg" alt="Error Banner" class="header-banner size-sm">
+                <span class="close">&times;</span>
+            </div>
+            <!-- Cuerpo del modal que muestra el mensaje de error -->
+            <div class="modal-body">
+                <h2 id="errorTitle">Error</h2>
+                <p id="errorMessage"></p>
+            </div>
+
+            <!-- Pie del modal con botón de confirmación -->
+            <div class="modal-footer">
+                <button id="errorOkButton">Entendido</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Éxito -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-theme">
+
+            <!-- Icono de notificación con animación -->
+            <div class="bell-container">
+                <div class="bell-circle success">
+                    <i class="bell-icon">🔔</i>
+                    <span class="notification-count success">1</span>
+                </div>
+            </div>
+            <!-- Puntos del lado izquierdo -->
+            <div class="decorative-dots left">
+                <div class="dot green"></div>
+                <div class="dot lime"></div>
+                <div class="dot blue"></div>
+                <div class="dot lime"></div>
+                <div class="dot green"></div>
+            </div>
+            <!-- Puntos del lado derecho -->
+            <div class="decorative-dots right">
+                <div class="dot green"></div>
+                <div class="dot lime"></div>
+                <div class="dot blue"></div>
+                <div class="dot lime"></div>
+                <div class="dot green"></div>
+            </div>
+            <!-- Puntos superiores -->
+            <div class="decorative-dots top">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Puntos inferiores -->
+            <div class="decorative-dots bottom">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Encabezado del modal con imagen y botón de cierre -->
+            <div class="modal-header">
+                <img src="../Assets/correcto.jpg" alt="Error Banner" class="header-banner size-sm">
+                <span class="close">&times;</span>
+            </div>
+
+            <!-- Cuerpo del modal que muestra el mensaje de éxito -->
+            <div class="modal-body">
+                <h2 id="successTitle">¡Éxito!</h2>
+                <p id="successMessage"></p>
+            </div>
+
+            <!-- Pie del modal con botón de confirmación -->
+            <div class="modal-footer">
+                <button id="successOkButton">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* ----------- MODALES DE ÉXITO Y ERROR ---------- */
+
+        // Función para mostrar el modal de éxito
+        function showSuccessModal(title, message) {
+            const modal = document.getElementById('successModal');
+            const modalTitle = document.getElementById('successTitle');
+            const modalMessage = document.getElementById('successMessage');
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.style.display = 'flex';
+            modal.querySelector('.modal-content').style.display = 'block';
+        }
+        // Función para mostrar el modal de error
+        function showErrorModal(title, message, errors = []) {
+            const modal = document.getElementById('errorModal');
+            const modalTitle = document.getElementById('errorTitle');
+            const modalMessage = document.getElementById('errorMessage');
+            modalTitle.textContent = title;
+            // Si hay errores, los mostramos en formato de lista
+            if (errors.length > 0) {
+                let errorHtml = `${message}<br><br>`;
+                errorHtml += '<ul style="list-style-type: disc; padding-left: 20px;">';
+                errors.forEach(error => {
+                    errorHtml += `<li style="color: #f44336; margin-bottom: 5px;">${error}</li>`;
+                });
+                errorHtml += '</ul>';
+                modalMessage.innerHTML = errorHtml;
+            } else {
+                modalMessage.textContent = message;
+            }
+            modal.style.display = 'flex';
+            modal.querySelector('.modal-content').style.display = 'block';
+        }
+
+        // Funciones para cerrar los modales
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'none';
+            window.location.reload(); // Recargar página después de éxito
+        }
+        function closeErrorModal() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+        // Event listeners para cerrar modales
+        document.querySelectorAll('.close').forEach(button => {
+            button.addEventListener('click', function () {
+                const modal = this.closest('.modal');
+                if (modal.id === 'successModal') {
+                    closeSuccessModal();
+                } else {
+                    closeErrorModal();
+                }
+            });
+        });
+
+        document.getElementById('successOkButton').addEventListener('click', closeSuccessModal);
+        document.getElementById('errorOkButton').addEventListener('click', closeErrorModal);
+
+        // Cerrar al hacer clic fuera del modal
+        window.addEventListener('click', function (event) {
+            if (event.target.classList.contains('modal')) {
+                if (event.target.id === 'successModal') {
+                    closeSuccessModal();
+                } else {
+                    closeErrorModal();
+                }
+            }
+        });
+        /* ----------- FUNCIÓN DE VALIDACIÓN DE DATOS PARA SERVICIOS ---------- */
+
+        function validateForm(formElement) {
+            const errors = [];
+
+            // Validar campos requeridos y formatos
+            const especialidades = formElement.querySelector('[name="Especialidades"]');
+            if (!especialidades.value.trim()) {
+                errors.push("La especialidad es obligatoria");
+            }
+
+            const especialista = formElement.querySelector('[name="Especialista"]');
+            if (!especialista.value.trim()) {
+                errors.push("El nombre del especialista es obligatorio");
+            }
+
+            const precio = formElement.querySelector('[name="Precio"]');
+            if (!precio.value.trim() || isNaN(precio.value) || precio.value <= 0) {
+                errors.push("El precio es obligatorio y debe ser un número positivo");
+            }
+
+            const duracionEstimada = formElement.querySelector('[name="Duracion_Estimada"]');
+            if (!duracionEstimada.value.trim()) {
+                errors.push("La duración estimada es obligatoria");
+            }
+
+            const categoria = formElement.querySelector('[name="Categoria"]');
+            if (!categoria.value.trim()) {
+                errors.push("La categoría es obligatoria");
+            }
+
+            const turno = formElement.querySelector('[name="Turno"]');
+            if (!turno.value.trim()) {
+                errors.push("El turno es obligatorio");
+            }
+
+            const codHistorial = formElement.querySelector('[name="Cod_Historial"]');
+            if (!codHistorial.value.trim() || isNaN(codHistorial.value)) {
+                errors.push("El código de historial es obligatorio y debe ser un número");
+            }
+
+            const codMascotas = formElement.querySelector('[name="Cod_Mascotas"]');
+            if (codMascotas.value && isNaN(codMascotas.value)) {
+                errors.push("El código de mascota debe ser un número");
+            }
+
+            return errors;
+        }
+
+        /* ----------- ENVÍO DEL FORMULARIO DE SERVICIOS ---------- */
+
+        document.querySelector('.proforma-form').onsubmit = function (e) {
+            e.preventDefault();
+
+            // Validar el formulario antes de enviar
+            const errors = validateForm(this);
+            if (errors.length > 0) {
+                showErrorModal('Error de Validación', 'Por favor, corrija los siguientes errores:', errors);
+                return;
+            }
+
+            const formData = new FormData(this);
+
+            fetch('../Logica_PHP/Servicios.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        showSuccessModal('¡Éxito!', data.mensaje);
+                    } else {
+                        const serverErrors = data.errores || [data.mensaje];
+                        showErrorModal('Error', 'Se encontraron los siguientes errores:', serverErrors);
+                    }
+                })
+                .catch(error => {
+                    showErrorModal('Error', 'Ocurrió un error al procesar la solicitud', [error.message]);
+                });
+        };
+
+        // Estilos adicionales para la lista de errores
+        const style = document.createElement('style');
+        style.textContent = `
+    .modal-body ul {
+        margin-top: 10px;
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .modal-body li {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        font-weight: bold;
+        margin-bottom: 8px;
+        padding-left: 25px;
+        position: relative;
+    }
+    
+    .modal-body li::before {
+        content: '➤';
+        position: absolute;
+        left: 0;
+        color: #ff0000;
+        font-size: 16px;
+    }
+`;
+        document.head.appendChild(style);
+    </script>
+
+
+</body>
+
+</html>

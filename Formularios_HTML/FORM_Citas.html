@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración inicial de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Veterinaria Zoofipets</title>
+
+    <!-- Enlace a la hoja de estilo de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Referencia al archivo CSS personalizado -->
+    <link rel="stylesheet" href="../Interfaz_CSS/FORM_Citas.css">
+</head>
+
+<body>
+    <!-- CAPA DE LOGIN -->
+    <div id="loginLayer">
+        <!-- OPCIONES ADICIONALES -->
+        <a href="#" class="recover-password"></a>
+        <p class="version"></p>
+    </div>
+
+    <!-- Capa Principal -->
+    <div id="mainLayer">
+        <!-- Sidebar (barra lateral) -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <!-- Logo expandido y colapsado para la barra lateral -->
+                <img src="../Assets/LOGO1.png" alt="Logo" class="logo-expanded">
+                <img src="../Assets/CD.jpg" alt="Logo" class="logo-collapsed">
+            </div>
+            <!-- Menú de navegación principal -->
+            <ul class="sidebar-menu">
+                <!-- Opción de inicio -->
+                <li>
+                    <div class="menu-item" id="menuInicio">
+                        <i>🏠</i>
+                        <a href="../capa_proforma.html">
+                            <span class="menu-item-text">INICIO</span>
+                        </a>
+                    </div>
+                </li>
+                <!-- Menú de servicios -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>↩️</i>
+                        <span class="menu-item-text">SERVICIOS</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de servicios -->
+                        <ul><a href="../Formularios_HTML/FORM_Citas.html"> 📅 Registrar Citas</a></ul>
+                        <ul><a href="../Formularios_HTML/FORM_Servicios.html"> 🩺 Consultas </a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de mascotas -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🐾</i>
+                        <span class="menu-item-text">MASCOTAS</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de mascotas -->
+                        <ul><a href="../Formularios_HTML/FORM_Mascotas.html"> 🐕 Nueva Mascota</a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de clientes -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>👥</i>
+                        <span class="menu-item-text">CLIENTES</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de clientes -->
+                        <ul><a href="../Formularios_HTML/FORM_Clientes.html"> 📝 Nuevo Registro</a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de personal -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🧑‍💻</i>
+                        <span class="menu-item-text">PERSONAL</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de trabajadores, usuario, permisos, roles -->
+                        <ul><a href="../Formularios_HTML/FORM_Trabajadores.html"> 👨‍🔧 Trabajadores</a></ul>
+                        <ul><a href="../Formularios_HTML/FORM_Usuario.html"> 👤 Usuario</a></ul>
+                        <ul><a href="../Formularios_HTML/FORM_Permiso.html"> ✅ Permisos</a></ul>
+                        <ul><a href="../Formularios_HTML/FORM_Roles.html"> 🛠 Roles</a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de historial -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📝</i>
+                        <span class="menu-item-text">HISTORIAL</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de historial -->
+                        <ul><a href="../Formularios_HTML/FORM_Historial.html"> 📖 Historial Clinico</a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de ventas -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>💰</i>
+                        <span class="menu-item-text">VENTAS</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de ventas -->
+                        <ul><a href="../Formularios_HTML/FORM_Ventas.html"> 📋 Nueva Ventas</a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de compras -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🛒</i>
+                        <span class="menu-item-text">COMPRAS</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de proveedores, compras -->
+                        <ul><a href="../Formularios_HTML/FORM_Proveedores.html"> 🚚 Proveedores</a></ul>
+                        <ul><a href="../Formularios_HTML/FORM_Compras.html"> 🛒 Nueva Compra</a></ul>
+                    </ul>
+                </li>
+                <!-- Menú de productos -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📦</i>
+                        <span class="menu-item-text">PRODUCTOS</span>
+                        <span class="arrow">></span> <!-- Indica que hay un submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <!-- Enlaces a formularios de productos -->
+                        <ul><a href="../Formularios_HTML/FORM_Productos.html"> 📋 Nuevo Producto</a></ul>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Barra Superior -->
+            <div class="top-bar">
+                <div>
+                    <!-- Botón para abrir/cerrar el menú lateral -->
+                    <button id="menu-toggle">☰</button>
+                </div>
+                <div class="top-bar-right">
+                    <div class="user-info">
+                        <i>👤</i>
+                        <!-- Muestra el nombre del usuario actual -->
+                        <span id="userDisplay">Usuario</span>
+                    </div>
+                    <!-- Botón para cerrar sesión -->
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+
+            <!-- Sección de Bienvenida y Formulario -->
+            <div class="service-container">
+                <div class="welcome-section">
+                    <!-- Título principal de la sección -->
+                    <h1 class="welcome-title" id="title">-REGISTRO DE CITAS-</h1>
+
+                    <!-- Sección del formulario y opciones de búsqueda -->
+                    <div class="form-section">
+                        <h2 class="toggle-form">Formulario CD 📝</h2>
+
+                        <!-- Formulario para buscar un cliente -->
+                        <div class="formulario-búsqueda">
+                            <div class="input-con-icono">
+                                <!-- Campo de texto para buscar un cliente -->
+                               
+                            </div>
+                    
+                            <!-- Botones adicionales -->
+                            <div class="icono-lupa" title="Buscar">
+                                <!-- Icono de búsqueda -->
+                                🔍
+                                <!-- Ventana emergente que describe la búsqueda -->
+                                <div class="ventana-emergente"><i class="fas fa-file-pdf"></i>Buscar cliente</div>
+                            </div>
+                            <a href="../fpdf/PruebaV.php" target="_blank" class="btn btn-success generar-reporte">
+                                📄 Generar Reporte
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ----------->
+                    <div class="proforma-form-container">
+                        <!-- Formulario de la proforma que realiza una solicitud POST a Citas.php -->
+                        <form class="proforma-form" action="../Logica_PHP/Citas.php" method="post">
+                            <table>
+                                <!-- Sección para ingresar el motivo de la consulta -->
+                                <tr>
+                                    <td><span>Motivo de la Consulta:</span></td>
+                                    <td><input type="text" name="Motivo_Consulta" id="Motivo_Consulta"
+                                            placeholder="Ingrese el motivo de la consulta..." required></td>
+                                </tr>
+                                <!-- Sección para ingresar el cobro total -->
+                                <tr>
+                                    <td><span>Cobro Total:</span></td>
+                                    <td><input type="number" name="Cobro_Total" id="Cobro_Total"
+                                            placeholder="Ingrese el cobro total..." required></td>
+                                </tr>
+                                <!-- Sección para seleccionar el método de pago -->
+                                <tr>
+                                    <td><span>Método de Pago:</span></td>
+                                    <td>
+                                        <select name="Metodo_Pago" id="Metodo_Pago" required>
+                                            <option value="" disabled selected>Seleccione un método de pago</option>
+                                            <option value="Efectivo">Efectivo 💵</option>
+                                            <option value="Tarjeta">Tarjeta de Crédito/Débito 💳</option>
+                                            <option value="Transferencia">Transferencia Bancaria 🏦</option>
+                                            <option value="Pago_Movil">Pago Móvil o QR 📲</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <!-- Sección para ingresar la fecha de la cita -->
+                                <tr>
+                                    <td><span>Fecha de la Cita:</span></td>
+                                    <td><input type="date" name="Fecha_Cita" id="Fecha_Cita" required></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el tratamiento prescrito -->
+                                <tr>
+                                    <td><span>Tratamiento Prescrito:</span></td>
+                                    <td><textarea name="Tratamiento" id="Tratamiento" rows="4"
+                                            placeholder="Describa el tratamiento prescrito..." required></textarea></td>
+                                </tr>
+
+                                <!-- Sección para ingresar las enfermedades base -->
+                                <tr>
+                                    <td><span>Enfermedades Base:</span></td>
+                                    <td><textarea name="Enfermedades_Base" id="Enfermedades_Base" rows="4"
+                                            placeholder="Ingrese las enfermedades base..." required></textarea></td>
+                                </tr>
+
+                                <!-- Sección para ingresar las alergias -->
+                                <tr>
+                                    <td><span>Alergias:</span></td>
+                                    <td><textarea name="Alergias" id="Alergias" rows="4"
+                                            placeholder="Ingrese las alergias..." required></textarea></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el diagnóstico -->
+                                <tr>
+                                    <td><span>Diagnóstico:</span></td>
+                                    <td><textarea name="Diagnostico" id="Diagnostico" rows="4"
+                                            placeholder="Ingrese el diagnóstico..." required></textarea></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el código de la mascota -->
+                                <tr>
+                                    <td><span>Código de la Mascota:</span></td>
+                                    <td><input type="number" name="Cod_Mascotas" id="Cod_Mascotas"
+                                            placeholder="Ingrese el código de la mascota..." required></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el código del cliente -->
+                                <tr>
+                                    <td><span>Código del Cliente:</span></td>
+                                    <td><input type="number" name="Cod_Clientes" id="Cod_Clientes"
+                                            placeholder="Ingrese el código del cliente..." required></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el código del trabajador -->
+                                <tr>
+                                    <td><span>Código del Trabajador:</span></td>
+                                    <td><input type="number" name="Cod_Trabajador" id="Cod_Trabajador"
+                                            placeholder="Ingrese el código del trabajador..." required></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el código del servicio -->
+                                <tr>
+                                    <td><span>Código del Servicio:</span></td>
+                                    <td><input type="number" name="Cod_Servicios" id="Cod_Servicios"
+                                            placeholder="Ingrese el código del servicio..." required></td>
+                                </tr>
+
+                                <!-- Sección para ingresar el código del historial -->
+                                <tr>
+                                    <td><span>Código del Historial:</span></td>
+                                    <td><input type="number" name="Cod_Historial" id="Cod_Historial"
+                                            placeholder="Ingrese el código del historial..." required></td>
+                                </tr>
+
+                                <!-- Botones para registrar o limpiar el formulario -->
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="button-container"
+                                            style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+                                            <input type="submit" value="Registrar Cita"
+                                                style="padding: 10px 20px; cursor: pointer;">
+                                            <input type="reset" value="Limpiar"
+                                                style="padding: 10px 20px; cursor: pointer;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+                    <div class="service-container2">
+                        <div class="main-content2">
+                            <div class="welcome-section2">
+                                <h1 class="welcome-title2" id="title2"></h1>
+
+                                <div class="form-section2">
+                                    <h2 class="toggle-form2">ver ingreso 📝</h2>
+                                </div>
+
+                                <!-- Contenedor 2 siempre visible -->
+                                <div class="proforma-form-container2">
+                                    <table class="proforma-form table" style="width: 100%; border-collapse: collapse;">
+                                        <thead style="background-color: var(--pastel-purple); color: var(--text-dark);">
+                                            <tr>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Motivode la
+                                                    Consulta</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Cobro Total
+                                                </th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Métodode
+                                                    Pago</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Fecha de
+                                                    la
+                                                    Cita</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Tratamiento
+                                                    Prescrito</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Enfermedades de Base</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Alergias
+                                                </th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Diagnóstico
+                                                </th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Código de la
+                                                    Mascota</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Código del
+                                                    Cliente</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Código del
+                                                    Trabajador</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">Código
+                                                    del
+                                                    Servicio</th>
+                                                <th style="padding: 12px; border: 2px solid var(--pastel-blue);">
+                                                    Código del
+                                                    Historial</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="citaTableBody" style="background-color: cornflowerblue;">
+                                            <!-- Los datos se agregarán dinámicamente con JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Referencia al archivo JavaScript para Animaciones -->
+    <script src="../Animaciones_JS/Animacion_Citas.js"></script>
+
+    <!-- Estilo adicional para los campos textarea -->
+    <style>
+        /* Asegura que los textarea ocupen toda la fila disponible */
+        textarea {
+            width: 100%;
+            /* Ocupa toda la fila */
+            border: 2px solid #2A9D8F;
+            /* Borde morado */
+            padding: 10px;
+            box-sizing: border-box;
+            /* Asegura que el padding y el borde no excedan el tamaño del elemento */
+        }
+    </style>
+
+    <link rel="stylesheet" href="../Interfaz_CSS/Ventana_Emergente.css">
+
+
+    <!-- Modal para Errores -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content error-theme">
+
+            <!-- Icono de notificación con animación -->
+            <div class="bell-container">
+                <div class="bell-circle">
+                    <i class="bell-icon">🔔</i>
+                    <span class="notification-count">10</span>
+                </div>
+            </div>
+            <!-- Elementos decorativos -->
+            <!-- Puntos del lado izquierdo -->
+            <div class="decorative-dots left">
+                <div class="dot red"></div>
+                <div class="dot pink"></div>
+                <div class="dot light-blue"></div>
+                <div class="dot pink"></div>
+                <div class="dot red"></div>
+            </div>
+            <!-- Puntos del lado derecho -->
+            <div class="decorative-dots right">
+                <div class="dot red"></div>
+                <div class="dot pink"></div>
+                <div class="dot light-blue"></div>
+                <div class="dot pink"></div>
+                <div class="dot red"></div>
+            </div>
+            <!-- Puntos superiores -->
+            <div class="decorative-dots top">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Puntos inferiores -->
+            <div class="decorative-dots bottom">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Encabezado del modal con imagen y botón de cierre -->
+            <div class="modal-header">
+                <img src="../Assets/incorrecto.jpg" alt="Error Banner" class="header-banner size-sm">
+                <span class="close">&times;</span>
+            </div>
+            <!-- Cuerpo del modal que muestra el mensaje de error -->
+            <div class="modal-body">
+                <h2 id="errorTitle">Error</h2>
+                <p id="errorMessage"></p>
+            </div>
+            <!-- Pie del modal con botón de confirmación -->
+            <div class="modal-footer">
+                <button id="errorOkButton">Entendido</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Éxito -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-theme">
+
+            <!-- Icono de notificación con animación -->
+            <div class="bell-container">
+                <div class="bell-circle success">
+                    <i class="bell-icon">🔔</i>
+                    <span class="notification-count success">1</span>
+                </div>
+            </div>
+            <!-- Puntos del lado izquierdo -->
+            <div class="decorative-dots left">
+                <div class="dot green"></div>
+                <div class="dot lime"></div>
+                <div class="dot blue"></div>
+                <div class="dot lime"></div>
+                <div class="dot green"></div>
+            </div>
+            <!-- Puntos del lado derecho -->
+            <div class="decorative-dots right">
+                <div class="dot green"></div>
+                <div class="dot lime"></div>
+                <div class="dot blue"></div>
+                <div class="dot lime"></div>
+                <div class="dot green"></div>
+            </div>
+            <!-- Puntos superiores -->
+            <div class="decorative-dots top">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Puntos inferiores -->
+            <div class="decorative-dots bottom">
+                <div class="dot light-blue"></div>
+                <div class="dot blue"></div>
+                <div class="dot light-blue"></div>
+            </div>
+            <!-- Encabezado del modal con imagen y botón de cierre -->
+            <div class="modal-header">
+                <img src="../Assets/correcto.jpg" alt="Error Banner" class="header-banner size-sm">
+                <span class="close">&times;</span>
+            </div>
+
+            <!-- Cuerpo del modal que muestra el mensaje de éxito -->
+            <div class="modal-body">
+                <h2 id="successTitle">¡Éxito!</h2>
+                <p id="successMessage"></p>
+            </div>
+
+            <!-- Pie del modal con botón de confirmación -->
+            <div class="modal-footer">
+                <button id="successOkButton">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* ----------- MODALES DE ÉXITO Y ERROR ---------- */
+        // Función para mostrar el modal de éxito
+        function showSuccessModal(title, message) {
+            const modal = document.getElementById('successModal');
+            const modalTitle = document.getElementById('successTitle');
+            const modalMessage = document.getElementById('successMessage');
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.style.display = 'flex';
+            modal.querySelector('.modal-content').style.display = 'block';
+        }
+        // Función para mostrar el modal de error
+        function showErrorModal(title, message, errors = []) {
+            const modal = document.getElementById('errorModal');
+            const modalTitle = document.getElementById('errorTitle');
+            const modalMessage = document.getElementById('errorMessage');
+            modalTitle.textContent = title;
+            // Si hay errores, los mostramos en formato de lista
+            if (errors.length > 0) {
+                let errorHtml = `${message}<br><br>`;
+                errorHtml += '<ul style="list-style-type: disc; padding-left: 20px;">';
+                errors.forEach(error => {
+                    errorHtml += `<li style="color: #f44336; margin-bottom: 5px;">${error}</li>`;
+                });
+                errorHtml += '</ul>';
+                modalMessage.innerHTML = errorHtml;
+            } else {
+                modalMessage.textContent = message;
+            }
+            modal.style.display = 'flex';
+            modal.querySelector('.modal-content').style.display = 'block';
+        }
+        // Funciones para cerrar los modales
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'none';
+            window.location.reload(); // Recargar página después de éxito
+        }
+        function closeErrorModal() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+        // Event listeners para cerrar modales
+        document.querySelectorAll('.close').forEach(button => {
+            button.addEventListener('click', function () {
+                const modal = this.closest('.modal');
+                if (modal.id === 'successModal') {
+                    closeSuccessModal();
+                } else {
+                    closeErrorModal();
+                }
+            });
+        });
+        document.getElementById('successOkButton').addEventListener('click', closeSuccessModal);
+        document.getElementById('errorOkButton').addEventListener('click', closeErrorModal);
+
+        // Cerrar al hacer clic fuera del modal
+        window.addEventListener('click', function (event) {
+            if (event.target.classList.contains('modal')) {
+                if (event.target.id === 'successModal') {
+                    closeSuccessModal();
+                } else {
+                    closeErrorModal();
+                }
+            }
+        });
+        /* ----------- FUNCIÓN DE VALIDACIÓN DE DATOS PARA CITAS ---------- */
+        function validateForm(formElement) {
+            const errors = [];
+            // Validar campos requeridos y formatos
+            const motivoConsulta = formElement.querySelector('[name="Motivo_Consulta"]');
+            if (!motivoConsulta.value.trim()) {
+                errors.push("El motivo de consulta es obligatorio");
+            }
+            const cobroTotal = formElement.querySelector('[name="Cobro_Total"]');
+            if (!cobroTotal.value.trim() || isNaN(cobroTotal.value) || cobroTotal.value <= 0) {
+                errors.push("El cobro total debe ser un número positivo");
+            }
+            const metodoPago = formElement.querySelector('[name="Metodo_Pago"]');
+            if (!metodoPago.value.trim()) {
+                errors.push("El método de pago es obligatorio");
+            }
+            const fechaCita = formElement.querySelector('[name="Fecha_Cita"]');
+            if (!fechaCita.value.trim()) {
+                errors.push("La fecha de la cita es obligatoria");
+            } else if (!/^\d{4}-\d{2}-\d{2}$/.test(fechaCita.value)) {
+                errors.push("➤ El formato de la fecha de cita no es válido (debe ser YYYY-MM-DD)");
+            }
+            const tratamiento = formElement.querySelector('[name="Tratamiento"]');
+            if (!tratamiento.value.trim()) {
+                errors.push("El tratamiento es obligatorio");
+            }
+            const diagnostico = formElement.querySelector('[name="Diagnostico"]');
+            if (!diagnostico.value.trim()) {
+                errors.push("El diagnóstico es obligatorio");
+            }
+            const codMascotas = formElement.querySelector('[name="Cod_Mascotas"]');
+            if (!codMascotas.value.trim() || isNaN(codMascotas.value)) {
+                errors.push("El código de mascota es obligatorio y debe ser un número");
+            }
+            const codClientes = formElement.querySelector('[name="Cod_Clientes"]');
+            if (!codClientes.value.trim() || isNaN(codClientes.value)) {
+                errors.push("El código de cliente es obligatorio y debe ser un número");
+            }
+            const codTrabajador = formElement.querySelector('[name="Cod_Trabajador"]');
+            if (!codTrabajador.value.trim() || isNaN(codTrabajador.value)) {
+                errors.push("El código de trabajador es obligatorio y debe ser un número");
+            }
+            const codServicios = formElement.querySelector('[name="Cod_Servicios"]');
+            if (!codServicios.value.trim() || isNaN(codServicios.value)) {
+                errors.push("El código de servicio es obligatorio y debe ser un número");
+            }
+            const codHistorial = formElement.querySelector('[name="Cod_Historial"]');
+            if (!codHistorial.value.trim() || isNaN(codHistorial.value)) {
+                errors.push("El código de historial es obligatorio y debe ser un número");
+            }
+            return errors;
+        }
+
+        /* ----------- ENVÍO DEL FORMULARIO DE CITAS ---------- */
+        document.querySelector('.proforma-form').onsubmit = function (e) {
+            e.preventDefault();
+            // Validar el formulario antes de enviar
+            const errors = validateForm(this);
+            if (errors.length > 0) {
+                showErrorModal('Error de Validación', 'Por favor, corrija los siguientes errores:', errors);
+                return;
+            }
+            const formData = new FormData(this);
+
+            fetch('../Logica_PHP/Citas.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        showSuccessModal('¡Éxito!', data.mensaje);
+                    } else {
+                        const serverErrors = data.errores || [data.mensaje];
+                        showErrorModal('Error', 'Se encontraron los siguientes errores:', serverErrors);
+                    }
+                })
+                .catch(error => {
+                    showErrorModal('Error', 'Ocurrió un error al procesar la solicitud', [error.message]);
+                });
+        };
+        // Estilos adicionales para la lista de errores
+        const style = document.createElement('style');
+        style.textContent = `
+        .modal-body ul {
+            margin-top: 10px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .modal-body li {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .modal-body li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: #ff0000;
+            font-size: 16px;
+        }
+    `;
+        document.head.appendChild(style);
+    </script>
+
+    <!-- Modal para l lupa de budqueda  -->
+<div id="notificationModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+        </div>
+        <div class="modal-body">
+            <p id="modalMessage"></p>
+        </div>
+        <div class="modal-footer">
+            <button id="modalOkButton">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+/*----------ESTILO HTML Y JAVA PARA EL MENSAJE DE VENTANA EMERGENTE */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+    padding: 20px 0;
+}
+
+.modal-footer {
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+#modalOkButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#modalOkButton:hover {
+    background-color: #45a049;
+}
+
+.success {
+    color: #4CAF50;
+}
+
+.error {
+    color: #f44336;
+}
+</style>
+
+<script>
+// Función para mostrar el modal
+function showModal(title, message, isSuccess) {
+    const modal = document.getElementById('notificationModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    
+    modalTitle.textContent = title;
+    modalTitle.className = isSuccess ? 'success' : 'error';
+    modalMessage.textContent = message;
+    
+    modal.style.display = 'block';
+}
+
+// Cerrar el modal
+document.querySelector('.close').onclick = function() {
+    document.getElementById('notificationModal').style.display = 'none';
+    if (document.querySelector('.success')) {
+        window.location.reload(); // Recargar la página si fue exitoso
+    }
+}
+
+document.getElementById('modalOkButton').onclick = function() {
+    document.getElementById('notificationModal').style.display = 'none';
+    if (document.querySelector('.success')) {
+        window.location.reload(); // Recargar la página si fue exitoso
+    }
+}
+
+// Cerrar el modal si se hace clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('notificationModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+        if (document.querySelector('.success')) {
+            window.location.reload();
+        }
+    }
+}
+
+// Modificar el envío del formulario para usar AJAX
+document.querySelector('.proforma-form').onsubmit = function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('../Logica_PHP/Citas.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.exito) {
+            showModal('¡Éxito!', data.mensaje, true);
+        } else {
+            showModal('Error', data.mensaje, false);
+        }
+    })
+    .catch(error => {
+        showModal('Error', 'Ocurrió un error al procesar la solicitud', false);
+    });
+};
+</script>
+
+<style>
+    .modal-busqueda {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+    .modal-contenido {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 5px;
+        width: 80%;
+        max-width: 900px;
+    }
+    .tabla-clientes {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .tabla-clientes th, .tabla-clientes td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .acciones-cliente {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+</head>
+<body>
+<!-- Modal de Búsqueda -->
+<div id="modal-busqueda" class="modal-busqueda">
+    <div class="modal-contenido">
+        <h2>Búsqueda de Citas</h2>
+        
+        <input type="text" id="input-busqueda" placeholder="Buscar Citas..">
+        
+        <table class="tabla-Citas">
+            <thead>
+                <tr>
+                    <th>Motivo de la Consulta</th>
+                    <th>Cobro Total</th>
+                    <th>Método de Pago</th>
+                    <th>Fecha de la Cita</th>
+                    <th>Código de la Mascota</th>
+                    <th>Código del Cliente</th>
+                    <th>Código del Trabajador</th>
+                    <th>Código del Servicio</th>
+                    <th>Código del Historial</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="resultados-busqueda">
+                <!-- Resultados de búsqueda se insertarán aquí -->
+            </tbody>
+        </table>
+
+        <div>
+            <button id="cerrar-modal">Cerrar</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const botonLupa = document.querySelector('.icono-lupa');
+            const modal = document.getElementById('modal-busqueda');
+            const botonCerrar = document.getElementById('cerrar-modal');
+            const inputBusqueda = document.getElementById('input-busqueda');
+            const tablaResultados = document.getElementById('resultados-busqueda');
+        
+            botonLupa.addEventListener('click', function() {
+                modal.style.display = 'block';
+                cargarTodasLasCitas();
+            });
+        
+            botonCerrar.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        
+            // Función para cargar todas las citas
+            function cargarTodasLasCitas() {
+                const citas = JSON.parse(localStorage.getItem('registeredCitas') || '[]');
+                mostrarCitas(citas);
+            }
+        
+            // Función para mostrar citas en la tabla
+            function mostrarCitas(citas) {
+                tablaResultados.innerHTML = '';
+                citas.forEach((cita, index) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${cita.motivoConsulta || ''}</td>
+                        <td>${cita.cobroTotal || ''}</td>
+                        <td>${cita.metodoPago || ''}</td>
+                        <td>${cita.fechaCita || ''}</td>
+                        <td>${cita.codigoMascota || ''}</td>
+                        <td>${cita.codigoCliente || ''}</td>
+                        <td>${cita.codigoTrabajador || ''}</td>
+                        <td>${cita.codigoServicio || ''}</td>
+                        <td>${cita.codigoHistorial || ''}</td>
+                        <td class="acciones-cita">
+                            <button onclick="editarCita(${index})">Editar</button>
+                            <button onclick="eliminarCita(${index})">Eliminar</button>
+                        </td>
+                    `;
+                    tablaResultados.appendChild(fila);
+                });
+            }
+        
+            // Búsqueda en tiempo real
+            inputBusqueda.addEventListener('input', function() {
+                const textoBusqueda = this.value.toLowerCase();
+                const citas = JSON.parse(localStorage.getItem('registeredCitas') || '[]');
+                
+                const citasFiltradas = citas.filter(cita => 
+                    (cita.motivoConsulta?.toLowerCase().includes(textoBusqueda) ||
+                    cita.codigoMascota?.toLowerCase().includes(textoBusqueda) ||
+                    cita.codigoCliente?.toLowerCase().includes(textoBusqueda) ||
+                    cita.diagnostico?.toLowerCase().includes(textoBusqueda))
+                );
+        
+                mostrarCitas(citasFiltradas);
+            });
+        
+            // Funciones globales para editar y eliminar
+            window.editarCita = function(index) {
+                const citas = JSON.parse(localStorage.getItem('registeredCitas') || '[]');
+                const cita = citas[index];
+                
+                // Aquí deberías rellenar tu formulario de citas con los datos
+                // Ejemplo:
+                document.getElementById('motivoConsulta').value = cita.motivoConsulta;
+                document.getElementById('cobroTotal').value = cita.cobroTotal;
+                // ... completar con todos los campos del formulario
+        
+                modal.style.display = 'none';
+            }
+        
+            window.eliminarCita = function(index) {
+                const citas = JSON.parse(localStorage.getItem('registeredCitas') || '[]');
+                
+                if(confirm('¿Está seguro que desea eliminar esta cita?')) {
+                    citas.splice(index, 1);
+                    localStorage.setItem('registeredCitas', JSON.stringify(citas));
+                    mostrarCitas(citas);
+                    
+                    // Actualizar tabla principal si es necesario
+                    const tableBody = document.getElementById('citasTableBody');
+                    if(tableBody) {
+                        tableBody.innerHTML = '';
+                        citas.forEach(citaData => {
+                            const newRow = tableBody.insertRow();
+                            newRow.innerHTML = `
+                                <td>${citaData.motivoConsulta}</td>
+                                <td>${citaData.cobroTotal}</td>
+                                <td>${citaData.metodoPago}</td>
+                                <!-- ... completar con todas las columnas -->
+                            `;
+                        });
+                    }
+                }
+            }
+        });
+        </script>
+</body>
+
+</html>

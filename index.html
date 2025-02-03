@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Login Layer -->
+    <div class="login-container">
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="Assets/LOGO1.png" alt="Logo de CODECRAFT">
+            <div class="animated-bar"></div>
+        </div>
+        <!-- TÍTULO -->
+        <h2>ZOOFIPETSS</h2>
+        <p>Inicio de Sesión</p>
+        <!-- FORMULARIO -->
+        <form onsubmit="event.preventDefault(); login();">
+            <input type="text" id="username" placeholder="Ingrese su usuario" required>
+            <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+        <!-- OPCIONES ADICIONALES -->
+        <div style="height: 20px;"></div>
+        <a href="#" class="recover-password">Solicitar recuperar contraseña</a>
+        <p class="version">Versión 4.1.0.6</p>
+    </div>
+
+    <script>
+        // Verificar si ya hay una sesión activa
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = 'capa_proforma.html';
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', username);
+                window.location.href = 'capa_proforma.html';
+            } else {
+                alert('Por favor ingrese usuario y contraseña');
+            }
+        }
+   
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = window.location.origin + '/index.html';
+
+            // Borrar el usuario y contraseña del campo de texto
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+   </script>
+</body>
+</html>

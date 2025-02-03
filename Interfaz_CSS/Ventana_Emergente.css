@@ -1,0 +1,436 @@
+
+/* ----------- MODAL PRINCIPAL ---------- */
+.modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed; /* Posición fija en la pantalla */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    left: 0; /* Posiciona desde el borde izquierdo */
+    top: 0; /* Posiciona desde el borde superior */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 100%; /* Ocupa toda la altura de la pantalla */
+    background-color: rgba(0, 0, 0, 0.2); /* Fondo semi-transparente oscuro */
+    backdrop-filter: blur(4px); /* Aplica un desenfoque al fondo */
+}
+
+/* ----------- CONTENIDO DEL MODAL ---------- */
+.modal-content {
+    background: white; /* Fondo blanco para el contenido */
+    margin: 5% auto; /* Margen superior reducido a 5% para mayor espacio */
+    padding: 30px; /* Relleno interior para separar contenido */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 400px; /* Ancho máximo */
+    min-height: 520px; /* Altura mínima para asegurar que el contenido se ajuste */
+    border-radius: 16px; /* Bordes redondeados */
+    position: relative; /* Posición relativa para los elementos internos */
+    animation: slideUp 0.3s ease-out; /* Animación de deslizamiento hacia arriba */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+    display: flex; /* Usando flexbox para disposición */
+    flex-direction: column; /* Disposición en columna */
+    align-items: center; /* Alineación central de los elementos */
+}
+
+/* ----------- ICONO DE ERROR ---------- */
+/* Estilo para el icono de error (por ejemplo, imagen) */
+.error-icon {
+    width: 120px; /* Tamaño reducido del icono */
+    height: 120px; /* Tamaño reducido del icono */
+    margin: 20px 0; /* Espaciado arriba y abajo del icono */
+    object-fit: contain; /* Asegura que la imagen no se deforme */
+}
+
+
+
+/* Estilos para temas de error y éxito */
+.error-theme {
+    border: 1px solid rgba(255, 75, 75, 0.1); /* Borde rojo con transparencia para indicar error */
+}
+
+.success-theme {
+    border: 1px solid rgba(72, 187, 120, 0.1); /* Borde verde con transparencia para indicar éxito */
+}
+
+/* Contenedor de la campana de notificación */
+.bell-container {
+    position: absolute; /* Posición absoluta respecto al contenedor */
+    top: -25px; /* Desplazado hacia arriba */
+    left: -25px; /* Desplazado hacia la izquierda */
+    z-index: 2; /* Asegura que la campana esté encima de otros elementos */
+    animation: bellShake 2s infinite; /* Animación de sacudida infinita */
+}
+
+/* Estilo del círculo de la campana */
+.bell-circle {
+    background: white; /* Fondo blanco */
+    width: 70px; /* Ancho del círculo */
+    height: 70px; /* Alto del círculo */
+    border-radius: 50%; /* Forma circular */
+    display: flex; /* Utiliza Flexbox para centrar el contenido */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    position: relative; /* Posicionamiento relativo para contenido interno */
+}
+
+/* Estilo del ícono de la campana */
+.bell-icon {
+    font-size: 45px; /* Tamaño del ícono */
+}
+
+/* Contador de notificaciones */
+.notification-count {
+    position: absolute; /* Posición absoluta respecto a la campana */
+    top: -4px; /* Desplazado hacia arriba */
+    right: -4px; /* Desplazado hacia la derecha */
+    background: #ff4b4b; /* Fondo rojo para indicar notificaciones */
+    color: white; /* Texto blanco */
+    min-width: 35px; /* Ancho mínimo */
+    height: 35px; /* Alto fijo */
+    border-radius: 20px; /* Forma circular */
+    display: flex; /* Utiliza Flexbox para centrar el número */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    font-size: 18px; /* Tamaño de texto más pequeño */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Variación para el contador de notificaciones con éxito */
+.notification-count.success {
+    background: #48bb78; /* Fondo verde para indicar éxito */
+}
+
+/* Contenedores de puntos decorativos */
+.decorative-dots {
+    position: absolute; /* Posiciona los puntos de manera absoluta */
+    display: flex; /* Flexbox para disposición de los puntos */
+    gap: 9px; /* Espacio entre los puntos */
+    z-index: 3; /* Asegura que los puntos estén por encima de otros elementos */
+}
+
+/* Posicionamiento de los puntos decorativos en diferentes lados */
+.decorative-dots.left {
+    left: 20px; /* Desplazamiento hacia la izquierda */
+    top: 20%; /* Centrado verticalmente */
+    transform: translateY(-50%); /* Ajuste preciso de la posición */
+    flex-direction: column; /* Disposición vertical */
+}
+
+.decorative-dots.right {
+    right: 20px; /* Desplazamiento hacia la derecha */
+    top: 80%; /* Centrado vertical */
+    transform: translateY(-50%); /* Ajuste preciso de la posición */
+    flex-direction: column; /* Disposición vertical */
+}
+
+/* Posicionamiento superior de los puntos */
+.decorative-dots.top {
+    top: 13px; /* Desplazado hacia arriba */
+    left: 50%; /* Centrado horizontal */
+    transform: translateX(-50%); /* Ajuste preciso de la posición */
+    flex-direction: row; /* Disposición horizontal */
+}
+
+/* Posicionamiento inferior de los puntos */
+.decorative-dots.bottom {
+    bottom: 13px; /* Desplazado hacia abajo */
+    left: 50%; /* Centrado horizontal */
+    transform: translateX(-50%); /* Ajuste preciso de la posición */
+    flex-direction: row; /* Disposición horizontal */
+}
+
+/* Posicionamiento en las esquinas */
+.decorative-dots.top-left {
+    top: 20px; /* Desplazado hacia arriba */
+    left: -20px; /* Desplazado hacia la izquierda */
+    flex-direction: row; /* Disposición horizontal */
+}
+
+.decorative-dots.top-right {
+    top: -20px; /* Desplazado hacia arriba */
+    right: -20px; /* Desplazado hacia la derecha */
+    flex-direction: row; /* Disposición horizontal */
+}
+
+.decorative-dots.bottom-left {
+    bottom: 20px; /* Desplazado hacia abajo */
+    left: -20px; /* Desplazado hacia la izquierda */
+    flex-direction: row; /* Disposición horizontal */
+}
+
+.decorative-dots.bottom-right {
+    bottom: 20px; /* Desplazado hacia abajo */
+    right: -20px; /* Desplazado hacia la derecha */
+    flex-direction: row; /* Disposición horizontal */
+}
+
+/* Estilos base para los puntos */
+.dot {
+    width: 10px; /* Tamaño base de los puntos */
+    height: 10px; /* Tamaño base de los puntos */
+    border-radius: 50%; /* Forma circular */
+    animation: pulse 2s infinite; /* Animación de pulso continua */
+}
+
+/* Variaciones de tamaño para los puntos */
+.dot.small {
+    width: 8px; /* Tamaño pequeño */
+    height: 8px; /* Tamaño pequeño */
+}
+
+.dot.large {
+    width: 14px; /* Tamaño grande */
+    height: 14px; /* Tamaño grande */
+}
+
+/* Colores de los puntos */
+.dot.red { background: #ff4b4b; } /* Rojo */
+.dot.pink { background: #ff4b9e; } /* Rosa */
+.dot.blue { background: #4b9eff; } /* Azul */
+.dot.light-blue { background: #4bd5ff; } /* Azul claro */
+.dot.green { background: #48bb78; } /* Verde */
+.dot.lime { background: #7ebb48; } /* Lima */
+
+/* Animación de pulso para los puntos */
+@keyframes pulse {
+    0% { transform: scale(2); opacity: 1; } /* Comienza pequeño y semitranslúcido */
+    50% { transform: scale(1.8); opacity: 2; } /* Crece y se vuelve completamente visible */
+    100% { transform: scale(2); opacity: 1; } /* Vuelve a su tamaño original y semitranslúcido */
+}
+
+/* ----------- CERRAR MODAL ---------- */
+.modal-close {
+    position: absolute; /* Posicionamiento absoluto en la esquina superior derecha */
+    top: 16px; /* Desplazado hacia abajo */
+    right: 16px; /* Desplazado hacia la derecha */
+    font-size: 20px; /* Tamaño del icono de cierre */
+    cursor: pointer; /* Cambia el cursor a pointer al pasar sobre el ícono */
+    color: #666; /* Color gris para el ícono */
+}
+
+/* ----------- HEADER DEL MODAL ---------- */
+
+/* Estilos base para el header del modal */
+.modal-header {
+    position: relative; /* Posición relativa para ajustarse dentro del contenedor */
+    margin-bottom: 12px; /* Espacio debajo del header */
+    text-align: center; /* Centra el texto */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    display: flex; /* Flexbox para el alineamiento */
+    flex-direction: column; /* Disposición en columna */
+    align-items: center; /* Alineación central */
+}
+
+/* Tamaños predefinidos para la imagen del header */
+.header-banner {
+    width: auto; /* Ancho automático */
+    height: auto; /* Alto automático */
+    border-radius: 8px; /* Bordes redondeados */
+    object-fit: contain; /* Ajuste de la imagen sin deformarla */
+}
+
+/* Tamaño pequeño de la imagen */
+.header-banner.size-sm {
+    max-width: 200px; /* Ancho máximo */
+    max-height: 200px; /* Alto máximo */
+}
+
+/* Estilo para el título del modal */
+.modal-title {
+    font-size: 24px; /* Tamaño grande del título */
+    font-weight: 700; /* Negrita */
+    margin: 10px 0; /* Espaciado superior e inferior */
+    color: #333; /* Color oscuro para el texto */
+}
+
+/* Estilo para el texto del modal */
+.modal-text {
+    font-size: 14px; /* Tamaño de texto moderado */
+    margin: 4px 0; /* Espaciado arriba y abajo */
+    line-height: 1.4; /* Interlineado para mejorar la legibilidad */
+    text-align: center; /* Centrado del texto */
+    color: #4f4c4c; /* Color gris para el texto */
+}
+
+
+
+/* ----------- BOTÓN DE MODAL ---------- */
+
+/* Estilo para el botón del modal */
+.modal-button {
+    width: 100%; /* Ocupa todo el ancho */
+    padding: 12px; /* Relleno interior */
+    background: #ff4b4b; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    font-weight: 700; /* Negrita */
+    margin-top: 16px; /* Espaciado superior */
+    cursor: pointer; /* Cambia el cursor a pointer */
+}
+
+/* ----------- ANIMACIONES ---------- */
+
+/* Animación de pulso para los puntos de la campana */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.5; } /* Inicial */
+    50% { transform: scale(1.2); opacity: 1; } /* Escala y opacidad máxima */
+    100% { transform: scale(1); opacity: 0.5; } /* Vuelve a la escala inicial */
+}
+
+/* Animación de sacudida de la campana */
+@keyframes bellShake {
+    0% { transform: rotate(0); } /* Posición inicial */
+    25% { transform: rotate(10deg); } /* Giro hacia la derecha */
+    50% { transform: rotate(0); } /* Vuelve a la posición inicial */
+    75% { transform: rotate(-10deg); } /* Giro hacia la izquierda */
+    100% { transform: rotate(0); } /* Vuelve a la posición inicial */
+}
+
+/* ----------- CONTENIDO DEL MODAL ---------- */
+
+/* Contenedor interior para organizar el contenido */
+.modal-content-inner {
+    width: 100%; /* Ocupa todo el ancho */
+    display: flex; /* Flexbox para disposición */
+    flex-direction: column; /* Disposición en columna */
+    align-items: center; /* Alineación centrada */
+    gap: 10px; /* Espaciado entre los elementos */
+}
+
+/* Estilo para el botón de cierre del modal */
+.close {
+    position: absolute; /* Posiciona el botón de cierre en la esquina superior derecha */
+    right: 16px; /* Desplazamiento a la derecha */
+    top: 16px; /* Desplazamiento hacia arriba */
+    color: #484646; /* Color inicial */
+    font-size: 24px; /* Tamaño del ícono */
+    font-weight: bold; /* Negrita */
+    cursor: pointer; /* Cambia el cursor a mano */
+    transition: color 0.2s; /* Transición suave de color */
+    background: white; /* Fondo blanco */
+    width: 24px; /* Tamaño del botón */
+    height: 24px; /* Tamaño del botón */
+    border-radius: 50%; /* Forma circular */
+    display: flex; /* Flexbox para centrar el ícono */
+    align-items: center; /* Alineación vertical */
+    justify-content: center; /* Alineación horizontal */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Efecto hover para el botón de cierre */
+.close:hover {
+    color: #333; /* Cambia el color al pasar el ratón */
+}
+
+/* Estilo del cuerpo del modal */
+.modal-body {
+    text-align: center; /* Centra el texto */
+    padding: 16px 0; /* Espaciado superior e inferior */
+}
+
+
+/* Estilo para el contenedor de error */
+.icon-container.error {
+    background: #fff1f1; /* Fondo suave rojo para errores */
+}
+
+/* Estilo para el contenedor de éxito */
+.icon-container.success {
+    background: #f0fff4; /* Fondo suave verde para éxito */
+}
+
+/* Estilo del icono dentro del contenedor */
+.modal-icon {
+    font-size: 24px; /* Tamaño del ícono */
+}
+
+/* Títulos de error y éxito */
+#errorTitle,
+#successTitle {
+    margin-bottom: 8px; /* Espaciado inferior */
+    font-size: 20px; /* Tamaño del texto */
+    font-weight: 600; /* Negrita */
+    color: #1a1a1a; /* Color oscuro */
+}
+
+/* Mensajes de error y éxito */
+#errorMessage,
+#successMessage {
+    color: #666; /* Color gris */
+    line-height: 1.5; /* Altura de línea para mejor legibilidad */
+    margin-bottom: 16px; /* Espaciado inferior */
+}
+
+/* Estilo del pie del modal */
+.modal-footer {
+    padding-top: 16px; /* Espaciado superior */
+}
+
+/* Botones de acción para error y éxito */
+#errorOkButton,
+#successOkButton {
+    width: 100%; /* Ancho completo */
+    padding: 12px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño del texto */
+    font-weight: 500; /* Peso de la fuente */
+    cursor: pointer; /* Cambia a mano al pasar el ratón */
+    transition: all 0.2s; /* Transición suave */
+}
+
+/* Estilo del botón de error */
+#errorOkButton {
+    background: #ff4b4b; /* Fondo rojo para error */
+    color: white; /* Texto blanco */
+}
+
+/* Estilo del botón de éxito */
+#successOkButton {
+    background: #48bb78; /* Fondo verde para éxito */
+    color: white; /* Texto blanco */
+}
+
+/* Efecto hover para los botones */
+#errorOkButton:hover,
+#successOkButton:hover {
+    transform: translateY(-1px); /* Desplaza ligeramente hacia arriba */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra al pasar el ratón */
+}
+
+/* Animaciones */
+
+/* Animación para el deslizamiento hacia arriba */
+@keyframes slideUp {
+    from {
+        opacity: 0; /* Comienza invisible */
+        transform: translateY(20px); /* Comienza desplazado hacia abajo */
+    }
+    to {
+        opacity: 1; /* Se vuelve visible */
+        transform: translateY(0); /* Vuelve a su posición original */
+    }
+}
+
+/* Animación de pulso para los puntos decorativos */
+@keyframes pulse {
+    0% {
+        transform: scale(0.95); /* Comienza pequeño */
+        opacity: 0.5; /* Comienza semi-translúcido */
+    }
+    50% {
+        transform: scale(1); /* Crece al tamaño original */
+        opacity: 1; /* Se vuelve completamente visible */
+    }
+    100% {
+        transform: scale(0.95); /* Vuelve a ser pequeño */
+        opacity: 0.5; /* Vuelve a ser semi-translúcido */
+    }
+}
+
+/* Media query para dispositivos pequeños */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 95%; /* Ancho del modal en pantallas pequeñas */
+        margin: 10% auto; /* Centrado vertical y horizontal */
+    }
+}

@@ -1,0 +1,631 @@
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* Estilos base y variables */
+:root {
+    /* Colores principales y configuraciones globales */
+    --primary-color: #ffffff; /* Fondo principal */
+    --pastel-blue: #98bbd4; /* Azul pastel */
+    --pastel-purple: #E6E6FA; /* Púrpura pastel */
+    --text-dark: #333333; /* Texto oscuro */
+    --sidebar-bg: #1e2433; /* Fondo del sidebar */
+    --sidebar-hover: #2c3444; /* Hover en el sidebar */
+    --text-light: #ffffff; /* Texto claro */
+    --hover-bg: #F0F8FF; /* Fondo hover */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra */
+    --transition-speed: 0.3s; /* Velocidad de transición */
+}
+
+/* ----------- Estilos generales del cuerpo ---------- */
+body {
+    font-family: Arial, sans-serif; /* Fuente principal */
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-color); /* Fondo del documento */
+    min-height: 100vh; /* Altura mínima igual al alto de la ventana */
+}
+
+/* ----------- Capa de login ---------- */
+#loginLayer {
+    position: fixed; /* Fija la posición de la capa */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa el ancho completo */
+    height: 100%; /* Ocupa la altura completa */
+    background-color: var(--pastel-blue); /* Fondo azul pastel */
+    display: flex; /* Usa flexbox para centrar */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Coloca la capa por encima de otros elementos */
+    transition: transform 0.5s ease; /* Transición suave al mostrar/ocultar */
+}
+
+.login-container {
+    background-color: var(--primary-color); /* Fondo blanco */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px var(--pastel-blue); /* Sombra ligera */
+    max-width: 400px; /* Ancho máximo del contenedor */
+    width: 100%;
+}
+
+/* ----------- Logo del formulario ---------- */
+.logo {
+    text-align: center; /* Centra el logo */
+    margin-bottom: 5px;
+}
+
+.logo img {
+    justify-content: center;
+    margin-bottom: -100px; /* Ajuste del margen inferior */
+    max-width: 200px; /* Tamaño máximo del logo */
+    width: 100%; /* Escala proporcional */
+}
+
+/* Logo dinámico según el estado del sidebar */
+.logo-expanded, .logo-collapsed {
+    max-height: 60px;
+    width: auto;
+    opacity: 1;
+    transition: opacity 0.3s ease; /* Suaviza cambios de visibilidad */
+}
+
+.logo-expanded { display: none; }
+.sidebar.expanded .logo-expanded { display: block; }
+.sidebar.expanded .logo-collapsed { display: none; }
+
+/* ----------- Campos del formulario ---------- */
+.input-group {
+    margin-bottom: 20px; /* Espaciado entre grupos */
+}
+
+.input-group label {
+    display: block; /* Hace que la etiqueta ocupe toda la línea */
+    margin-bottom: 8px;
+    color: var(--text-dark); /* Color oscuro para el texto */
+}
+
+.input-group input {
+    width: 100%; /* Campo de texto ajusta al ancho disponible */
+    padding: 12px;
+    border: 1px solid var(--pastel-purple); /* Borde púrpura pastel */
+    border-radius: 6px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluye relleno en el ancho */
+}
+
+/* ----------- Botón de inicio de sesión ---------- */
+.login-button {
+    width: 100%; /* Botón ajusta al ancho */
+    padding: 14px;
+    background-color: var(--pastel-purple); /* Fondo púrpura pastel */
+    border: none; /* Sin borde */
+    border-radius: 6px;
+    color: var(--text-dark); /* Texto oscuro */
+    font-size: 1.1em; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color var(--transition-speed) ease; /* Suaviza el cambio de color */
+}
+
+.login-button:hover {
+    background-color: #D8D8F0; /* Fondo más claro al pasar el cursor */
+}
+
+/* ----------- Capa principal ---------- */
+#mainLayer {
+    display: flex; /* Flexbox para organizar el contenido */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease; /* Transición suave para desplazamientos */
+}
+
+
+
+
+
+
+
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* ----------- Sidebar general ---------- */
+.sidebar {
+    width: 100px; /* Ancho inicial del sidebar (colapsado) */
+    background-color: var(--pastel-purple); /* Fondo púrpura pastel */
+    height: 100vh; /* Altura completa de la ventana */
+    position: fixed; /* Fijo al lado izquierdo de la pantalla */
+    transition: width 0.3s ease; /* Suave transición al expandir/colapsar */
+    overflow-y: auto; /* Scroll vertical si el contenido supera la altura */
+    overflow-x: hidden; /* Oculta el desplazamiento horizontal */
+    z-index: 100; /* Prioridad de visibilidad */
+    color: var(--text-dark); /* Color del texto */
+    scrollbar-width: thin; /* Barra de desplazamiento delgada */
+    scrollbar-color: var(--pastel-blue) var(--pastel-purple); /* Colores personalizados del scrollbar */
+}
+
+/* ----------- Estilo para los enlaces del menú ---------- */
+.sidebar-menu a {
+    text-decoration: none; /* Sin subrayado */
+    color: inherit; /* Hereda el color del texto del contenedor */
+    font-family: inherit; /* Hereda la fuente */
+    font-size: 14px; /* Tamaño de texto específico */
+}
+
+.sidebar-menu a:hover {
+    color: var(--highlight-color); /* Cambia el color al pasar el cursor */
+}
+
+.sidebar-menu a:focus {
+    outline: none; /* Elimina el contorno azul del enfoque */
+    text-decoration: none; /* Sin subrayado al enfocarse */
+}
+
+/* ----------- Estilo del texto del menú ---------- */
+.menu-item-text {
+    font-size: 18px; /* Aumenta el tamaño del texto */
+    font-weight: bold; /* Negrita para destacar */
+    color: inherit; /* Hereda el color del contenedor */
+}
+
+/* ----------- Personalización del scrollbar (Webkit) ---------- */
+.sidebar::-webkit-scrollbar {
+    width: 6px; /* Grosor de la barra de desplazamiento */
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: var(--pastel-blue); /* Fondo del track */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--pastel-purple); /* Color del thumb */
+    border-radius: 3px; /* Bordes redondeados */
+}
+
+/* ----------- Sidebar expandido ---------- */
+.sidebar.expanded {
+    width: 210px; /* Ancho del sidebar expandido */
+}
+
+/* ----------- Contenedor del logo o marca ---------- */
+.sidebar-brand {
+    padding: 15px; /* Espaciado interno */
+    font-size: 1.5em; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    white-space: nowrap; /* Evita cortes de texto en líneas */
+    opacity: 1; /* Marca visible */
+    transition: opacity 0.3s ease; /* Transición suave */
+    height: 100px; /* Altura del contenedor */
+    display: flex; /* Flexbox para centrar contenido */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    border-bottom: 1px solid var(--pastel-purple); /* Línea inferior */
+}
+
+/* ----------- Estilo para la imagen del logo ---------- */
+.sidebar-brand img {
+    max-height: 60px; /* Altura máxima de la imagen */
+    width: auto; /* Mantiene proporciones */
+    opacity: 1; /* Imagen visible */
+    transition: opacity 0.3s ease; /* Transición suave para la visibilidad */
+}
+
+/* Sidebar expandido: el logo sigue visible */
+.sidebar.expanded .sidebar-brand {
+    opacity: 1;
+}
+
+/* ----------- Contenedor del menú ---------- */
+.sidebar-menu {
+    list-style: none; /* Sin viñetas en la lista */
+    padding: 0; /* Sin relleno */
+    margin: 0; /* Sin margen */
+    position: relative; /* Permite submenús */
+    padding-bottom: 20px; /* Espaciado al final para submenús */
+}
+
+
+
+
+
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* ----------- Estilos del item del menú ---------- */
+.menu-item {
+    display: flex; /* Organiza los ítems con flexbox para alineación horizontal */
+    align-items: center; /* Centra verticalmente los elementos dentro del ítem */
+    padding: 10px; /* Espaciado interno para un diseño limpio */
+    cursor: pointer; /* Indica interactividad al usuario */
+    transition: background-color 0.3s ease; /* Suaviza el cambio de color de fondo */
+    color: var(--text-dark); /* Color del texto del ítem */
+    position: relative; /* Habilita posicionamiento relativo de elementos internos */
+    border-left: 3px solid transparent; /* Borde izquierdo invisible por defecto */
+}
+
+/* Efecto al pasar el mouse sobre un ítem del menú */
+.menu-item:hover {
+    background-color: var(--pastel-blue); /* Fondo cambia al color azul pastel */
+    border-left: 3px solid var(--pastel-purple); /* Resalta el borde izquierdo con púrpura */
+}
+
+/* ----------- Estilos del ícono dentro de cada ítem del menú ---------- */
+.menu-item i {
+    font-size: 1.9em; /* Tamaño grande para destacar el ícono */
+    width: 30px; /* Ancho del contenedor del ícono */
+    text-align: center; /* Centra el ícono horizontalmente */
+    margin-right: 20px; /* Espacio entre el ícono y el texto */
+}
+
+/* ----------- Estilos del texto dentro de cada ítem ---------- */
+.menu-item-text {
+    white-space: nowrap; /* Evita el salto de línea en textos largos */
+    opacity: 0; /* Oculta el texto en el sidebar colapsado */
+    transition: opacity 0.3s ease; /* Suave transición al expandir el sidebar */
+}
+
+/* Texto visible cuando el sidebar está expandido */
+.sidebar.expanded .menu-item-text {
+    opacity: 1; /* Muestra el texto */
+}
+
+/* ----------- Estilos para los submenús ---------- */
+.submenu {
+    max-height: 0; /* Submenú oculto por defecto */
+    overflow: hidden; /* Oculta contenido fuera de los límites */
+    transition: max-height 0.3s ease; /* Transición suave al abrir/cerrar el submenú */
+    background-color: var(--pastel-purple); /* Fondo púrpura pastel */
+    position: fixed; /* Posiciona el submenú de manera fija respecto al viewport */
+    left: 60px; /* Desplaza el submenú hacia la derecha del sidebar */
+    min-width: 200px; /* Ancho mínimo para el submenú */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para darle relieve */
+    z-index: 101; /* Prioridad en el apilamiento de elementos */
+}
+
+/* Submenú dentro del sidebar expandido */
+.sidebar.expanded .submenu {
+    position: relative; /* Posiciona el submenú dentro del layout del sidebar */
+    left: 0; /* Alinea el submenú al lado del sidebar */
+    box-shadow: none; /* Elimina la sombra en el modo expandido */
+    width: 100%; /* El submenú ocupa todo el ancho del sidebar */
+    background-color: var(--pastel-purple); /* Mantiene el fondo púrpura */
+}
+
+/* Submenú activo (visible) */
+.submenu.active {
+    max-height: 500px; /* Define una altura máxima visible */
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido excede */
+}
+
+/* ----------- Estilos para elementos dentro del submenú ---------- */
+.submenu ul {
+    padding: 12px 20px; /* Relleno interno para los elementos */
+    white-space: nowrap; /* Evita que los textos largos salten de línea */
+    cursor: pointer; /* Indica interactividad */
+    transition: background-color 0.3s ease; /* Cambio suave de fondo al interactuar */
+    color: var(--text-dark); /* Color del texto de los elementos */
+    font-weight: bold; /* Negrita opcional para destacar */
+    color: inherit; /* Hereda el color del contenedor */
+}
+
+/* Estilos de los enlaces dentro del submenú */
+.submenu a {
+    color: var(--text-dark); /* Color predeterminado del enlace */
+    text-decoration: none; /* Elimina subrayado */
+    display: block; /* Ocupa todo el ancho disponible */
+    width: 100%; /* El enlace cubre todo el ancho del submenú */
+    height: 100%; /* El enlace cubre todo el alto del submenú */
+}
+
+
+
+
+
+
+
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* ----------- Posicionamiento dinámico del submenú ---------- */
+.has-submenu {
+    position: relative; /* Posición relativa para posicionar el submenú dinámicamente */
+}
+
+.has-submenu .submenu {
+    top: 0; /* El submenú aparece alineado al nivel superior del ítem */
+}
+
+.has-submenu:hover .submenu {
+    display: block; /* Muestra el submenú al pasar el mouse sobre el ítem */
+}
+
+.submenu ul:hover {
+    background-color: var(--pastel-blue); /* Cambia el fondo al pasar el mouse sobre el submenú */
+}
+
+/* ----------- Estilos de la flecha del submenú ---------- */
+.arrow {
+    margin-left: auto; /* Posiciona la flecha al extremo derecho */
+    transition: transform 0.3s ease; /* Suave animación al rotar */
+    opacity: 0; /* Oculta la flecha por defecto */
+}
+
+.sidebar.expanded .arrow {
+    opacity: 1; /* Muestra la flecha cuando el sidebar está expandido */
+}
+
+.arrow.active {
+    transform: rotate(90deg); /* Gira la flecha cuando el submenú está abierto */
+}
+
+/* ----------- Estilos del contenido principal ---------- */
+.main-content {
+    margin-left: 60px; /* Margen izquierdo para acomodar el sidebar colapsado */
+    transition: margin-left 0.3s ease; /* Transición suave al expandir o colapsar el sidebar */
+    flex-grow: 1; /* El contenido principal ocupa todo el espacio restante */
+}
+
+.main-content.expanded {
+    margin-left: 200px; /* Margen mayor para el sidebar expandido */
+}
+
+/* ----------- Estilos de la barra superior ---------- */
+:root {
+    --barra-ancho: 100%; /* Define el ancho de la barra */
+    --barra-alto: 75px; /* Define el alto de la barra */
+}
+
+.top-bar {
+    background-color: var(--pastel-blue); /* Color de fondo de la barra superior */
+    width: var(--barra-ancho); /* Ancho completo de la barra */
+    height: var(--barra-alto); /* Alto fijo de la barra */
+    padding: 20px; /* Espaciado interno */
+    display: flex; /* Organización en fila de los elementos */
+    justify-content: space-between; /* Espacia los elementos a los extremos */
+    align-items: center; /* Alinea los elementos verticalmente */
+    box-shadow: 0 2px 4px var(--pastel-purple); /* Sombra para resaltar la barra */
+}
+
+/* ----------- Sección derecha de la barra superior ---------- */
+.top-bar-right {
+    display: flex; /* Organización en fila de los elementos */
+    align-items: center; /* Centrado vertical de los elementos */
+    gap: 10px; /* Espaciado entre elementos */
+}
+
+/* ----------- Información del usuario ---------- */
+.user-info {
+    padding: 10px 15px; /* Espaciado interno del contenedor */
+    background-color: #E6E6FA; /* Fondo inicial de la caja */
+    border-radius: 4px; /* Bordes redondeados */
+    display: flex; /* Organización en fila de los elementos */
+    align-items: center; /* Centrado vertical de los elementos */
+    font-size: 0.9em; /* Tamaño de fuente reducido */
+    transition: background-color var(--transition-speed) ease; /* Transición suave para el cambio de fondo */
+}
+
+.user-info:hover {
+    background-color: #ffffff; /* Fondo blanco al pasar el mouse */
+}
+
+.user-info i {
+    margin-right: 8px; /* Espaciado a la derecha del ícono */
+}
+
+/* ----------- Botón de cierre de sesión ---------- */
+.logout-btn {
+    padding: 10px 15px; /* Espaciado interno del botón */
+    background-color: var(--pastel-purple); /* Fondo inicial del botón */
+    border: none; /* Sin borde para diseño limpio */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Muestra el puntero al pasar el mouse */
+    transition: background-color var(--transition-speed) ease; /* Transición suave para el cambio de fondo */
+}
+
+.logout-btn:hover {
+    background-color: #f3f3f3; /* Fondo claro al pasar el mouse */
+}
+
+
+
+
+
+
+
+
+
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* ---------- Variables globales ---------- */
+:root {
+    --posicion-boton-x: 25px; /* Posición horizontal inicial del botón */
+    --posicion-boton-y: 0px; /* Posición vertical inicial del botón */
+    --titulo-size: 36px; /* Tamaño base del título */
+    --texto-size: 18px; /* Tamaño base del texto */
+    --logo-size: 200px; /* Tamaño base del logo */
+}
+
+/* ---------- Estilos para el botón de toggle del menú ---------- */
+#menu-toggle {
+    padding: 10px 20px; /* Espaciado interno del botón */
+    background-color: var(--pastel-purple); /* Fondo personalizado del botón */
+    border: none; /* Sin bordes para diseño limpio */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Muestra el puntero como indicador de clic */
+    transition: background-color var(--transition-speed) ease; /* Animación suave para fondo */
+    position: relative; /* Permite ajustar posición con variables */
+    left: var(--posicion-boton-x); /* Ajuste de posición horizontal */
+    top: var(--posicion-boton-y); /* Ajuste de posición vertical */
+}
+
+#menu-toggle:hover {
+    background-color: #ffffff; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* ---------- Estilos principales del body ---------- */
+body {
+    font-family: 'Poppins', sans-serif; /* Fuente personalizada */
+    margin: 0; /* Elimina márgenes por defecto */
+    background-color: #f9f9f9; /* Fondo claro para contraste */
+    color: #333; /* Color base del texto */
+    text-align: center; /* Centrado del contenido */
+}
+
+.main-content {
+    padding: 20px; /* Espaciado interno para el contenido principal */
+}
+
+/* ---------- Sección de bienvenida ---------- */
+.welcome-section {
+    padding: 40px 20px; /* Espaciado interno uniforme */
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidad */
+    text-align: center; /* Centra el contenido de la sección */
+}
+
+.welcome-title {
+    font-family: 'Montserrat', sans-serif; /* Fuente personalizada para el título */
+    font-size: var(--titulo-size); /* Tamaño definido por variable */
+    font-weight: bold; /* Negrita para destacar */
+    color: #1F2937; /* Color inicial del título */
+    text-transform: uppercase; /* Convierte texto a mayúsculas */
+    margin-bottom: 20px; /* Espaciado inferior */
+    cursor: pointer; /* Cursor tipo mano al pasar el ratón */
+    position: relative; /* Para usar pseudo-elementos */
+    transition: color 0.3s ease, transform 0.3s ease; /* Suaviza las animaciones */
+}
+
+/* Línea decorativa bajo el título */
+.welcome-title::before {
+    content: ""; /* Pseudo-elemento para la línea */
+    position: absolute; /* Posición relativa al título */
+    left: 50%; /* Centrado horizontal */
+    bottom: -12px; /* Posición debajo del título */
+    transform: translateX(-50%); /* Corrección de centrado */
+    width: 650px; /* Ancho inicial */
+    height: 4px; /* Grosor de la línea */
+    background-color: #805AD5; /* Color inicial */
+    border-radius: 2px; /* Bordes redondeados */
+    transition: width 0.3s ease, background-color 0.3s ease; /* Animaciones suaves */
+}
+
+/* Efecto hover sobre el título */
+.welcome-title:hover {
+    transform: translateY(-5px); /* Eleva el título ligeramente */
+    color: #805AD5; /* Cambia color del texto */
+}
+
+.welcome-title:hover::before {
+    width: 750px; /* Expande la línea */
+    background-color: #6B46C1; /* Cambia el color de la línea */
+}
+
+.welcome-text {
+    font-size: var(--texto-size); /* Tamaño ajustable por variable */
+    color: #444; /* Color del texto */
+    margin-top: 20px; /* Espaciado superior */
+}
+
+/* ---------- Contenedor para servicios ---------- */
+.service-container {
+    display: flex; /* Flexbox para organización */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    margin-bottom: 40px; /* Espaciado inferior */
+}
+
+/* ---------- Estilos de la barra superior ---------- */
+.top-bar {
+    background-color: #8dc0e3; /* Fondo azul claro */
+    padding: 10px 20px; /* Espaciado interno */
+    display: flex; /* Flexbox para elementos internos */
+    justify-content: space-between; /* Distribución a extremos */
+    align-items: center; /* Centrado vertical */
+}
+
+/* ---------- Ajustes responsivos ---------- */
+@media (max-width: 768px) {
+    :root {
+        --titulo-size: 2em; /* Tamaño reducido del título */
+        --texto-size: 1em; /* Tamaño reducido del texto */
+        --logo-size: 150px; /* Tamaño reducido del logo */
+    }
+}
+
+
+
+
+/* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
+
+/* ---------- Estilo para el texto de bienvenida ---------- */
+.welcome-text {
+    font-size: 1.2em; /* Ajusta el tamaño de la fuente */
+    color: #444; /* Color del texto */
+    margin-bottom: 30px; /* Espaciado inferior */
+}
+
+/* ---------- Sección de iconos ---------- */
+.icons-section {
+    display: flex; /* Usa Flexbox para organizar los iconos */
+    justify-content: center; /* Centra los iconos horizontalmente */
+    flex-wrap: wrap; /* Permite que los iconos se ajusten a la línea siguiente si es necesario */
+    gap: 20px; /* Espacio entre los iconos */
+}
+
+/* ---------- Estilos para las tarjetas de valores (movies) ---------- */
+.movie-grid {
+    display: flex; /* Usa Flexbox para organizar las tarjetas */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    gap: 20px; /* Espacio entre las tarjetas */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten si hay demasiado espacio */
+}
+
+/* Estilo para cada tarjeta individual */
+.movie-card {
+    position: relative; /* Establece una posición relativa para poder colocar elementos sobre ella */
+    width: 200px; /* Establece el ancho de la tarjeta */
+    height: 300px; /* Establece la altura de la tarjeta */
+    background-color: #333; /* Fondo oscuro para la tarjeta */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Evita que los elementos fuera del borde sean visibles */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Añade una sombra sutil */
+    transition: transform 0.3s ease-in-out; /* Efecto de transición suave al interactuar con la tarjeta */
+}
+
+/* Efecto de escala al pasar el mouse sobre la tarjeta */
+.movie-card:hover {
+    transform: scale(1.05); /* Aumenta el tamaño de la tarjeta un 5% */
+}
+
+/* ---------- Estilos para la imagen dentro de la tarjeta ---------- */
+.movie-card img {
+    width: 100%; /* La imagen ocupará todo el ancho de la tarjeta */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Hace que la imagen sea un bloque */
+    object-fit: cover; /* Cubre el área de la tarjeta sin distorsionar la imagen */
+}
+
+/* ---------- Estilos para la superposición de texto dentro de la tarjeta (card-overlay) ---------- */
+.card-overlay {
+    position: absolute; /* Posición absoluta para que se superponga sobre la tarjeta */
+    bottom: 0; /* Ubica el texto al fondo de la tarjeta */
+    left: 0; /* Alinea el texto a la izquierda */
+    width: 100%; /* Hace que la superposición ocupe todo el ancho de la tarjeta */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con algo de transparencia */
+    padding: 10px; /* Espaciado alrededor del texto */
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+    opacity: 1; /* Hace que la superposición sea visible todo el tiempo */
+    text-align: center; /* Centra el contenido dentro de la superposición */
+}
+
+/* ---------- Estilo para el título dentro de la superposición ---------- */
+.card-overlay .card-title {
+    font-size: 18px; /* Tamaño de la letra para el título */
+    color: #f2f2f2; /* Color claro para el título */
+    margin-bottom: 5px; /* Espaciado debajo del título */
+    text-align: center; /* Centra el título */
+}
+
+/* ---------- Estilo para la descripción dentro de la superposición ---------- */
+.card-overlay .card-description {
+    font-size: 14px; /* Tamaño más pequeño para la descripción */
+    color: #f2f2f2; /* Color claro para la descripción */
+}

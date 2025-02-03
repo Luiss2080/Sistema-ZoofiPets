@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Veterinaria Zoofipets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+   <!-- Referencia al archivo CSS -->
+   <link rel="stylesheet" href="Capa_proforma.css">
+</head>
+<body>
+
+
+   
+    <!-- ----------- CAPA DE LOGIN ---------- -->
+    <div id="loginLayer">
+        <!-- Enlace para recuperación de contraseña -->
+        <a href="#" class="recover-password"></a>
+        <!-- Sección que muestra la versión -->
+        <p class="version"></p>
+    </div>
+
+    <!-- ----------- CAPA PRINCIPAL ---------- -->
+    <div id="mainLayer">
+
+        <!-- ----------- BARRA LATERAL DEL MENÚ ---------- -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <!-- Logos en diferentes tamaños dependiendo de la vista -->
+                <img src="Assets/LOGO1.png" alt="Logo" class="logo-expanded"> <!-- Logo para vista completa -->
+                <img src="Assets/CD.jpg" alt="Logo" class="logo-collapsed"> <!-- Logo para vista reducida -->
+            </div>
+
+            <!-- Menú lateral con enlaces a diferentes secciones -->
+            <ul class="sidebar-menu">
+                <!-- Enlace al inicio -->
+                <li>
+                    <div class="menu-item" id="menuInicio">
+                        <i>🏠</i> <!-- Icono de inicio -->
+                        <span class="menu-item-text">INICIO</span> <!-- Texto de la opción -->
+                    </div>
+                </li>
+
+                <!-- Submenú de servicios -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>↩️</i> <!-- Icono de servicios -->
+                        <span class="menu-item-text">SERVICIOS</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Citas.html"> 📅 Registrar Citas</a></ul> <!-- Enlace a formulario de citas -->
+                        <ul><a href="Formularios_HTML/FORM_Servicios.html"> 🩺 Consultas </a></ul> <!-- Enlace a formulario de consultas -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de mascotas -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🐾</i> <!-- Icono de mascotas -->
+                        <span class="menu-item-text">MASCOTAS</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Mascotas.html"> 🐕 Nueva Mascota</a></ul> <!-- Enlace para agregar nueva mascota -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de clientes -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>👥</i> <!-- Icono de clientes -->
+                        <span class="menu-item-text">CLIENTES</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Clientes.html"> 📝 Nuevo Registro</a></ul> <!-- Enlace para agregar nuevo cliente -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de personal -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🧑‍💻</i> <!-- Icono de personal -->
+                        <span class="menu-item-text">PERSONAL</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Trabajadores.html"> 👨‍🔧 Trabajadores</a></ul> <!-- Enlace para gestionar trabajadores -->
+                        <ul><a href="Formularios_HTML/FORM_Usuario.html"> 👤 Usuario</a></ul> <!-- Enlace para gestión de usuarios -->
+                        <ul><a href="Formularios_HTML/FORM_Permiso.html"> ✅ Permisos</a></ul> <!-- Enlace para permisos -->
+                        <ul><a href="Formularios_HTML/FORM_Roles.html"> 🛠 Roles</a></ul> <!-- Enlace para roles -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de historial -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📝</i> <!-- Icono de historial -->
+                        <span class="menu-item-text">HISTORIAL</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Historial.html"> 📖 Historial Clínico</a></ul> <!-- Enlace al historial clínico -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de ventas -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>💰</i> <!-- Icono de ventas -->
+                        <span class="menu-item-text">VENTAS</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Ventas.html"> 📋 Nueva Venta</a></ul> <!-- Enlace para registrar una nueva venta -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de compras -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>🛒</i> <!-- Icono de compras -->
+                        <span class="menu-item-text">COMPRAS</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Proveedores.html"> 🚚 Proveedores</a></ul> <!-- Enlace para gestionar proveedores -->
+                        <ul><a href="Formularios_HTML/FORM_Compras.html"> 🛒 Nueva Compra</a></ul> <!-- Enlace para registrar una nueva compra -->
+                    </ul>
+                </li>
+
+                <!-- Submenú de productos -->
+                <li class="has-submenu">
+                    <div class="menu-item">
+                        <i>📦</i> <!-- Icono de productos -->
+                        <span class="menu-item-text">PRODUCTOS</span> <!-- Texto del submenú -->
+                        <span class="arrow">></span> <!-- Indicador de submenú -->
+                    </div>
+                    <ul class="submenu">
+                        <ul><a href="Formularios_HTML/FORM_Productos.html"> 📋 Nuevo Producto</a></ul> <!-- Enlace para agregar un nuevo producto -->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ----------- CONTENIDO PRINCIPAL ---------- -->
+        <div class="main-content">
+
+            <!-- ----------- BARRA SUPERIOR ---------- -->
+            <div class="top-bar">
+                <div>
+                    <!-- Botón para mostrar/ocultar el menú -->
+                    <button id="menu-toggle">☰</button> <!-- Icono para mostrar/ocultar -->
+                </div>
+                <div class="top-bar-right">
+                    <!-- Información del usuario logueado -->
+                    <div class="user-info">
+                        <i>👤</i> <!-- Icono de usuario -->
+                        <span id="userDisplay">Usuario</span> <!-- Nombre del usuario -->
+                    </div>
+                    <!-- Botón de cerrar sesión -->
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button> <!-- Acción para cerrar sesión -->
+                </div>
+            </div>
+
+            <!-- ----------- SECCIÓN DE BIENVENIDA ---------- -->
+            <div class="service-container">
+                <div class="main-content">
+                    <div class="welcome-section">
+                        <h1 class="welcome-title" id="title">¡BIENVENIDO AL SISTEMA ZOOFIPETS!</h1> <!-- Título de bienvenida -->
+
+                        <div style="height: 30px;"></div> <!-- Espaciado entre elementos -->
+                        <div class="icons-section">
+                            <!-- Tarjetas con valores representativos -->
+                            <div class="movie-grid">
+                                <!-- Tarjeta 1: Compasión -->
+                                <div class="movie-card">
+                                    <img src="Assets/perro1.jpg" alt="Icono Compasión"> <!-- Imagen representativa -->
+                                    <div class="card-overlay">
+                                        <h3 class="card-title">Compasión</h3> <!-- Título de la tarjeta -->
+                                        <p class="card-description">"Empatía y cuidado amoroso hacia animales"</p> <!-- Descripción -->
+                                    </div>
+                                </div>
+    
+                                <!-- Tarjeta 2: Profesionalismo -->
+                                <div class="movie-card">
+                                    <img src="Assets/gato1.png" alt="Icono Profesionalismo">
+                                    <div class="card-overlay">
+                                        <h3 class="card-title">Profesionalismo</h3>
+                                        <p class="card-description">"Estándares éticos y técnicos en los servicios"</p>
+                                    </div>
+                                </div>
+    
+                                <!-- Tarjeta 3: Dedicación -->
+                                <div class="movie-card">
+                                    <img src="Assets/perro2.png" alt="Icono Dedicación">
+                                    <div class="card-overlay">
+                                        <h3 class="card-title">Dedicación</h3>
+                                        <p class="card-description">"Compromiso con el cuidado integral"</p>
+                                    </div>
+                                </div>
+    
+                                <!-- Tarjeta 4: Transparencia -->
+                                <div class="movie-card">
+                                    <img src="Assets/gato3.jpg" alt="Icono Transparencia">
+                                    <div class="card-overlay">
+                                        <h3 class="card-title">Transparencia</h3>
+                                        <p class="card-description">"Comunicación clara, honesta y confiable."</p>
+                                    </div>
+                                </div>
+    
+                                <!-- Tarjeta 5: Excelencia -->
+                                <div class="movie-card">
+                                    <img src="Assets/perro3.jpg" alt="Icono Excelencia">
+                                    <div class="card-overlay">
+                                        <h3 class="card-title">Excelencia</h3>
+                                        <p class="card-description">"Búsqueda continua de calidad y mejora"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="height: 20px;"></div>
+
+                        <!-- Descripción general del sistema -->
+                        <p class="welcome-text" id="description">
+                            "Juntos, transformamos el bienestar de cada mascota. Tu pasión por el cuidado animal y nuestro compromiso son la base para lograr una atención sin igual"
+                        </p>
+                    </div>
+
+        </div>
+    </div>
+
+<!-- Fuentes -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <script>
+        // Verificar el estado del login al cargar la página
+     document.addEventListener('DOMContentLoaded', function() {
+     const isLoggedIn = localStorage.getItem('isLoggedIn');
+     if (!isLoggedIn) {
+        document.getElementById('loginLayer').style.transform = 'translateX(0)';
+        document.getElementById('mainLayer').style.transform = 'translateX(100%)';
+     } else {
+        checkLoginState();
+     }
+    setupEventListeners();
+});
+
+// Función para verificar el estado del login
+function checkLoginState() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const username = localStorage.getItem('username');
+    
+    if (isLoggedIn === 'true' && username) {
+        document.getElementById('userDisplay').textContent = username;
+        document.getElementById('loginLayer').style.transform = 'translateX(-100%)';
+        document.getElementById('mainLayer').style.transform = 'translateX(0)';
+    }
+}
+
+// Función de login
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username && password) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('username', username);
+        
+        document.getElementById('userDisplay').textContent = username;
+        document.getElementById('loginLayer').style.transform = 'translateX(-100%)';
+        document.getElementById('mainLayer').style.transform = 'translateX(0)';
+    } else {
+        alert('Por favor ingrese usuario y contraseña');
+    }
+}
+
+// Función de logout
+// Reemplaza la función logout existente en capa_proforma.html con esta:
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    window.location.href = 'index.html';
+    // Limpieza de campos de usuario y contraseña
+    document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+}
+
+// Agrega esta función al inicio del archivo para verificar la sesión
+window.onload = function() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+        window.location.href = 'index.html';
+    }
+}
+
+// Configuración de los event listeners
+function setupEventListeners() {
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    let activeSubmenu = null;
+    
+    // Función para cerrar todos los submenús
+    function closeAllSubmenus() {
+        document.querySelectorAll('.submenu.active').forEach(submenu => {
+            submenu.classList.remove('active');
+            const arrow = submenu.parentElement.querySelector('.arrow');
+            if (arrow) arrow.classList.remove('active');
+        });
+    }
+
+    // Click en los items del menú
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // Si el sidebar está colapsado, primero lo expandimos
+            if (!sidebar.classList.contains('expanded')) {
+                sidebar.classList.add('expanded');
+                mainContent.classList.add('expanded');
+                return;
+            }
+
+            // Si es el menú de inicio, manejamos su comportamiento especial
+            if (this.id === 'menuInicio') {
+                const welcomeSection = document.getElementById('welcomeSection');
+                welcomeSection.style.display = 'block';
+                welcomeSection.scrollIntoView({ behavior: 'smooth' });
+                
+                // Ocultamos otros contenidos
+                document.querySelectorAll('.main-content > div:not(#welcomeSection):not(.top-bar)').forEach(content => {
+                    content.style.display = 'none';
+                });
+                return;
+            }
+
+            // Manejo de submenús
+            const submenu = this.parentElement.querySelector('.submenu');
+            const arrow = this.querySelector('.arrow');
+
+            if (submenu) {
+                // Si hay un submenú activo diferente, lo cerramos
+                if (activeSubmenu && activeSubmenu !== submenu) {
+                    activeSubmenu.classList.remove('active');
+                    const activeArrow = activeSubmenu.parentElement.querySelector('.arrow');
+                    if (activeArrow) activeArrow.classList.remove('active');
+                }
+
+                // Toggle del submenú actual
+                submenu.classList.toggle('active');
+                if (arrow) arrow.classList.toggle('active');
+                
+                activeSubmenu = submenu.classList.contains('active') ? submenu : null;
+            }
+        });
+    });
+
+    // Click fuera del sidebar para colapsarlo
+    document.addEventListener('click', function(e) {
+        if (!sidebar.contains(e.target) && !e.target.matches('#menu-toggle')) {
+            sidebar.classList.remove('expanded');
+            mainContent.classList.remove('expanded');
+            closeAllSubmenus();
+        }
+    });
+
+    // Toggle del menú hamburguesa
+    document.getElementById('menu-toggle').addEventListener('click', function(e) {
+        e.stopPropagation();
+        sidebar.classList.toggle('expanded');
+        mainContent.classList.toggle('expanded');
+        if (!sidebar.classList.contains('expanded')) {
+            closeAllSubmenus();
+        }
+    });
+
+    // Prevenir cierre del sidebar al hacer click en submenús
+    document.querySelectorAll('.submenu').forEach(submenu => {
+        submenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+
+    // Manejo de enlaces
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                e.preventDefault();
+                alert('Debe iniciar sesión primero');
+            }
+        });
+    });
+
+    // Prevenir que el click en los submenús propague al menú principal
+    document.querySelectorAll('.submenu li').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+}
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
