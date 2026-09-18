@@ -115,13 +115,12 @@ try {
     // Confirmar transacción
     $conex->commit();
 
-    echo json_encode(['exito' => true, 'mensaje' => 'Permiso registrado exitosamente.', 'registro' => $nuevoPermiso]);
-
-    // Enviar respuesta de éxito
+    // Enviar respuesta de éxito (una sola vez)
     header('Content-Type: application/json');
     echo json_encode([
         'exito' => true,
-        'mensaje' => "✅ El permiso ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥"
+        'mensaje' => "✅ El permiso ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥",
+        'registro' => $nuevoPermiso
     ]);
 
 } catch (Exception $e) {
