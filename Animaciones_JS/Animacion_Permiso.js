@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -303,12 +317,12 @@ function renderizarTabla(permisos) {
     permisos.forEach(permiso => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${permiso.Mascota_Cliente || '---'}</td>
-            <td>${permiso.Diagnostico || '---'}</td>
-            <td>${permiso.Tratamiento || '---'}</td>
-            <td>${permiso.Especialidades || '---'}</td>
-            <td>${permiso.Pronostico_Final || '---'}</td>
-            <td>${permiso.Cod_Mascotas || '---'}</td>
+            <td>${escapeHtml(permiso.Mascota_Cliente || '---')}</td>
+            <td>${escapeHtml(permiso.Diagnostico || '---')}</td>
+            <td>${escapeHtml(permiso.Tratamiento || '---')}</td>
+            <td>${escapeHtml(permiso.Especialidades || '---')}</td>
+            <td>${escapeHtml(permiso.Pronostico_Final || '---')}</td>
+            <td>${escapeHtml(permiso.Cod_Mascotas || '---')}</td>
         `;
         tableBody.appendChild(row);
     });

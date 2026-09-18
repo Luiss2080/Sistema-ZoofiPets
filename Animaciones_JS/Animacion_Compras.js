@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -295,15 +309,15 @@ function renderizarTabla(compras) {
     compras.forEach(compra => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${compra.descuento || 'N/A'}</td>
-            <td>${compra.estado || 'Pendiente'}</td>
-            <td>${compra.fechaCompra || '---'}</td>
-            <td>${compra.fechaIngreso || '---'}</td>
-            <td>${compra.glosa || 'Sin glosa'}</td>
-            <td>${compra.monto ? 'Bs' + compra.monto : '---'}</td>
-            <td>${compra.montoTotal ? 'Bs' + compra.montoTotal : '---'}</td>
-            <td>${compra.codProveedor || '---'}</td>
-            <td>${compra.codTrabajador || '---'}</td>
+            <td>${escapeHtml(compra.descuento || 'N/A')}</td>
+            <td>${escapeHtml(compra.estado || 'Pendiente')}</td>
+            <td>${escapeHtml(compra.fechaCompra || '---')}</td>
+            <td>${escapeHtml(compra.fechaIngreso || '---')}</td>
+            <td>${escapeHtml(compra.glosa || 'Sin glosa')}</td>
+            <td>${escapeHtml(compra.monto ? 'Bs' + compra.monto : '---')}</td>
+            <td>${escapeHtml(compra.montoTotal ? 'Bs' + compra.montoTotal : '---')}</td>
+            <td>${escapeHtml(compra.codProveedor || '---')}</td>
+            <td>${escapeHtml(compra.codTrabajador || '---')}</td>
         `;
         tableBody.appendChild(row);
     });

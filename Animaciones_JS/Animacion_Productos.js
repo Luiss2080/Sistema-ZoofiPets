@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -290,12 +304,12 @@ function setupEventListeners() {
         productos.forEach(producto => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${producto.Nombre || '---'}</td>
-                <td>${producto.Stock || 0}</td>
-                <td>${producto.Proveedor || '---'}</td>
-                <td>${producto.Categoria || '---'}</td>
-                <td>${producto.Tipo || '---'}</td>
-                <td>${producto.Cod_Proveedores || '---'}</td>
+                <td>${escapeHtml(producto.Nombre || '---')}</td>
+                <td>${escapeHtml(producto.Stock || 0)}</td>
+                <td>${escapeHtml(producto.Proveedor || '---')}</td>
+                <td>${escapeHtml(producto.Categoria || '---')}</td>
+                <td>${escapeHtml(producto.Tipo || '---')}</td>
+                <td>${escapeHtml(producto.Cod_Proveedores || '---')}</td>
             `;
             tableBody.appendChild(row);
         });
