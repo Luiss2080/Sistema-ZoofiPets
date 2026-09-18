@@ -22,6 +22,26 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 /**
+ * Función pura (no corta la ejecución): devuelve los datos del usuario
+ * autenticado en la sesión actual, o null si no hay ninguno. Separarla
+ * de requireAuth() permite probar la lógica de autenticación en tests
+ * unitarios sin que un exit() termine el proceso del test runner.
+ *
+ * @return array{id:int,nombre:string}|null
+ */
+function usuarioAutenticado(): ?array
+{
+    if (empty($_SESSION['usuario_id'])) {
+        return null;
+    }
+
+    return [
+        'id' => (int) $_SESSION['usuario_id'],
+        'nombre' => $_SESSION['usuario_nombre'] ?? '',
+    ];
+}
+
+/**
  * Corta la ejecución con 401 si no hay una sesión de usuario autenticada
  * válida. Debe ser la primera línea de lógica de cualquier endpoint
  * protegido.
@@ -30,7 +50,9 @@ if (session_status() === PHP_SESSION_NONE) {
  */
 function requireAuth(): array
 {
-    if (empty($_SESSION['usuario_id'])) {
+    $usuario = usuarioAutenticado();
+
+    if ($usuario === null) {
         http_response_code(401);
         header('Content-Type: application/json');
         echo json_encode([
@@ -40,8 +62,5 @@ function requireAuth(): array
         exit;
     }
 
-    return [
-        'id' => (int) $_SESSION['usuario_id'],
-        'nombre' => $_SESSION['usuario_nombre'] ?? '',
-    ];
+    return $usuario;
 }
