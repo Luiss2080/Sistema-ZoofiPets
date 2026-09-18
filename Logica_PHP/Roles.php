@@ -66,24 +66,27 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Verificar si el usuario existe
-    $sql_check_user = "SELECT COUNT(*) AS count FROM Usuario WHERE Cod_Usuario = '$Cod_Usuario'";
-    $result = $conex->query($sql_check_user);
-    $row = $result->fetch_assoc();
+    // Verificar si el usuario existe (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Usuario WHERE Cod_Usuario = ?");
+    $stmt_check->bind_param("s", $Cod_Usuario);
+    $stmt_check->execute();
+    $row = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row['count'] == 0) {
         throw new Exception("El usuario proporcionado no existe en la base de datos.");
     }
 
-    // Insertar rol
-    $sql_roles = "INSERT INTO Roles 
-        (Nombre_Rol, Descripcion_Rol, Estado, Cod_Usuario) 
-        VALUES 
-        ('$Nombre_Rol', '$Descripcion_Rol', '$Estado', '$Cod_Usuario')";
+    // Insertar rol (consulta parametrizada)
+    $stmt_roles = $conex->prepare(
+        "INSERT INTO Roles (Nombre_Rol, Descripcion_Rol, Estado, Cod_Usuario) VALUES (?, ?, ?, ?)"
+    );
+    $stmt_roles->bind_param("ssss", $Nombre_Rol, $Descripcion_Rol, $Estado, $Cod_Usuario);
 
-    if (!$conex->query($sql_roles)) {
-        throw new Exception("Error al insertar rol: " . $conex->error);
+    if (!$stmt_roles->execute()) {
+        throw new Exception("Error al insertar rol: " . $stmt_roles->error);
     }
+    $stmt_roles->close();
 
     // Confirmar transacción
     $conex->commit();

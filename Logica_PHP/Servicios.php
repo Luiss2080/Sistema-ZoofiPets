@@ -90,10 +90,12 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Verificar si el Cod_Historial existe en la tabla Historial
-    $sql_check_historial = "SELECT COUNT(*) AS count FROM Historial WHERE Cod_Historial = '$Cod_Historial'";
-    $result_historial = $conex->query($sql_check_historial);
-    $row_historial = $result_historial->fetch_assoc();
+    // Verificar si el Cod_Historial existe en la tabla Historial (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Historial WHERE Cod_Historial = ?");
+    $stmt_check->bind_param("s", $Cod_Historial);
+    $stmt_check->execute();
+    $row_historial = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_historial['count'] == 0) {
         throw new Exception("El historial proporcionado no existe.");
@@ -101,23 +103,30 @@ try {
 
     // Verificar si el Cod_Mascotas existe en la tabla Mascotas (si se proporciona)
     if ($Cod_Mascotas !== null) {
-        $sql_check_mascotas = "SELECT COUNT(*) AS count FROM Mascotas WHERE Cod_Mascotas = '$Cod_Mascotas'";
-        $result_mascotas = $conex->query($sql_check_mascotas);
-        $row_mascotas = $result_mascotas->fetch_assoc();
+        $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Mascotas WHERE Cod_Mascotas = ?");
+        $stmt_check->bind_param("s", $Cod_Mascotas);
+        $stmt_check->execute();
+        $row_mascotas = $stmt_check->get_result()->fetch_assoc();
+        $stmt_check->close();
 
         if ($row_mascotas['count'] == 0) {
             throw new Exception("La mascota proporcionada no existe.");
         }
     }
 
-    // Insertar servicio
-    $sql_servicios = "INSERT INTO Servicios 
-        (Especialidades, Especialista, Precio, Duracion_Estimada, Categoria, Turno, Cod_Mascotas, Cod_Historial) 
-        VALUES 
-        ('$Especialidades', '$Especialista', '$Precio', '$Duracion_Estimada', '$Categoria', '$Turno', '$Cod_Mascotas', '$Cod_Historial')";
+    // Insertar servicio (consulta parametrizada)
+    $Cod_Mascotas_Valor = $Cod_Mascotas ?? '';
+    $stmt_servicios = $conex->prepare(
+        "INSERT INTO Servicios (Especialidades, Especialista, Precio, Duracion_Estimada, Categoria, Turno, Cod_Mascotas, Cod_Historial)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_servicios->bind_param(
+        "ssssssss",
+        $Especialidades, $Especialista, $Precio, $Duracion_Estimada, $Categoria, $Turno, $Cod_Mascotas_Valor, $Cod_Historial
+    );
 
-    if (!$conex->query($sql_servicios)) {
-        throw new Exception("Error al insertar servicio: " . $conex->error);
+    if (!$stmt_servicios->execute()) {
+        throw new Exception("Error al insertar servicio: " . $stmt_servicios->error);
     }
 
     // Confirmar transacción
