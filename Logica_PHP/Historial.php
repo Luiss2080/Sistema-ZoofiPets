@@ -7,6 +7,8 @@ ini_set('display_errors', 1);
 require_once "../conexion.php";
 require_once "auth.php";
 requireAuth();
+require_once "csrf.php";
+requireCsrf();
 /* ----------- VERIFICAR CONEXIÓN ---------- */
 if ($conex->connect_error) {
     die(json_encode(['exito' => false, 'mensaje' => 'Error de conexión: ' . $conex->connect_error]));

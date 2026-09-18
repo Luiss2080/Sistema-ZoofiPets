@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
    // Animación para mostrar u ocultar el formulario
    const toggleButton = document.querySelector('.toggle-form');
    const formContainer = document.querySelector('.proforma-form-container');
@@ -317,17 +331,17 @@ function loadClientsFromLocalStorage() {
    clients.forEach(client => {
        const newRow = tableBody.insertRow();
        newRow.innerHTML = `
-           <td>${client.nombre}</td>
-           <td>${client.apellido}</td>
-           <td>${client.genero}</td>
-           <td>${client.fechaNacimiento}</td>
-           <td>${client.edad}</td>
-           <td>${client.direccion}</td>
-           <td>${client.ci}</td>
-           <td>${client.fechaRegistro}</td>
-           <td>${client.preferenciasContacto}</td>
-           <td>${client.telefonos.join(', ')}</td>
-           <td>${client.emails.join(', ')}</td>
+           <td>${escapeHtml(client.nombre)}</td>
+           <td>${escapeHtml(client.apellido)}</td>
+           <td>${escapeHtml(client.genero)}</td>
+           <td>${escapeHtml(client.fechaNacimiento)}</td>
+           <td>${escapeHtml(client.edad)}</td>
+           <td>${escapeHtml(client.direccion)}</td>
+           <td>${escapeHtml(client.ci)}</td>
+           <td>${escapeHtml(client.fechaRegistro)}</td>
+           <td>${escapeHtml(client.preferenciasContacto)}</td>
+           <td>${escapeHtml(client.telefonos.join(', '))}</td>
+           <td>${escapeHtml(client.emails.join(', '))}</td>
        `;
    });
 }
@@ -360,17 +374,17 @@ document.querySelector('.proforma-form').addEventListener('submit', function(eve
        const tableBody = document.getElementById('clientTableBody');
        const newRow = tableBody.insertRow();
        newRow.innerHTML = `
-           <td>${clientData.nombre}</td>
-           <td>${clientData.apellido}</td>
-           <td>${clientData.genero}</td>
-           <td>${clientData.fechaNacimiento}</td>
-           <td>${clientData.edad}</td>
-           <td>${clientData.direccion}</td>
-           <td>${clientData.ci}</td>
-           <td>${clientData.fechaRegistro}</td>
-           <td>${clientData.preferenciasContacto}</td>
-           <td>${clientData.telefonos.join(', ')}</td>
-           <td>${clientData.emails.join(', ')}</td>
+           <td>${escapeHtml(clientData.nombre)}</td>
+           <td>${escapeHtml(clientData.apellido)}</td>
+           <td>${escapeHtml(clientData.genero)}</td>
+           <td>${escapeHtml(clientData.fechaNacimiento)}</td>
+           <td>${escapeHtml(clientData.edad)}</td>
+           <td>${escapeHtml(clientData.direccion)}</td>
+           <td>${escapeHtml(clientData.ci)}</td>
+           <td>${escapeHtml(clientData.fechaRegistro)}</td>
+           <td>${escapeHtml(clientData.preferenciasContacto)}</td>
+           <td>${escapeHtml(clientData.telefonos.join(', '))}</td>
+           <td>${escapeHtml(clientData.emails.join(', '))}</td>
        `;
    }
 
@@ -388,17 +402,17 @@ document.addEventListener('DOMContentLoaded', function() {
    clients.forEach(clientData => {
        const newRow = tableBody.insertRow();
        newRow.innerHTML = `
-           <td>${clientData.nombre}</td>
-           <td>${clientData.apellido}</td>
-           <td>${clientData.genero}</td>
-           <td>${clientData.fechaNacimiento}</td>
-           <td>${clientData.edad}</td>
-           <td>${clientData.direccion}</td>
-           <td>${clientData.ci}</td>
-           <td>${clientData.fechaRegistro}</td>
-           <td>${clientData.preferenciasContacto}</td>
-           <td>${clientData.telefonos.join(', ')}</td>
-           <td>${clientData.emails.join(', ')}</td>
+           <td>${escapeHtml(clientData.nombre)}</td>
+           <td>${escapeHtml(clientData.apellido)}</td>
+           <td>${escapeHtml(clientData.genero)}</td>
+           <td>${escapeHtml(clientData.fechaNacimiento)}</td>
+           <td>${escapeHtml(clientData.edad)}</td>
+           <td>${escapeHtml(clientData.direccion)}</td>
+           <td>${escapeHtml(clientData.ci)}</td>
+           <td>${escapeHtml(clientData.fechaRegistro)}</td>
+           <td>${escapeHtml(clientData.preferenciasContacto)}</td>
+           <td>${escapeHtml(clientData.telefonos.join(', '))}</td>
+           <td>${escapeHtml(clientData.emails.join(', '))}</td>
        `;
    });
 });

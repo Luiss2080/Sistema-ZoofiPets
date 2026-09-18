@@ -7,6 +7,8 @@ ini_set('display_errors', 1);
 require_once "../conexion.php";
 require_once "auth.php";
 requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
@@ -99,69 +101,63 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Insertar usuario
-    $sql_usuario = "INSERT INTO Usuario 
-        (Nombre_Usuario, Correo_Institucional, Contrasena_Institucional, Estado_Usuario, Fecha_Creacion) 
-        VALUES 
-        ('$Nombre_Usuario', '$Email', '$Contraseña', '$Estado', '$Fecha_Registro')";
+    // Insertar usuario (consulta parametrizada)
+    $stmt_usuario = $conex->prepare(
+        "INSERT INTO Usuario (Nombre_Usuario, Correo_Institucional, Contrasena_Institucional, Estado_Usuario, Fecha_Creacion) VALUES (?, ?, ?, ?, ?)"
+    );
+    $stmt_usuario->bind_param("sssss", $Nombre_Usuario, $Email, $Contraseña, $Estado, $Fecha_Registro);
 
-    if (!$conex->query($sql_usuario)) {
-        throw new Exception("Error al insertar usuario: " . $conex->error);
+    if (!$stmt_usuario->execute()) {
+        throw new Exception("Error al insertar usuario: " . $stmt_usuario->error);
     }
 
     // Obtener el ID del usuario insertado
-    $Cod_Usuario = $conex->insert_id;
+    $Cod_Usuario = $stmt_usuario->insert_id;
+    $stmt_usuario->close();
 
-    // Insertar teléfonos
+    // Insertar teléfonos (consulta parametrizada)
     if (!empty($_POST['Telefonos'])) {
+        $stmt_telefono = $conex->prepare("INSERT INTO Telefonos_Usuario (Cod_Usuario, Telefono) VALUES (?, ?)");
         foreach ($_POST['Telefonos'] as $Telefono) {
-            $Telefono = $conex->real_escape_string($Telefono);
-            $sql_telefono = "INSERT INTO Telefonos_Usuario (Cod_Usuario, Telefono) 
-                             VALUES ('$Cod_Usuario', '$Telefono')";
-            
-            if (!$conex->query($sql_telefono)) {
-                throw new Exception("Error al insertar teléfono: " . $conex->error);
+            $stmt_telefono->bind_param("is", $Cod_Usuario, $Telefono);
+            if (!$stmt_telefono->execute()) {
+                throw new Exception("Error al insertar teléfono: " . $stmt_telefono->error);
             }
         }
+        $stmt_telefono->close();
     }
 
-    // Insertar emails
+    // Insertar emails (consulta parametrizada)
     if (!empty($_POST['Emails'])) {
+        $stmt_email = $conex->prepare("INSERT INTO Emails_Usuario (Cod_Usuario, Email) VALUES (?, ?)");
         foreach ($_POST['Emails'] as $Email) {
-            $Email = $conex->real_escape_string($Email);
-            $sql_email = "INSERT INTO Emails_Usuario (Cod_Usuario, Email) 
-                          VALUES ('$Cod_Usuario', '$Email')";
-            
-            if (!$conex->query($sql_email)) {
-                throw new Exception("Error al insertar email: " . $conex->error);
+            $stmt_email->bind_param("is", $Cod_Usuario, $Email);
+            if (!$stmt_email->execute()) {
+                throw new Exception("Error al insertar email: " . $stmt_email->error);
             }
         }
+        $stmt_email->close();
     }
 
     // Confirmar transacción
     $conex->commit();
 
-    
-    // Preparar los datos para la respuesta
-    $nuevaUsuario = [
-        'Codigo_Usuario' => $codUsuario,
-        'Nombre_Usuario' => $nombreUsuario,
-        'Correo_Institucional' => $correo,
-        'Estado_Usuario' => $estado,
-        'Fecha_Registro' => $fechaRegistro,
-        'Telefonos' => $telefonos,
-        'Emails' => $emails
+    // Preparar los datos para la respuesta (el formulario consume esta respuesta vía fetch/JSON,
+    // por lo que ya no se hace un redirect con Location, que rompía la promesa de la petición AJAX)
+    $nuevoUsuario = [
+        'Codigo_Usuario' => $Cod_Usuario,
+        'Nombre_Usuario' => $Nombre_Usuario,
+        'Correo_Institucional' => $Email,
+        'Estado_Usuario' => $Estado,
+        'Fecha_Registro' => $Fecha_Registro,
     ];
-
-    // Redirigir con los datos
-    header("Location: ../Formularios_HTML/FORM_Usuario.html?exito=1&nuevo_usuario=" . urlencode(json_encode($nuevaUsuario)));
-    exit;
 
     // Enviar respuesta de éxito
     header('Content-Type: application/json');
     echo json_encode([
         'exito' => true,
-        'mensaje' => "✅ El usuario ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥"
+        'mensaje' => "✅ El usuario ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥",
+        'usuario' => $nuevoUsuario
     ]);
 
 } catch (Exception $e) {

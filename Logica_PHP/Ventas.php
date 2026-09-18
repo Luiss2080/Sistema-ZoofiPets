@@ -7,6 +7,8 @@ ini_set('display_errors', 1);
 require_once "../conexion.php";
 require_once "auth.php";
 requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
@@ -113,28 +115,34 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Verificar si el Cod_Clientes existe en la tabla Clientes
-    $sql_check_cliente = "SELECT COUNT(*) AS count FROM Clientes WHERE Cod_Clientes = '$Cod_Clientes'";
-    $result_cliente = $conex->query($sql_check_cliente);
-    $row_cliente = $result_cliente->fetch_assoc();
+    // Verificar si el Cod_Clientes existe en la tabla Clientes (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Clientes WHERE Cod_Clientes = ?");
+    $stmt_check->bind_param("s", $Cod_Clientes);
+    $stmt_check->execute();
+    $row_cliente = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_cliente['count'] == 0) {
         throw new Exception("El cliente proporcionado no existe.");
     }
 
-    // Verificar si el Cod_Trabajador existe en la tabla Trabajadores
-    $sql_check_trabajador = "SELECT COUNT(*) AS count FROM Trabajadores WHERE Cod_Trabajador = '$Cod_Trabajador'";
-    $result_trabajador = $conex->query($sql_check_trabajador);
-    $row_trabajador = $result_trabajador->fetch_assoc();
+    // Verificar si el Cod_Trabajador existe en la tabla Trabajadores (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Trabajadores WHERE Cod_Trabajador = ?");
+    $stmt_check->bind_param("s", $Cod_Trabajador);
+    $stmt_check->execute();
+    $row_trabajador = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_trabajador['count'] == 0) {
         throw new Exception("El trabajador proporcionado no existe.");
     }
 
-    // Verificar si el Cod_Productos existe en la tabla Productos
-    $sql_check_producto = "SELECT Stock FROM Productos WHERE Cod_Productos = '$Cod_Productos'";
-    $result_producto = $conex->query($sql_check_producto);
-    $row_producto = $result_producto->fetch_assoc();
+    // Verificar si el Cod_Productos existe en la tabla Productos (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT Stock FROM Productos WHERE Cod_Productos = ?");
+    $stmt_check->bind_param("s", $Cod_Productos);
+    $stmt_check->execute();
+    $row_producto = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if (!$row_producto) {
         throw new Exception("El producto proporcionado no existe.");
@@ -144,21 +152,29 @@ try {
         throw new Exception("No hay suficiente stock para el producto.");
     }
 
-    // Insertar en la tabla Ventas
-    $sql_ventas = "INSERT INTO Ventas 
-        (Nro_Factura, Fecha_Venta, Nombre_Producto, Metodo_Pago, Monto_Total, Descuento, Cod_Clientes, Cod_Trabajador, Cod_Productos, Cantidad, Sub_Total) 
-        VALUES 
-        ('$Nro_Factura', '$Fecha_Venta', '$Nombre_Producto', '$Metodo_Pago', '$Monto_Total', '$Descuento', '$Cod_Clientes', '$Cod_Trabajador', '$Cod_Productos', '$Cantidad', '$Sub_Total')";
+    // Insertar en la tabla Ventas (consulta parametrizada)
+    $stmt_ventas = $conex->prepare(
+        "INSERT INTO Ventas (Nro_Factura, Fecha_Venta, Nombre_Producto, Metodo_Pago, Monto_Total, Descuento, Cod_Clientes, Cod_Trabajador, Cod_Productos, Cantidad, Sub_Total)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_ventas->bind_param(
+        "sssssssssss",
+        $Nro_Factura, $Fecha_Venta, $Nombre_Producto, $Metodo_Pago, $Monto_Total, $Descuento,
+        $Cod_Clientes, $Cod_Trabajador, $Cod_Productos, $Cantidad, $Sub_Total
+    );
 
-    if (!$conex->query($sql_ventas)) {
-        throw new Exception("Error al insertar venta: " . $conex->error);
+    if (!$stmt_ventas->execute()) {
+        throw new Exception("Error al insertar venta: " . $stmt_ventas->error);
     }
+    $stmt_ventas->close();
 
-    // Actualizar el stock del producto
-    $sql_update_stock = "UPDATE Productos SET Stock = Stock - $Cantidad WHERE Cod_Productos = '$Cod_Productos'";
-    if (!$conex->query($sql_update_stock)) {
-        throw new Exception("Error al actualizar el stock del producto: " . $conex->error);
+    // Actualizar el stock del producto (consulta parametrizada)
+    $stmt_stock = $conex->prepare("UPDATE Productos SET Stock = Stock - ? WHERE Cod_Productos = ?");
+    $stmt_stock->bind_param("ds", $Cantidad, $Cod_Productos);
+    if (!$stmt_stock->execute()) {
+        throw new Exception("Error al actualizar el stock del producto: " . $stmt_stock->error);
     }
+    $stmt_stock->close();
 
    // Preparar los datos para la respuesta
    $nuevaVenta = [

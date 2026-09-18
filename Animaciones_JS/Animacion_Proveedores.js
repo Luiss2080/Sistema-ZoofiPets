@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -322,14 +336,14 @@ function renderizarTabla(proveedores) {
     proveedores.forEach(proveedor => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${proveedor.Codigo_Proveedor || '---'}</td>
-            <td>${proveedor.Nombre || '---'}</td>
-            <td>${proveedor.Rubro || '---'}</td>
-            <td>${proveedor.Razon_Social || '---'}</td>
-            <td>${proveedor.Direccion || '---'}</td>
-            <td>${Array.isArray(proveedor.Telefonos) ? proveedor.Telefonos.join(', ') : '---'}</td>
-            <td>${Array.isArray(proveedor.Emails) ? proveedor.Emails.join(', ') : '---'}</td>
-            <td>${proveedor.Fecha_Registro || '---'}</td>
+            <td>${escapeHtml(proveedor.Codigo_Proveedor || '---')}</td>
+            <td>${escapeHtml(proveedor.Nombre || '---')}</td>
+            <td>${escapeHtml(proveedor.Rubro || '---')}</td>
+            <td>${escapeHtml(proveedor.Razon_Social || '---')}</td>
+            <td>${escapeHtml(proveedor.Direccion || '---')}</td>
+            <td>${escapeHtml(Array.isArray(proveedor.Telefonos) ? proveedor.Telefonos.join(', ') : '---')}</td>
+            <td>${escapeHtml(Array.isArray(proveedor.Emails) ? proveedor.Emails.join(', ') : '---')}</td>
+            <td>${escapeHtml(proveedor.Fecha_Registro || '---')}</td>
         `;
         tableBody.appendChild(row); // Corregir variable (antes tbody)
     });

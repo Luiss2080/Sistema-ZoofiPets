@@ -7,6 +7,8 @@ ini_set('display_errors', 1);
 require_once "../conexion.php";
 require_once "auth.php";
 requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
@@ -101,44 +103,48 @@ try {
     $Sub_Total = $Cantidad * $Precio_Unitario;
     $Monto_Total = max(0, $Sub_Total - $Descuento); // Aplicar descuento
 
-    // Insertar en la tabla Compras
-    $sql_compra = "INSERT INTO Compras 
-        (Fecha_Compra, Fecha_Ingreso, Glosa, Monto_Total, Descuento, Estado, Cod_Proveedores, Cod_Trabajador, Cod_Productos, Cantidad, Precio_Unitario, Sub_Total) 
-        VALUES 
-        ('$Fecha_Compra', '$Fecha_Ingreso', '$Glosa', '$Monto_Total', '$Descuento', '$Estado', '$Cod_Proveedores', '$Cod_Trabajador', '$Cod_Productos', '$Cantidad', '$Precio_Unitario', '$Sub_Total')";
+    // Iniciar transacción
+    $conex->begin_transaction();
 
-    if (!$conex->query($sql_compra)) {
-        throw new Exception("Error al insertar compra: " . $conex->error);
+    // Insertar en la tabla Compras (consulta parametrizada, una sola vez)
+    $stmt_compra = $conex->prepare(
+        "INSERT INTO Compras (Fecha_Compra, Fecha_Ingreso, Glosa, Monto_Total, Descuento, Estado, Cod_Proveedores, Cod_Trabajador, Cod_Productos, Cantidad, Precio_Unitario, Sub_Total)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_compra->bind_param(
+        "ssssssssssss",
+        $Fecha_Compra, $Fecha_Ingreso, $Glosa, $Monto_Total, $Descuento, $Estado,
+        $Cod_Proveedores, $Cod_Trabajador, $Cod_Productos, $Cantidad, $Precio_Unitario, $Sub_Total
+    );
+
+    if (!$stmt_compra->execute()) {
+        throw new Exception("Error al insertar compra: " . $stmt_compra->error);
     }
+    $stmt_compra->close();
 
-    if ($conex->query($sql_compra) === TRUE) {
-        $datosCompra = [
-            'descuento' => $datosSanitizados['Descuento'],
-            'estado' => $datosSanitizados['Estado'],
-            'fechaCompra' => $datosSanitizados['Fecha_Compra'],
-            'fechaIngreso' => $datosSanitizados['Fecha_Ingreso'],
-            'glosa' => $datosSanitizados['Glosa'],
-            'monto' => number_format($datosSanitizados['Monto'], 2),
-            'montoTotal' => number_format($datosSanitizados['Monto_Total'], 2),
-            'codProveedor' => $datosSanitizados['Cod_Proveedores'],
-            'codTrabajador' => $datosSanitizados['Cod_Trabajador']
-        ];
-        
-        $datosJson = urlencode(json_encode($datosCompra));
-        header("Location: ../Formularios_HTML/FORM_Compras.html?nueva_compra=$datosJson");
-        exit;
-    } else {
-        throw new Exception('Error al registrar compra: ' . $conex->error);
-    }
+    $conex->commit();
 
-    // Enviar respuesta de éxito
-    header('Content-Type: application/json');
-    echo json_encode([
-        'exito' => true,
-        'mensaje' => "✅ La compra ha sido registrada exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥"
-    ]);
+    $datosCompra = [
+        'descuento' => $Descuento,
+        'estado' => $Estado,
+        'fechaCompra' => $Fecha_Compra,
+        'fechaIngreso' => $Fecha_Ingreso,
+        'glosa' => $Glosa,
+        'monto' => number_format($Sub_Total, 2),
+        'montoTotal' => number_format($Monto_Total, 2),
+        'codProveedor' => $Cod_Proveedores,
+        'codTrabajador' => $Cod_Trabajador
+    ];
+
+    $datosJson = urlencode(json_encode($datosCompra));
+    header("Location: ../Formularios_HTML/FORM_Compras.html?nueva_compra=$datosJson");
+    exit;
 
 } catch (Exception $e) {
+    // Revertir transacción en caso de error
+    if ($conex && $conex->connect_error === false) {
+        $conex->rollback();
+    }
     // Enviar respuesta de error
     header('Content-Type: application/json');
     echo json_encode([
