@@ -7,7 +7,8 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once '../conexion.php';
-
+require_once "auth.php";
+requireAuth();
 // Función para validar fecha con formato YYYY-MM-DD
 function validarFecha($fecha) {
     $d = DateTime::createFromFormat('Y-m-d', $fecha);

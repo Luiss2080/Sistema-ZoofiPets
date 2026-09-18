@@ -257,65 +257,50 @@
 
     
     <script>
-        // Verificar el estado del login al cargar la página
-     document.addEventListener('DOMContentLoaded', function() {
-     const isLoggedIn = localStorage.getItem('isLoggedIn');
-     if (!isLoggedIn) {
-        document.getElementById('loginLayer').style.transform = 'translateX(0)';
-        document.getElementById('mainLayer').style.transform = 'translateX(100%)';
-     } else {
-        checkLoginState();
-     }
-    setupEventListeners();
-});
+        // La sesión real vive como cookie de PHP en el servidor, verificada
+        // contra la base de datos en Logica_PHP/Sesion.php. localStorage ya
+        // NO decide si alguien puede ver o usar este panel: solo se usa para
+        // mostrar el nombre de usuario en pantalla.
+        async function verificarSesionServidor() {
+            try {
+                const res = await fetch('Logica_PHP/Sesion.php', { credentials: 'same-origin' });
+                if (!res.ok) return null;
+                const data = await res.json();
+                return data.autenticado ? data.usuario : null;
+            } catch (e) {
+                return null;
+            }
+        }
 
-// Función para verificar el estado del login
-function checkLoginState() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const username = localStorage.getItem('username');
-    
-    if (isLoggedIn === 'true' && username) {
-        document.getElementById('userDisplay').textContent = username;
-        document.getElementById('loginLayer').style.transform = 'translateX(-100%)';
-        document.getElementById('mainLayer').style.transform = 'translateX(0)';
-    }
-}
+        document.addEventListener('DOMContentLoaded', async function() {
+            const usuario = await verificarSesionServidor();
+            if (!usuario) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('username');
+                window.location.href = 'index.html';
+                return;
+            }
+            // Sincroniza el flag de UI usado por el resto de las pantallas
+            // del panel; la sesión real ya quedó confirmada arriba.
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', usuario);
+            document.getElementById('userDisplay').textContent = usuario;
+            document.getElementById('loginLayer').style.transform = 'translateX(-100%)';
+            document.getElementById('mainLayer').style.transform = 'translateX(0)';
+            setupEventListeners();
+        });
 
-// Función de login
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (username && password) {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('username', username);
-        
-        document.getElementById('userDisplay').textContent = username;
-        document.getElementById('loginLayer').style.transform = 'translateX(-100%)';
-        document.getElementById('mainLayer').style.transform = 'translateX(0)';
-    } else {
-        alert('Por favor ingrese usuario y contraseña');
-    }
-}
-
-// Función de logout
-// Reemplaza la función logout existente en capa_proforma.html con esta:
-function logout() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('username');
-    window.location.href = 'index.html';
-    // Limpieza de campos de usuario y contraseña
-    document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-}
-
-// Agrega esta función al inicio del archivo para verificar la sesión
-window.onload = function() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (!isLoggedIn) {
-        window.location.href = 'index.html';
-    }
-}
+        // Función de logout: invalida la sesión en el servidor, no solo en el navegador
+        async function logout() {
+            try {
+                await fetch('Logica_PHP/Logout.php', { credentials: 'same-origin' });
+            } catch (e) {
+                // si el servidor no responde igual se saca al usuario de esta página
+            }
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
 
 // Configuración de los event listeners
 function setupEventListeners() {
