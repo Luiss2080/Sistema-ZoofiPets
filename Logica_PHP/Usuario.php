@@ -140,27 +140,22 @@ try {
     // Confirmar transacción
     $conex->commit();
 
-    
-    // Preparar los datos para la respuesta
-    $nuevaUsuario = [
-        'Codigo_Usuario' => $codUsuario,
-        'Nombre_Usuario' => $nombreUsuario,
-        'Correo_Institucional' => $correo,
-        'Estado_Usuario' => $estado,
-        'Fecha_Registro' => $fechaRegistro,
-        'Telefonos' => $telefonos,
-        'Emails' => $emails
+    // Preparar los datos para la respuesta (el formulario consume esta respuesta vía fetch/JSON,
+    // por lo que ya no se hace un redirect con Location, que rompía la promesa de la petición AJAX)
+    $nuevoUsuario = [
+        'Codigo_Usuario' => $Cod_Usuario,
+        'Nombre_Usuario' => $Nombre_Usuario,
+        'Correo_Institucional' => $Email,
+        'Estado_Usuario' => $Estado,
+        'Fecha_Registro' => $Fecha_Registro,
     ];
-
-    // Redirigir con los datos
-    header("Location: ../Formularios_HTML/FORM_Usuario.html?exito=1&nuevo_usuario=" . urlencode(json_encode($nuevaUsuario)));
-    exit
 
     // Enviar respuesta de éxito
     header('Content-Type: application/json');
     echo json_encode([
         'exito' => true,
-        'mensaje' => "✅ El usuario ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥"
+        'mensaje' => "✅ El usuario ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥",
+        'usuario' => $nuevoUsuario
     ]);
 
 } catch (Exception $e) {
