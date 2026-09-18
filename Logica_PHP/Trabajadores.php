@@ -4,6 +4,8 @@ header('Content-Type: application/json');
 require_once "../conexion.php";
 require_once "auth.php";
 requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Función para validar fecha
 function validarFecha($fecha) {
     $d = DateTime::createFromFormat('Y-m-d', $fecha);

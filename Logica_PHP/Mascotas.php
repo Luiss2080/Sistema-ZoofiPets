@@ -9,6 +9,8 @@ ini_set('display_errors', 1);
 require_once '../conexion.php';
 require_once "auth.php";
 requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Función para validar fecha con formato YYYY-MM-DD
 function validarFecha($fecha) {
     $d = DateTime::createFromFormat('Y-m-d', $fecha);

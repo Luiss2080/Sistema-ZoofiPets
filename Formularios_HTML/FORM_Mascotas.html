@@ -523,6 +523,7 @@
                 return;
             }
             const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
             fetch('../Logica_PHP/Mascotas.php', {
                 method: 'POST',
                 body: formData
@@ -567,6 +568,7 @@
         `;
         document.head.appendChild(style);
     </script>
+    <script src="../Animaciones_JS/csrf-helper.js"></script>
 </body>
 
 </html>
