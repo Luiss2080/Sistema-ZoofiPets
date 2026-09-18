@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -252,20 +266,20 @@ const renderizarTabla = (citas) => {
     citas.forEach(cita => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${cita.Codigo_Cita || '---'}</td>
-            <td>${cita.Motivo_Consulta || '---'}</td>
-            <td>${formatearMonto(cita.Cobro_Total)}</td>
-            <td>${cita.Metodo_Pago || '---'}</td>
-            <td>${formatearFecha(cita.Fecha_Cita)}</td>
-            <td>${cita.Tratamiento || '---'}</td>
-            <td>${cita.Enfermedades_Base || '---'}</td>
-            <td>${cita.Alergias || '---'}</td>
-            <td>${cita.Diagnostico || '---'}</td>
-            <td>${cita.Codigo_Mascota || '---'}</td>
-            <td>${cita.Codigo_Cliente || '---'}</td>
-            <td>${cita.Codigo_Trabajador || '---'}</td>
-            <td>${cita.Codigo_Servicio || '---'}</td>
-            <td>${cita.Codigo_Historial || '---'}</td>
+            <td>${escapeHtml(cita.Codigo_Cita || '---')}</td>
+            <td>${escapeHtml(cita.Motivo_Consulta || '---')}</td>
+            <td>${escapeHtml(formatearMonto(cita.Cobro_Total))}</td>
+            <td>${escapeHtml(cita.Metodo_Pago || '---')}</td>
+            <td>${escapeHtml(formatearFecha(cita.Fecha_Cita))}</td>
+            <td>${escapeHtml(cita.Tratamiento || '---')}</td>
+            <td>${escapeHtml(cita.Enfermedades_Base || '---')}</td>
+            <td>${escapeHtml(cita.Alergias || '---')}</td>
+            <td>${escapeHtml(cita.Diagnostico || '---')}</td>
+            <td>${escapeHtml(cita.Codigo_Mascota || '---')}</td>
+            <td>${escapeHtml(cita.Codigo_Cliente || '---')}</td>
+            <td>${escapeHtml(cita.Codigo_Trabajador || '---')}</td>
+            <td>${escapeHtml(cita.Codigo_Servicio || '---')}</td>
+            <td>${escapeHtml(cita.Codigo_Historial || '---')}</td>
         `;
         tableBody.appendChild(row);
     });

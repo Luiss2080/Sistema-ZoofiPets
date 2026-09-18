@@ -1,5 +1,7 @@
 <?php
 require_once "../conexion.php";
+require_once "auth.php";
+requireAuth();
 require_once "csrf.php";
 requireCsrf();
 header('Content-Type: application/json');

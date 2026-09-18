@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -319,12 +333,12 @@ function renderizarTabla(historiales) {
     historiales.forEach(historial => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${historial.Mascota_Cliente || '---'}</td>
-            <td>${historial.Diagnostico || '---'}</td>
-            <td>${historial.Tratamiento || '---'}</td>
-            <td>${historial.Especialidades || '---'}</td>
-            <td>${historial.Pronostico_Final || '---'}</td>
-            <td>${historial.Cod_Mascotas || '---'}</td>
+            <td>${escapeHtml(historial.Mascota_Cliente || '---')}</td>
+            <td>${escapeHtml(historial.Diagnostico || '---')}</td>
+            <td>${escapeHtml(historial.Tratamiento || '---')}</td>
+            <td>${escapeHtml(historial.Especialidades || '---')}</td>
+            <td>${escapeHtml(historial.Pronostico_Final || '---')}</td>
+            <td>${escapeHtml(historial.Cod_Mascotas || '---')}</td>
         `;
         tableBody.appendChild(row);
     });

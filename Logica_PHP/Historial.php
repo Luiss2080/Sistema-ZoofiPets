@@ -5,6 +5,8 @@ ini_set('display_errors', 1);
 
 /* ----------- INCLUIR CONEXIÓN A LA BASE DE DATOS ---------- */
 require_once "../conexion.php";
+require_once "auth.php";
+requireAuth();
 require_once "csrf.php";
 requireCsrf();
 /* ----------- VERIFICAR CONEXIÓN ---------- */

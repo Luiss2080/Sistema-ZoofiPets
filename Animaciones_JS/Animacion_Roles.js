@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -273,10 +287,10 @@ welcomeSection.scrollTop = welcomeSection.scrollHeight; // Desplazar al final de
         roles.forEach(rol => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${rol.Nombre_Rol || '---'}</td>
-                <td>${rol.Descripcion|| '---'}</td>
-                <td>${rol.Cod_Permiso || '---'}</td>
-                <td>${rol.Cod_Usuario || '---'}</td>
+                <td>${escapeHtml(rol.Nombre_Rol || '---')}</td>
+                <td>${escapeHtml(rol.Descripcion|| '---')}</td>
+                <td>${escapeHtml(rol.Cod_Permiso || '---')}</td>
+                <td>${escapeHtml(rol.Cod_Usuario || '---')}</td>
             `;
             tableBody.appendChild(row);
         });

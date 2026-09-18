@@ -2,6 +2,8 @@
 header('Content-Type: application/json');
 // Incluir conexión a la base de datos
 require_once "../conexion.php";
+require_once "auth.php";
+requireAuth();
 require_once "csrf.php";
 requireCsrf();
 // Función para validar fecha
