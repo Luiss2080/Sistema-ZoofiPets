@@ -84,15 +84,19 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Insertar en la tabla Productos
-    $sql_insert_producto = "INSERT INTO Productos 
-        (Nombre, Stock, Precio_Compra, Precio_Venta, Cod_Proveedores, Categoria, Tipo) 
-        VALUES 
-        ('$Nombre', $Stock, $Precio_Compra, $Precio_Venta, $Cod_Proveedores, '$Categoria', '$Tipo')";
-    
-    if (!$conex->query($sql_insert_producto)) {
-        throw new Exception("Error al registrar el producto: " . $conex->error);
+    // Insertar en la tabla Productos (consulta parametrizada)
+    $stmt_producto = $conex->prepare(
+        "INSERT INTO Productos (Nombre, Stock, Precio_Compra, Precio_Venta, Cod_Proveedores, Categoria, Tipo) VALUES (?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_producto->bind_param(
+        "siddiss",
+        $Nombre, $Stock, $Precio_Compra, $Precio_Venta, $Cod_Proveedores, $Categoria, $Tipo
+    );
+
+    if (!$stmt_producto->execute()) {
+        throw new Exception("Error al registrar el producto: " . $stmt_producto->error);
     }
+    $stmt_producto->close();
 
     // Confirmar transacción
     $conex->commit();

@@ -119,37 +119,45 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Verificar si el Cod_Mascotas existe en la tabla Mascotas
-    $sql_check_mascotas = "SELECT COUNT(*) AS count FROM Mascotas WHERE Cod_Mascotas = '$Cod_Mascotas'";
-    $result_mascotas = $conex->query($sql_check_mascotas);
-    $row_mascotas = $result_mascotas->fetch_assoc();
+    // Verificar si el Cod_Mascotas existe en la tabla Mascotas (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Mascotas WHERE Cod_Mascotas = ?");
+    $stmt_check->bind_param("s", $Cod_Mascotas);
+    $stmt_check->execute();
+    $row_mascotas = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_mascotas['count'] == 0) {
         throw new Exception("La mascota proporcionada no existe.");
     }
 
-    // Verificar si el Cod_Clientes existe en la tabla Clientes
-    $sql_check_clientes = "SELECT COUNT(*) AS count FROM Clientes WHERE Cod_Clientes = '$Cod_Clientes'";
-    $result_clientes = $conex->query($sql_check_clientes);
-    $row_clientes = $result_clientes->fetch_assoc();
+    // Verificar si el Cod_Clientes existe en la tabla Clientes (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Clientes WHERE Cod_Clientes = ?");
+    $stmt_check->bind_param("s", $Cod_Clientes);
+    $stmt_check->execute();
+    $row_clientes = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_clientes['count'] == 0) {
         throw new Exception("El cliente proporcionado no existe.");
     }
 
-    // Verificar si el Cod_Trabajador existe en la tabla Trabajadores
-    $sql_check_trabajador = "SELECT COUNT(*) AS count FROM Trabajadores WHERE Cod_Trabajador = '$Cod_Trabajador'";
-    $result_trabajador = $conex->query($sql_check_trabajador);
-    $row_trabajador = $result_trabajador->fetch_assoc();
+    // Verificar si el Cod_Trabajador existe en la tabla Trabajadores (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Trabajadores WHERE Cod_Trabajador = ?");
+    $stmt_check->bind_param("s", $Cod_Trabajador);
+    $stmt_check->execute();
+    $row_trabajador = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_trabajador['count'] == 0) {
         throw new Exception("El trabajador proporcionado no existe.");
     }
 
-    // Verificar si el Cod_Servicios existe en la tabla Servicios
-    $sql_check_servicios = "SELECT COUNT(*) AS count FROM Servicios WHERE Cod_Servicios = '$Cod_Servicios'";
-    $result_servicios = $conex->query($sql_check_servicios);
-    $row_servicios = $result_servicios->fetch_assoc();
+    // Verificar si el Cod_Servicios existe en la tabla Servicios (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Servicios WHERE Cod_Servicios = ?");
+    $stmt_check->bind_param("s", $Cod_Servicios);
+    $stmt_check->execute();
+    $row_servicios = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_servicios['count'] == 0) {
         throw new Exception("El servicio proporcionado no existe.");
