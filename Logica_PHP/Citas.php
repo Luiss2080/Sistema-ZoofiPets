@@ -7,6 +7,8 @@ ini_set('display_errors', 1);
 require_once "../conexion.php";
 require_once "auth.php";
 requireAuth();
+require_once "ValidacionCitas.php";
+
 // Array para almacenar errores
 $errores = [];
 
@@ -14,74 +16,10 @@ $errores = [];
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $errores[] = "Método de solicitud no válido";
 } else {
-    // Validación del Motivo de Consulta
-    if (empty($_POST['Motivo_Consulta'])) {
-        $errores[] = "El motivo de consulta es obligatorio";
-    }
-
-    // Validación del Cobro Total
-    if (empty($_POST['Cobro_Total'])) {
-        $errores[] = "El cobro total es obligatorio";
-    } elseif (!is_numeric($_POST['Cobro_Total']) || $_POST['Cobro_Total'] <= 0) {
-        $errores[] = "➤ El cobro total debe ser un número positivo";
-    }
-
-    // Validación del Método de Pago
-    if (empty($_POST['Metodo_Pago'])) {
-        $errores[] = "El método de pago es obligatorio";
-    }
-
-    // Validación de la Fecha de Cita
-    if (empty($_POST['Fecha_Cita'])) {
-        $errores[] = "La fecha de la cita es obligatoria";
-    } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['Fecha_Cita'])) {
-        $errores[] = "➤ El formato de la fecha de cita no es válido (debe ser YYYY-MM-DD)";
-    }
-
-    // Validación del Tratamiento
-    if (empty($_POST['Tratamiento'])) {
-        $errores[] = "El tratamiento es obligatorio";
-    }
-
-    // Validación del Diagnóstico
-    if (empty($_POST['Diagnostico'])) {
-        $errores[] = "El diagnóstico es obligatorio";
-    }
-
-    // Validación del Código de Mascota
-    if (empty($_POST['Cod_Mascotas'])) {
-        $errores[] = "El código de mascota es obligatorio";
-    } elseif (!is_numeric($_POST['Cod_Mascotas'])) {
-        $errores[] = "➤ El código de mascota debe ser un número";
-    }
-
-    // Validación del Código de Cliente
-    if (empty($_POST['Cod_Clientes'])) {
-        $errores[] = "El código de cliente es obligatorio";
-    } elseif (!is_numeric($_POST['Cod_Clientes'])) {
-        $errores[] = "➤ El código de cliente debe ser un número";
-    }
-
-    // Validación del Código de Trabajador
-    if (empty($_POST['Cod_Trabajador'])) {
-        $errores[] = "El código de trabajador es obligatorio";
-    } elseif (!is_numeric($_POST['Cod_Trabajador'])) {
-        $errores[] = "➤ El código de trabajador debe ser un número";
-    }
-
-    // Validación del Código de Servicio
-    if (empty($_POST['Cod_Servicios'])) {
-        $errores[] = "El código de servicio es obligatorio";
-    } elseif (!is_numeric($_POST['Cod_Servicios'])) {
-        $errores[] = "➤ El código de servicio debe ser un número";
-    }
-
-    // Validación del Código de Historial
-    if (empty($_POST['Cod_Historial'])) {
-        $errores[] = "El código de historial es obligatorio";
-    } elseif (!is_numeric($_POST['Cod_Historial'])) {
-        $errores[] = "➤ El código de historial debe ser un número";
-    }
+    // La validación de campos vive en ValidacionCitas.php (función pura,
+    // cubierta por tests/run.php) para no duplicar estas reglas ni dejarlas
+    // sin probar.
+    $errores = validarDatosCita($_POST);
 }
 
 // Si hay errores, devolver respuesta temprana
