@@ -300,6 +300,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script src="../JavaScript/COMPRAS.js"></script>
+    <script src="../Animaciones_JS/csrf-helper.js"></script>
 </body>
 
 </html>
@@ -619,6 +620,7 @@
         }
 
         const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
 
         fetch('../Logica_PHP/Compras.php', {
             method: 'POST',

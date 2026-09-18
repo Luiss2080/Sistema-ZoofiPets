@@ -5,7 +5,8 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once "../conexion.php";
-
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
