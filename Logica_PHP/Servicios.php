@@ -125,14 +125,14 @@ try {
      // Preparar datos para mostrar
      $nuevoServicio = [
         'Cod_Servicios' => $conex->insert_id,
-        'Especialidades' => $especialidades,
-        'Especialista' => $especialista,
-        'Precio' => $precio,
-        'Duracion_Estimada' => $duracion_estimada,
-        'Categoria' => $categoria,
-        'Turno' => $turno,
-        'Cod_Mascotas' => $cod_mascotas,
-        'Cod_Historial' => $cod_historial
+        'Especialidades' => $Especialidades,
+        'Especialista' => $Especialista,
+        'Precio' => $Precio,
+        'Duracion_Estimada' => $Duracion_Estimada,
+        'Categoria' => $Categoria,
+        'Turno' => $Turno,
+        'Cod_Mascotas' => $Cod_Mascotas,
+        'Cod_Historial' => $Cod_Historial
     ];
 
     // Redirigir con parámetros
