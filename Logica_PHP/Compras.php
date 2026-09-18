@@ -103,6 +103,9 @@ try {
     $Sub_Total = $Cantidad * $Precio_Unitario;
     $Monto_Total = max(0, $Sub_Total - $Descuento); // Aplicar descuento
 
+    // Iniciar transacción
+    $conex->begin_transaction();
+
     // Insertar en la tabla Compras (consulta parametrizada, una sola vez)
     $stmt_compra = $conex->prepare(
         "INSERT INTO Compras (Fecha_Compra, Fecha_Ingreso, Glosa, Monto_Total, Descuento, Estado, Cod_Proveedores, Cod_Trabajador, Cod_Productos, Cantidad, Precio_Unitario, Sub_Total)
@@ -118,6 +121,8 @@ try {
         throw new Exception("Error al insertar compra: " . $stmt_compra->error);
     }
     $stmt_compra->close();
+
+    $conex->commit();
 
     $datosCompra = [
         'descuento' => $Descuento,
@@ -135,14 +140,11 @@ try {
     header("Location: ../Formularios_HTML/FORM_Compras.html?nueva_compra=$datosJson");
     exit;
 
-    // Enviar respuesta de éxito
-    header('Content-Type: application/json');
-    echo json_encode([
-        'exito' => true,
-        'mensaje' => "✅ La compra ha sido registrada exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥"
-    ]);
-
 } catch (Exception $e) {
+    // Revertir transacción en caso de error
+    if ($conex && $conex->connect_error === false) {
+        $conex->rollback();
+    }
     // Enviar respuesta de error
     header('Content-Type: application/json');
     echo json_encode([

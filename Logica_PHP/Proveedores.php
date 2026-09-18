@@ -130,25 +130,18 @@ try {
 
     // Confirmar transacción
     $conex->commit();
-    
-    $nuevoProducto = [
-        'Nombre' => $nombre,
-        'Stock' => $stock,
-        'Proveedor' => $proveedor,
-        'Categoria' => $categoria,
-        'Tipo' => $tipo,
-        'Cod_Proveedores' => $cod_proveedor
-    ];
-    
-   // Redirigir correctamente:
-   header("Location: ../Formularios_HTML/FORM_Productos.html?exito=1&nuevo_producto=" . urlencode(json_encode($nuevoProducto)));
-exit;
 
     // Enviar respuesta de éxito
     header('Content-Type: application/json');
     echo json_encode([
         'exito' => true,
-        'mensaje' => "✅ El proveedor ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥"
+        'mensaje' => "✅ El proveedor ha sido registrado exitosamente ✅ \n\n🐾 Cuidando con amor a tus mascotas, sanando con pasión 🏥",
+        'proveedor' => [
+            'id' => $Cod_Proveedores,
+            'Nombre' => $Nombre,
+            'Rubro' => $Rubro,
+            'Razon_Social' => $Razon_Social,
+        ]
     ]);
 
 } catch (Exception $e) {
