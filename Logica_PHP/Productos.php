@@ -98,12 +98,13 @@ try {
     $conex->commit();
 
     $nuevoProducto = [
-        'Nombre' => $nombre,
-        'Stock' => $stock,
-        'Proveedor' => $proveedor,
-        'Categoria' => $categoria,
-        'Tipo' => $tipo,
-        'Cod_Proveedores' => $cod_proveedor
+        'Nombre' => $Nombre,
+        'Stock' => $Stock,
+        'Precio_Compra' => $Precio_Compra,
+        'Precio_Venta' => $Precio_Venta,
+        'Categoria' => $Categoria,
+        'Tipo' => $Tipo,
+        'Cod_Proveedores' => $Cod_Proveedores
     ];
     
    // Redirigir correctamente:
