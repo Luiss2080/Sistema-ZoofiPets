@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -241,12 +255,12 @@ function saveMascotaToLocalStorage(mascotaData) {
     }
     const newRow = tableBody.insertRow();
     newRow.innerHTML = `
-        <td>${mascotaData.nombre}</td>
-        <td>${mascotaData.especie}</td>
-        <td>${mascotaData.raza}</td>
-        <td>${mascotaData.fechaNacimiento}</td>
-        <td>${mascotaData.edad}</td>
-        <td>${mascotaData.codClientes}</td>
+        <td>${escapeHtml(mascotaData.nombre)}</td>
+        <td>${escapeHtml(mascotaData.especie)}</td>
+        <td>${escapeHtml(mascotaData.raza)}</td>
+        <td>${escapeHtml(mascotaData.fechaNacimiento)}</td>
+        <td>${escapeHtml(mascotaData.edad)}</td>
+        <td>${escapeHtml(mascotaData.codClientes)}</td>
     `;
   }
   

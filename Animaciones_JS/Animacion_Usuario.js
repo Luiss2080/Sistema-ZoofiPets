@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -334,13 +348,13 @@ function renderizarTabla(usuarios) {
     usuarios.forEach(usuario => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${usuario.Codigo_Usuario || '---'}</td>
-            <td>${usuario.Nombre_Usuario || '---'}</td>
-            <td>${usuario.Correo_Institucional || '---'}</td>
-            <td>${usuario.Estado_Usuario || '---'}</td>
-            <td>${usuario.Fecha_Creacion || '---'}</td>
-            <td>${usuario.Telefonos ? usuario.Telefonos.join(', ') : '---'}</td>
-            <td>${usuario.Emails ? usuario.Emails.join(', ') : '---'}</td>
+            <td>${escapeHtml(usuario.Codigo_Usuario || '---')}</td>
+            <td>${escapeHtml(usuario.Nombre_Usuario || '---')}</td>
+            <td>${escapeHtml(usuario.Correo_Institucional || '---')}</td>
+            <td>${escapeHtml(usuario.Estado_Usuario || '---')}</td>
+            <td>${escapeHtml(usuario.Fecha_Creacion || '---')}</td>
+            <td>${escapeHtml(usuario.Telefonos ? usuario.Telefonos.join(', ') : '---')}</td>
+            <td>${escapeHtml(usuario.Emails ? usuario.Emails.join(', ') : '---')}</td>
         `;
         tableBody.appendChild(row); // Agregar la fila a la tabla
     });

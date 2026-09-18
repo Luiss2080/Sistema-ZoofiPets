@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
    // Animación para mostrar u ocultar el formulario
    const toggleButton = document.querySelector('.toggle-form');
    const formContainer = document.querySelector('.proforma-form-container');
@@ -349,15 +363,15 @@ function loadtrabajadorFromLocalStorage() {
         const newRow = tableBody.insertRow();
         newRow.innerHTML = `
           
-            <td>${trabajador.nombre}</td>
-            <td>${trabajador.apellido}</td>
-            <td>${trabajador.genero}</td>
-            <td>${trabajador.fecha_nacimiento}</td>
-            <td>${trabajador.edad}</td>
-            <td>${trabajador.direccion}</td>
-            <td>${trabajador.ci}</td>
-            <td>${trabajador.fecha_registro}</td>
-            <td>${trabajador.preferencias_contactos}</td>
+            <td>${escapeHtml(trabajador.nombre)}</td>
+            <td>${escapeHtml(trabajador.apellido)}</td>
+            <td>${escapeHtml(trabajador.genero)}</td>
+            <td>${escapeHtml(trabajador.fecha_nacimiento)}</td>
+            <td>${escapeHtml(trabajador.edad)}</td>
+            <td>${escapeHtml(trabajador.direccion)}</td>
+            <td>${escapeHtml(trabajador.ci)}</td>
+            <td>${escapeHtml(trabajador.fecha_registro)}</td>
+            <td>${escapeHtml(trabajador.preferencias_contactos)}</td>
         `;
     });
 }
@@ -389,15 +403,15 @@ document.querySelector('.trabajador-form').addEventListener('submit', function(e
  const newRow = tableBody.insertRow();
  newRow.innerHTML = `
     
-     <td>${trabajadorData.nombre}</td>
-     <td>${trabajadorData.apellido}</td>
-     <td>${trabajadorData.genero}</td>
-     <td>${trabajadorData.fecha_nacimiento}</td>
-     <td>${trabajadorData.edad}</td>
-     <td>${trabajadorData.direccion}</td>
-     <td>${trabajadorData.ci}</td>
-     <td>${trabajadorData.fecha_registro}</td>
-     <td>${trabajadorData.preferencias_contactos}</td>
+     <td>${escapeHtml(trabajadorData.nombre)}</td>
+     <td>${escapeHtml(trabajadorData.apellido)}</td>
+     <td>${escapeHtml(trabajadorData.genero)}</td>
+     <td>${escapeHtml(trabajadorData.fecha_nacimiento)}</td>
+     <td>${escapeHtml(trabajadorData.edad)}</td>
+     <td>${escapeHtml(trabajadorData.direccion)}</td>
+     <td>${escapeHtml(trabajadorData.ci)}</td>
+     <td>${escapeHtml(trabajadorData.fecha_registro)}</td>
+     <td>${escapeHtml(trabajadorData.preferencias_contactos)}</td>
    `;
  }
 
@@ -417,15 +431,15 @@ document.addEventListener('DOMContentLoaded', function() {
        const newRow = tableBody.insertRow();
        newRow.innerHTML = `
        
-     <td>${trabajadorData.nombre}</td>
-     <td>${trabajadorData.apellido}</td>
-     <td>${trabajadorData.genero}</td>
-     <td>${trabajadorData.fecha_nacimiento}</td>
-     <td>${trabajadorData.edad}</td>
-     <td>${trabajadorData.direccion}</td>
-     <td>${trabajadorData.ci}</td>
-     <td>${trabajadorData.fecha_registro}</td>
-     <td>${trabajadorData.preferencias_contactos}</td>
+     <td>${escapeHtml(trabajadorData.nombre)}</td>
+     <td>${escapeHtml(trabajadorData.apellido)}</td>
+     <td>${escapeHtml(trabajadorData.genero)}</td>
+     <td>${escapeHtml(trabajadorData.fecha_nacimiento)}</td>
+     <td>${escapeHtml(trabajadorData.edad)}</td>
+     <td>${escapeHtml(trabajadorData.direccion)}</td>
+     <td>${escapeHtml(trabajadorData.ci)}</td>
+     <td>${escapeHtml(trabajadorData.fecha_registro)}</td>
+     <td>${escapeHtml(trabajadorData.preferencias_contactos)}</td>
        `;
    });
 });
@@ -442,18 +456,18 @@ function cargarTrabajadoresDesdeServidor() {
                 data.trabajadores.forEach(trabajador => {
                     const row = tableBody.insertRow();
                     row.innerHTML = `
-                        <td>${trabajador.nombre}</td>
-                        <td>${trabajador.apellido}</td>
-                        <td>${trabajador.genero}</td>
-                        <td>${trabajador.fecha_nacimiento}</td>
-                        <td>${trabajador.edad}</td>
-                        <td>${trabajador.direccion}</td>
-                        <td>${trabajador.ci}</td>
-                        <td>${trabajador.fecha_ingreso}</td>
-                        <td>${trabajador.cargo}</td>
-                        <td>${trabajador.salario}</td>
-                        <td>${trabajador.telefonos}</td>
-                        <td>${trabajador.emails}</td>`;
+                        <td>${escapeHtml(trabajador.nombre)}</td>
+                        <td>${escapeHtml(trabajador.apellido)}</td>
+                        <td>${escapeHtml(trabajador.genero)}</td>
+                        <td>${escapeHtml(trabajador.fecha_nacimiento)}</td>
+                        <td>${escapeHtml(trabajador.edad)}</td>
+                        <td>${escapeHtml(trabajador.direccion)}</td>
+                        <td>${escapeHtml(trabajador.ci)}</td>
+                        <td>${escapeHtml(trabajador.fecha_ingreso)}</td>
+                        <td>${escapeHtml(trabajador.cargo)}</td>
+                        <td>${escapeHtml(trabajador.salario)}</td>
+                        <td>${escapeHtml(trabajador.telefonos)}</td>
+                        <td>${escapeHtml(trabajador.emails)}</td>`;
                 });
             } else {
                 console.error('Errores al cargar:', data.errores);
