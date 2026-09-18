@@ -29,28 +29,71 @@
     </div>
 
     <script>
-        // Verificar si ya hay una sesión activa
-        window.onload = function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn === 'true') {
-                window.location.href = 'capa_proforma.html';
+        // Verificar si ya hay una sesión de SERVIDOR activa (no basta con
+        // localStorage: eso solo lo lee/escribe el propio navegador y
+        // nunca fue verificado contra la base de datos).
+        window.onload = async function() {
+            try {
+                const res = await fetch('Logica_PHP/Sesion.php', { credentials: 'same-origin' });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.autenticado) {
+                        window.location.href = 'capa_proforma.html';
+                    }
+                }
+            } catch (e) {
+                // Sin conexión al servidor: se queda en la pantalla de login
             }
         }
 
-        function login() {
-            const username = document.getElementById('username').value;
+        async function login() {
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
-            if (username && password) {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('username', username);
-                window.location.href = 'capa_proforma.html';
-            } else {
+            if (!username || !password) {
                 alert('Por favor ingrese usuario y contraseña');
+                return;
+            }
+
+            const boton = document.querySelector('.login-container button[type="submit"]');
+            if (boton) boton.disabled = true;
+
+            try {
+                const formData = new FormData();
+                formData.append('usuario', username);
+                formData.append('password', password);
+
+                const res = await fetch('Logica_PHP/Login.php', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data.exito) {
+                    // La sesión real vive en la cookie de PHP (verificada en
+                    // cada endpoint con requireAuth()). Este flag y el nombre
+                    // solo se usan para que las demás pantallas del panel
+                    // muestren/oculten sus capas de UI sin volver a preguntar.
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('username', data.usuario.nombre);
+                    window.location.href = 'capa_proforma.html';
+                } else {
+                    alert(data.mensaje || 'Usuario o contraseña incorrectos');
+                }
+            } catch (e) {
+                alert('No se pudo contactar al servidor. Intente nuevamente.');
+            } finally {
+                if (boton) boton.disabled = false;
             }
         }
-   
-        function logout() {
+
+        async function logout() {
+            try {
+                await fetch('Logica_PHP/Logout.php', { credentials: 'same-origin' });
+            } catch (e) {
+                // Si el servidor no responde, igual se limpia el estado local
+            }
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('username');
             window.location.href = window.location.origin + '/index.html';

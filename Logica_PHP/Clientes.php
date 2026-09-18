@@ -1,6 +1,7 @@
 <?php
 require_once "../conexion.php";
-
+require_once "auth.php";
+requireAuth();
 header('Content-Type: application/json');
 
 // Verificar si es una petición POST

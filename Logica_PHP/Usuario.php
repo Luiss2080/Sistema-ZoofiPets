@@ -5,7 +5,8 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once "../conexion.php";
-
+require_once "auth.php";
+requireAuth();
 // Array para almacenar errores
 $errores = [];
 
@@ -154,7 +155,7 @@ try {
 
     // Redirigir con los datos
     header("Location: ../Formularios_HTML/FORM_Usuario.html?exito=1&nuevo_usuario=" . urlencode(json_encode($nuevaUsuario)));
-    exit
+    exit;
 
     // Enviar respuesta de éxito
     header('Content-Type: application/json');
