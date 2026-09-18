@@ -7,7 +7,10 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once '../conexion.php';
-
+require_once "auth.php";
+requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Función para validar fecha con formato YYYY-MM-DD
 function validarFecha($fecha) {
     $d = DateTime::createFromFormat('Y-m-d', $fecha);
@@ -121,15 +124,16 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Insertar mascota en la base de datos
-    $sql_mascota = "INSERT INTO Mascotas 
-        (Nombre, Especie, Raza, Fecha_Nacimiento, Edad, Cod_Clientes) 
-        VALUES 
-        ('$Nombre', '$Especie', '$Raza', '$Fecha_Nacimiento', '$Edad', '$Cod_Clientes')";
+    // Insertar mascota en la base de datos (consulta parametrizada)
+    $stmt_mascota = $conex->prepare(
+        "INSERT INTO Mascotas (Nombre, Especie, Raza, Fecha_Nacimiento, Edad, Cod_Clientes) VALUES (?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_mascota->bind_param("sssssi", $Nombre, $Especie, $Raza, $Fecha_Nacimiento, $Edad, $Cod_Clientes);
 
-    if (!$conex->query($sql_mascota)) {
-        throw new Exception("Error al insertar mascota: " . $conex->error);
+    if (!$stmt_mascota->execute()) {
+        throw new Exception("Error al insertar mascota: " . $stmt_mascota->error);
     }
+    $stmt_mascota->close();
 
     // Confirmar transacción
     $conex->commit();

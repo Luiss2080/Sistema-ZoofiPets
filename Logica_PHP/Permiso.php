@@ -5,7 +5,10 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once "../conexion.php";
-
+require_once "auth.php";
+requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
@@ -71,33 +74,42 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Validar si el Cod_Usuario existe en la tabla Usuario
-    $sql_check_user = "SELECT COUNT(*) AS count FROM Usuario WHERE Cod_Usuario = '$Cod_Usuario'";
-    $result_user = $conex->query($sql_check_user);
-    $row_user = $result_user->fetch_assoc();
+    // Validar si el Cod_Usuario existe en la tabla Usuario (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Usuario WHERE Cod_Usuario = ?");
+    $stmt_check->bind_param("s", $Cod_Usuario);
+    $stmt_check->execute();
+    $row_user = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_user['count'] == 0) {
         throw new Exception("El usuario proporcionado no existe en la base de datos.");
     }
 
-    // Validar si el Cod_Roles existe en la tabla Roles
-    $sql_check_role = "SELECT COUNT(*) AS count FROM Roles WHERE Cod_Roles = '$Cod_Roles'";
-    $result_role = $conex->query($sql_check_role);
-    $row_role = $result_role->fetch_assoc();
+    // Validar si el Cod_Roles existe en la tabla Roles (consulta parametrizada)
+    $stmt_check = $conex->prepare("SELECT COUNT(*) AS count FROM Roles WHERE Cod_Roles = ?");
+    $stmt_check->bind_param("s", $Cod_Roles);
+    $stmt_check->execute();
+    $row_role = $stmt_check->get_result()->fetch_assoc();
+    $stmt_check->close();
 
     if ($row_role['count'] == 0) {
         throw new Exception("El rol proporcionado no existe en la base de datos.");
     }
 
-    // Insertar permiso
-    $sql_permisos = "INSERT INTO Permisos 
-        (Cod_Roles, Visualizar, Modificar, Eliminar, Agregar, Descripcion_Permiso, Estado, Cod_Usuario) 
-        VALUES 
-        ('$Cod_Roles', '$Visualizar', '$Modificar', '$Eliminar', '$Agregar', '$Descripcion_Permiso', '$Estado', '$Cod_Usuario')";
+    // Insertar permiso (consulta parametrizada)
+    $stmt_permisos = $conex->prepare(
+        "INSERT INTO Permisos (Cod_Roles, Visualizar, Modificar, Eliminar, Agregar, Descripcion_Permiso, Estado, Cod_Usuario)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_permisos->bind_param(
+        "siiiisss",
+        $Cod_Roles, $Visualizar, $Modificar, $Eliminar, $Agregar, $Descripcion_Permiso, $Estado, $Cod_Usuario
+    );
 
-    if (!$conex->query($sql_permisos)) {
-        throw new Exception("Error al insertar permiso: " . $conex->error);
+    if (!$stmt_permisos->execute()) {
+        throw new Exception("Error al insertar permiso: " . $stmt_permisos->error);
     }
+    $stmt_permisos->close();
 
 
         /* ----------- PREPARAR DATOS PARA MOSTRAR ---------- */

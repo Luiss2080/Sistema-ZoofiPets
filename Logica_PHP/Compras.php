@@ -5,7 +5,10 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once "../conexion.php";
-
+require_once "auth.php";
+requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
@@ -103,15 +106,21 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Insertar en la tabla Compras (una sola vez)
-    $sql_compra = "INSERT INTO Compras
-        (Fecha_Compra, Fecha_Ingreso, Glosa, Monto_Total, Descuento, Estado, Cod_Proveedores, Cod_Trabajador, Cod_Productos, Cantidad, Precio_Unitario, Sub_Total)
-        VALUES
-        ('$Fecha_Compra', '$Fecha_Ingreso', '$Glosa', '$Monto_Total', '$Descuento', '$Estado', '$Cod_Proveedores', '$Cod_Trabajador', '$Cod_Productos', '$Cantidad', '$Precio_Unitario', '$Sub_Total')";
+    // Insertar en la tabla Compras (consulta parametrizada, una sola vez)
+    $stmt_compra = $conex->prepare(
+        "INSERT INTO Compras (Fecha_Compra, Fecha_Ingreso, Glosa, Monto_Total, Descuento, Estado, Cod_Proveedores, Cod_Trabajador, Cod_Productos, Cantidad, Precio_Unitario, Sub_Total)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt_compra->bind_param(
+        "ssssssssssss",
+        $Fecha_Compra, $Fecha_Ingreso, $Glosa, $Monto_Total, $Descuento, $Estado,
+        $Cod_Proveedores, $Cod_Trabajador, $Cod_Productos, $Cantidad, $Precio_Unitario, $Sub_Total
+    );
 
-    if (!$conex->query($sql_compra)) {
-        throw new Exception("Error al insertar compra: " . $conex->error);
+    if (!$stmt_compra->execute()) {
+        throw new Exception("Error al insertar compra: " . $stmt_compra->error);
     }
+    $stmt_compra->close();
 
     $conex->commit();
 

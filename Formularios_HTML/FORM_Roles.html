@@ -533,6 +533,7 @@
             }
 
             const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
 
             fetch('../Logica_PHP/Roles.php', {
                 method: 'POST',
@@ -585,6 +586,7 @@
     </script>
 
 
+    <script src="../Animaciones_JS/csrf-helper.js"></script>
 </body>
 
 </html>

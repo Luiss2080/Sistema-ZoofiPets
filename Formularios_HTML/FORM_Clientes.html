@@ -600,6 +600,7 @@
             }
 
             const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
 
             fetch('../Logica_PHP/Clientes.php', {
                 method: 'POST',
@@ -782,6 +783,7 @@ document.querySelector('.proforma-form').onsubmit = function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
     
     fetch('../Logica_PHP/Clientes.php', {
         method: 'POST',
@@ -998,5 +1000,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+    <script src="../Animaciones_JS/csrf-helper.js"></script>
 </body>
 </html>

@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -290,14 +304,14 @@ document.addEventListener('DOMContentLoaded', function() {
         servicios.forEach(servicio => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${servicio.Especialidades || '---'}</td>
-                <td>${servicio.Especialista || '---'}</td>
-                <td>${servicio.Precio ? `S/ ${parseFloat(servicio.Precio).toFixed(2)}` : '---'}</td>
-                <td>${servicio.Duracion_Estimada || '---'}</td>
-                <td>${servicio.Categoria || '---'}</td>
-                <td>${servicio.Turno || '---'}</td>
-                <td>${servicio.Cod_Mascotas || '---'}</td>
-                <td>${servicio.Cod_Historial || '---'}</td>
+                <td>${escapeHtml(servicio.Especialidades || '---')}</td>
+                <td>${escapeHtml(servicio.Especialista || '---')}</td>
+                <td>${servicio.Precio ? `S/ ${escapeHtml(parseFloat(servicio.Precio).toFixed(2))}` : '---'}</td>
+                <td>${escapeHtml(servicio.Duracion_Estimada || '---')}</td>
+                <td>${escapeHtml(servicio.Categoria || '---')}</td>
+                <td>${escapeHtml(servicio.Turno || '---')}</td>
+                <td>${escapeHtml(servicio.Cod_Mascotas || '---')}</td>
+                <td>${escapeHtml(servicio.Cod_Historial || '---')}</td>
             `;
             tableBody.appendChild(row);
         });

@@ -1,3 +1,17 @@
+// Escapa texto antes de insertarlo en innerHTML para evitar XSS: si un
+// nombre de mascota, motivo de consulta, diagnostico, etc. contuviera
+// "<script>" u otro marcado, se mostraria como texto plano en vez de
+// ejecutarse en el navegador de quien vea la tabla.
+function escapeHtml(valor) {
+    if (valor === null || valor === undefined) return '';
+    return String(valor)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ----------- FORMULARIO PROFORMA CON DESPLAZAMIENTO ---------- */
 
 // Animación para mostrar u ocultar el formulario
@@ -306,15 +320,15 @@ function renderizarTabla(ventas) {
     ventas.forEach(venta => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${venta.Codigo_Venta || '---'}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${venta.Nro_Factura || '---'}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${formatearFecha(venta.Fecha_Venta)}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${formatearMonto(venta.Monto)}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${formatearMonto(venta.Descuento)}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${formatearMonto(venta.Monto_Total)}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${venta.Metodo_Pago || '---'}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${venta.Codigo_Cliente || '---'}</td>
-            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${venta.Codigo_Trabajador || '---'}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(venta.Codigo_Venta || '---')}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(venta.Nro_Factura || '---')}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(formatearFecha(venta.Fecha_Venta))}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(formatearMonto(venta.Monto))}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(formatearMonto(venta.Descuento))}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(formatearMonto(venta.Monto_Total))}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(venta.Metodo_Pago || '---')}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(venta.Codigo_Cliente || '---')}</td>
+            <td style="padding: 8px; border: 2px solid var(--pastel-blue);">${escapeHtml(venta.Codigo_Trabajador || '---')}</td>
         `;
         tableBody.appendChild(row);
     });

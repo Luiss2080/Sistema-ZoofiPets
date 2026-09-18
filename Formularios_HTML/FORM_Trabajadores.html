@@ -570,6 +570,7 @@
             }
 
             const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
 
             fetch('../Logica_PHP/Trabajadores.php', {
                 method: 'POST',
@@ -752,6 +753,7 @@ document.querySelector('.proforma-form').onsubmit = function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
     
     fetch('../Logica_PHP/Trabajadores.php', {
         method: 'POST',
@@ -1014,6 +1016,7 @@ document.querySelector('.proforma-form').onsubmit = function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
+            formData.append('csrf_token', window.CSRF_TOKEN || '');
     
     // Crear objeto con los datos del trabajador
     const trabajadorData = {
@@ -1072,6 +1075,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+    <script src="../Animaciones_JS/csrf-helper.js"></script>
 </body>
 
 </html>

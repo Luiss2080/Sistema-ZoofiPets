@@ -5,7 +5,10 @@ ini_set('display_errors', 1);
 
 // Incluir conexión a la base de datos
 require_once "../conexion.php";
-
+require_once "auth.php";
+requireAuth();
+require_once "csrf.php";
+requireCsrf();
 // Array para almacenar errores
 $errores = [];
 
@@ -87,43 +90,42 @@ try {
     // Iniciar transacción
     $conex->begin_transaction();
 
-    // Insertar proveedor
-    $sql_proveedor = "INSERT INTO Proveedores 
-        (Nombre, Rubro, Razon_Social, Direccion, Fecha_Registro) 
-        VALUES 
-        ('$Nombre', '$Rubro', '$Razon_Social', '$Direccion', '$Fecha_Registro')";
+    // Insertar proveedor (consulta parametrizada)
+    $stmt_proveedor = $conex->prepare(
+        "INSERT INTO Proveedores (Nombre, Rubro, Razon_Social, Direccion, Fecha_Registro) VALUES (?, ?, ?, ?, ?)"
+    );
+    $stmt_proveedor->bind_param("sssss", $Nombre, $Rubro, $Razon_Social, $Direccion, $Fecha_Registro);
 
-    if (!$conex->query($sql_proveedor)) {
-        throw new Exception("Error al insertar proveedor: " . $conex->error);
+    if (!$stmt_proveedor->execute()) {
+        throw new Exception("Error al insertar proveedor: " . $stmt_proveedor->error);
     }
 
     // Obtener el ID del proveedor insertado
-    $Cod_Proveedores = $conex->insert_id;
+    $Cod_Proveedores = $stmt_proveedor->insert_id;
+    $stmt_proveedor->close();
 
-    // Insertar teléfonos
+    // Insertar teléfonos (consulta parametrizada)
     if (!empty($_POST['Telefonos'])) {
+        $stmt_telefono = $conex->prepare("INSERT INTO Telefono_Proveedores (Cod_Proveedores, Telefono) VALUES (?, ?)");
         foreach ($_POST['Telefonos'] as $Telefono) {
-            $Telefono = $conex->real_escape_string($Telefono);
-            $sql_telefono = "INSERT INTO Telefono_Proveedores (Cod_Proveedores, Telefono) 
-                             VALUES ('$Cod_Proveedores', '$Telefono')";
-            
-            if (!$conex->query($sql_telefono)) {
-                throw new Exception("Error al insertar teléfono: " . $conex->error);
+            $stmt_telefono->bind_param("is", $Cod_Proveedores, $Telefono);
+            if (!$stmt_telefono->execute()) {
+                throw new Exception("Error al insertar teléfono: " . $stmt_telefono->error);
             }
         }
+        $stmt_telefono->close();
     }
 
-    // Insertar emails
+    // Insertar emails (consulta parametrizada)
     if (!empty($_POST['Emails'])) {
+        $stmt_email = $conex->prepare("INSERT INTO Email_Proveedores (Cod_Proveedores, Email) VALUES (?, ?)");
         foreach ($_POST['Emails'] as $Email) {
-            $Email = $conex->real_escape_string($Email);
-            $sql_email = "INSERT INTO Email_Proveedores (Cod_Proveedores, Email) 
-                          VALUES ('$Cod_Proveedores', '$Email')";
-            
-            if (!$conex->query($sql_email)) {
-                throw new Exception("Error al insertar email: " . $conex->error);
+            $stmt_email->bind_param("is", $Cod_Proveedores, $Email);
+            if (!$stmt_email->execute()) {
+                throw new Exception("Error al insertar email: " . $stmt_email->error);
             }
         }
+        $stmt_email->close();
     }
 
     // Confirmar transacción
